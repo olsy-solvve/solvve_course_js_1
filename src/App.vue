@@ -1,15 +1,23 @@
-<script setup>
-import ComponentHeader from "./components/ComponentHeader.vue";
-import ComponentMain from "./components/ComponentMain.vue";
-import ComponentFooter from "./components/ComponentFooter.vue";
-</script>
-
 <template>
-  <div>
-    <ComponentHeader></ComponentHeader>
-    <ComponentMain></ComponentMain>
-    <ComponentFooter></ComponentFooter>
-  </div>
+  <v-app>
+    <v-main>
+      <HelloWorld />
+    </v-main>
+  </v-app>
 </template>
 
-<style scoped></style>
+<script>
+import HelloWorld from "./components/HelloWorld.vue";
+
+export default {
+  name: "App",
+
+  components: {
+    HelloWorld,
+  },
+
+  data: () => ({
+    //
+  }),
+};
+</script>
