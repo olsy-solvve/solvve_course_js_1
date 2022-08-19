@@ -1,9 +1,20 @@
 import { createApp } from "vue";
-import App from "./App.vue";
-import vuetify from "./plugins/vuetify";
-import { loadFonts } from "./plugins/webfontloader";
-import "./assets/main.css";
+import App from "@/App.vue";
 
-loadFonts();
+import "@/assets/main.css";
 
-createApp(App).use(vuetify).mount("#app");
+const app = createApp(App);
+
+import router from "@/plugins/router.js";
+app.use(router);
+
+import primeVue from "@/plugins/primeVue.js";
+app.use(primeVue.PrimeVue, primeVue.options);
+
+import { componentRegistrar } from "@/classes/componentRegistrar.js";
+componentRegistrar(app);
+
+import store from "@/store";
+app.use(store);
+
+app.mount("#app");

@@ -1,23 +1,17 @@
+<script setup>
+import HeaderComponent from "@/components/Base/HeaderComponent.vue";
+import MainComponent from "@/components/Base/MainComponent.vue";
+import FooterComponent from "@/components/Base/FooterComponent.vue";
+</script>
+
 <template>
-  <v-app>
-    <v-main>
-      <HelloWorld />
-    </v-main>
-  </v-app>
+  <div>
+    <HeaderComponent />
+    <MainComponent>
+      <RouterView />
+    </MainComponent>
+    <FooterComponent />
+  </div>
 </template>
 
-<script>
-import HelloWorld from "./components/HelloWorld.vue";
-
-export default {
-  name: "App",
-
-  components: {
-    HelloWorld,
-  },
-
-  data: () => ({
-    //
-  }),
-};
-</script>
+<style scoped></style>
