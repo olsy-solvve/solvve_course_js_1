@@ -32,6 +32,12 @@ export default {
     PrimeMenubar,
     PrimeInputText,
   },
+  computed: {
+    getTodos() {
+      console.log(this.$store.getters["todoStore/getTodos"]);
+      return this.$store.getters["todoStore/getTodos"];
+    },
+  },
   methods: {
     homeRoute() {
       console.log(routesName.HOME);
@@ -71,6 +77,7 @@ export default {
     </template>
     <template #end>
       <PrimeInputText placeholder="Search" type="text" />
+      <h4>{{ getTodos }}</h4>
     </template>
   </PrimeMenubar>
 </template>

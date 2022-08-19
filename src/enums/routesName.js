@@ -3,5 +3,5 @@ export default {
   TODO: "Todo",
   ARCHIVE: "Archive",
   DOC: "Doc",
-  ERROR404: "Error404",
+  NOT_FOUND: "NotFound",
 };

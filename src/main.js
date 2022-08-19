@@ -9,9 +9,12 @@ import router from "@/plugins/router.js";
 app.use(router);
 
 import primeVue from "@/plugins/primeVue.js";
-primeVue(app);
+app.use(primeVue.PrimeVue, primeVue.options);
 
-import BaseButton from "@/components/UI/BaseButton.vue";
-app.component("BaseButton", BaseButton);
+import { componentRegistrar } from "@/classes/componentRegistrar.js";
+componentRegistrar(app);
+
+import store from "@/store";
+app.use(store);
 
 app.mount("#app");

@@ -20,6 +20,11 @@ const routes = [
     name: routesName.DOC,
     component: () => import("@/features/DocFeature.vue"),
   },
+  {
+    path: "/:pathMatch(.*)*",
+    name: routesName.NOT_FOUND,
+    component: () => import("@/features/NotFoundFeature.vue"),
+  },
 ];
 
 const router = createRouter({
