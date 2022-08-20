@@ -1,0 +1,17 @@
+// https://sass-lang.com/documentation/style-rules
+
+@import 'primevue/resources/themes/saga-blue/theme.css';       
+@import 'primevue/resources/primevue.min.css';                 
+@import 'primeicons/primeicons.css';       
+
+html, body {
+  @include reset-list;
+
+  color: $app-text-color;
+  background: $app-background;
+  font-family: $app-text;
+}
+
+#app {
+  font-weight: normal;
+}

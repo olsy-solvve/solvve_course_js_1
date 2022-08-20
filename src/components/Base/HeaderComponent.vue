@@ -10,84 +10,104 @@ export default {
     return {
       routes: [
         {
-          title: "HOME",
-          route: this.homeRoute,
+          label: "HOME",
+          icon: "pi pi-fw pi-home",
+          to: { name: routesName.HOME },
         },
         {
-          title: "TODO",
-          route: this.todoRoute,
+          label: "TODO",
+          icon: "pi pi-plus",
+          to: { name: routesName.TODO },
         },
         {
-          title: "ARCHIVE",
-          route: this.archiveRoute,
+          label: "ARCHIVE",
+          icon: "pi pi-minus",
+          to: { name: routesName.ARCHIVE },
         },
         {
-          title: "DOC",
-          route: this.docRoute,
+          label: "DOC",
+          icon: "pi pi-fw pi-file",
+          to: { name: routesName.DOC },
         },
       ],
+      userConfirmation: false,
+      logoImage: "@/assets/logoTodo.svg",
     };
   },
+  methods: {},
+  computed: {},
   components: {
     PrimeMenubar,
     PrimeInputText,
-  },
-  computed: {
-    getTodos() {
-      console.log(this.$store.getters["todoStore/getTodos"]);
-      return this.$store.getters["todoStore/getTodos"];
-    },
-  },
-  methods: {
-    homeRoute() {
-      console.log(routesName.HOME);
-      this.$router.push({ name: routesName.HOME });
-    },
-    todoRoute() {
-      this.$router.push({ name: routesName.TODO });
-    },
-    archiveRoute() {
-      this.$router.push({ name: routesName.ARCHIVE });
-    },
-    docRoute() {
-      this.$router.push({ name: routesName.DOC });
-    },
   },
 };
 </script>
 
 <template>
-  <PrimeMenubar>
+  <PrimeMenubar :model="routes">
     <template #start>
-      <img
-        alt="logo"
-        src="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png"
-        height="40"
-        class="mr-2"
-      />
-      <h3>SUPER PUPER</h3>
-      <a
-        v-for="{ title, route } in routes"
-        :key="title"
-        :header="title"
-        @click="route"
-        class="header-route"
-        >{{ title }}</a
-      >
+      <div class="menubar-start">
+        <div>
+          <img
+            alt="logo"
+            src="@/assets/logoTodo.svg"
+            class="menubar-logo-image"
+          />
+        </div>
+        <div class="menubar-logo-text">SUPER PUPER</div>
+      </div>
     </template>
     <template #end>
-      <PrimeInputText placeholder="Search" type="text" />
-      <h4>{{ getTodos }}</h4>
+      <div class="menubar-end">
+        <div class="col-12 md:col-4">
+          <div class="p-inputgroup">
+            <PrimeInputText placeholder="Keyword" />
+            <BaseButton icon="pi pi-search" class="p-button-warning" />
+          </div>
+        </div>
+        <div v-if="userConfirmation">
+          <BaseButton
+            label="Logout"
+            icon="pi pi-user"
+            class="p-button-danger"
+          />
+        </div>
+        <div v-else>
+          <BaseButton
+            label="Login"
+            icon="pi pi-user"
+            class="p-button-success"
+          />
+        </div>
+      </div>
     </template>
   </PrimeMenubar>
 </template>
 
-<style scoped>
-.p-button,
-.p-splitbutton {
-  margin-bottom: 0.5rem;
-}
-.header-route {
-  margin-left: 10px;
+<style lang="scss" scoped>
+.p-menubar {
+  background-color: beige;
+
+  & .menubar-start {
+    @include menubar-start-end;
+
+    & .menubar-logo-image {
+      height: 60px;
+    }
+
+    & .menubar-logo-text {
+      font-family: $app-text-logo;
+      font-size: 32px;
+      color: brown;
+    }
+  }
+
+  & .p-menubar-root-list {
+    @include menubar-start-end;
+  }
+
+  & .menubar-end {
+    @include menubar-start-end;
+  }
 }
 </style>
