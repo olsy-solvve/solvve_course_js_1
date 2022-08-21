@@ -14,4 +14,4 @@ import FooterComponent from "@/components/Base/FooterComponent.vue";
   </div>
 </template>
 
-<style scoped></style>
+<style lang="scss"></style>

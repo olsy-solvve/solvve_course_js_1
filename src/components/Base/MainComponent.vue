@@ -6,4 +6,8 @@
   </main>
 </template>
 
-<style scoped></style>
+<style scoped>
+main {
+  padding: 1em;
+}
+</style>
