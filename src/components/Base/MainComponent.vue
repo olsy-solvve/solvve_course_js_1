@@ -1,7 +1,7 @@
 <script setup></script>
 
 <template>
-  <main>
+  <main class="h-auto">
     <slot></slot>
   </main>
 </template>

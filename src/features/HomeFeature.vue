@@ -3,27 +3,31 @@ export default {};
 </script>
 
 <template>
-  <div class="home">
-    <div class="home-top">
-      <p class="home-top-text">
+  <div>
+    <div
+      class="flex flex-row justify-content-center align-items-center bg-pink-800 p-1"
+    >
+      <p class="text-xs sm:text-base lg:text-lg text-300">
         Join us to github, a conference by Solvve, in Dnipro
       </p>
       <BaseButton
         label="Move"
         icon="pi pi-heart-fill"
-        class="p- p-button-sm home-top-button"
+        class="p-button-warning text-pink-800 p-button-sm ml-2"
       />
     </div>
-    <div class="home-bottom">
-      <div class="home-bottom-image">
+    <div class="flex flex-column sm:flex-row align-items-center">
+      <div>
         <img alt="home" src="@/assets/home.svg" />
       </div>
-      <div class="home-bottom-content">
-        <h1 class="home-bottom-content-title">
+      <div class="flex flex-column p-2">
+        <p
+          class="line-height-2 mb-2 text-center text-sm sm:text-lg lg:text-xl font-bold"
+        >
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic vel
           ratione aspernatur, minima vero vitae?
-        </h1>
-        <p class="home-bottom-content-description">
+        </p>
+        <p class="text-justify text-xs sm:text-base lg:text-lg font-italic">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo
           voluptatem a esse consectetur asperiores sunt ratione similique?
           Libero eius labore illo tempore at, aliquid nihil voluptatum
@@ -43,7 +47,7 @@ export default {};
           ea a molestiae est, quod aperiam beatae debitis vel delectus nostrum
           dicta.
         </p>
-        <div class="home-bottom-content-form">
+        <div class="flex flex-column justify-content-center align-items-center">
           <input type="text" />
           <input type="text" />
           <BaseButton>Login</BaseButton>
@@ -53,51 +57,4 @@ export default {};
   </div>
 </template>
 
-<style lang="scss" scoped>
-.home-top {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--pink-800);
-  padding: 10px;
-
-  .home-top-text {
-    color: lightgray;
-    font-size: 18px;
-  }
-  .home-top-button {
-    background-color: var(--orange-400);
-    margin-left: 10px;
-  }
-}
-
-.home-bottom {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  .home-bottom-image {
-  }
-
-  .home-bottom-content {
-    display: flex;
-    flex-direction: column;
-    padding: 1rem;
-
-    .home-bottom-content-title {
-      line-height: 1.25;
-      margin-bottom: 1rem;
-      text-align: center;
-    }
-    .home-bottom-content-description {
-      text-align: justify;
-    }
-    .home-bottom-content-form {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-  }
-}
-</style>
+<style lang="scss" scoped></style>
