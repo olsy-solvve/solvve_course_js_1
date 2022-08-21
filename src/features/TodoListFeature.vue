@@ -123,7 +123,7 @@ export default {
   </div>
 </template>
 
-<style>
+<style scoped>
 .edit-button {
   padding-bottom: 8px;
   padding-left: 320px;
