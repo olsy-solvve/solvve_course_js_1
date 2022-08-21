@@ -1,0 +1,10 @@
+/* Mixins */
+
+@mixin space-between-elements {
+  margin: 0 -5px;
+
+  & > div {
+    flex: 1 1 auto;
+    margin: 0 5px;
+  }
+}

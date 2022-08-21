@@ -1,0 +1,22 @@
+/* Include fonts */
+
+@font-face {
+    font-family: "Bombing";
+    src: url('@/styles/fonts/Bombing.ttf') format("truetype");
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Spider Nest";
+    src: url('@/styles/fonts/SPIDER NEST.ttf') format("truetype");
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Sport Game";
+    src: url('@/styles/fonts/SPORT GAME.ttf') format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
