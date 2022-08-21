@@ -46,7 +46,7 @@ const getters = {
   },
   getListLength: (state) => {
     return state.todo.length;
-  }
+  },
 };
 const actions = {};
 

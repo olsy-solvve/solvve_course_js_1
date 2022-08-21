@@ -1,10 +1,8 @@
 <script>
 import PrimeTabMenu from "primevue/tabmenu";
-import "primeicons/primeicons.css";
 import PrimeListBox from "primevue/listbox";
 import PrimeCard from "primevue/card";
 import PrimeButton from "primevue/button";
-import store from "@/store/index.js";
 
 let filters = [
   { label: "All", icon: "pi pi-th-large" },
@@ -30,7 +28,7 @@ export default {
       addTodoList,
       addTodoCard,
       currentList,
-      listLength
+      listLength,
     };
   },
   components: {
@@ -48,14 +46,15 @@ export default {
 
 <template>
   <div>
-
     <div class="flex flex-row">
       <div>
         <PrimeListBox :options="addTodoList" optionLabel="label">
         </PrimeListBox>
         <PrimeListBox :options="todoList" optionLabel="label">
           <template #option="slotProps">
-            <div @click="currentList = slotProps.option.label">{{ slotProps.option.label }}</div>
+            <div @click="currentList = slotProps.option.label">
+              {{ slotProps.option.label }}
+            </div>
           </template>
         </PrimeListBox>
       </div>
@@ -71,26 +70,35 @@ export default {
               </template>
             </PrimeCard>
           </li>
-          <div v-for="labels in todoList">
+          <div v-for="labels in todoList" :key="labels">
             <div v-if="labels.label === currentList">
-              <div v-for="cards in labels.list">
-              </div>
+              <div v-for="cards in labels.list" :key="cards.labels"></div>
             </div>
           </div>
           <li>
-            <div v-for="labels in todoList">
+            <div v-for="labels in todoList" :key="labels">
               <div v-if="labels.label === currentList">
-                <PrimeCard v-for="cards in labels.list" :key="cards.label" style="width: 25rem; margin-bottom: 2em">
+                <PrimeCard
+                  v-for="cards in labels.list"
+                  :key="cards.label"
+                  style="width: 25rem; margin-bottom: 2em"
+                >
                   <template #title>
                     {{ cards.label }}
                   </template>
                   <template #content>
                     <p>{{ cards.discription }}</p>
                     <div class="edit-button">
-                      <PrimeButton icon="pi pi-pencil" class="p-button-rounded" />
+                      <PrimeButton
+                        icon="pi pi-pencil"
+                        class="p-button-rounded"
+                      />
                     </div>
                     <div class="delete-button">
-                      <PrimeButton icon="pi pi-times" class="p-button-rounded p-button-danger"></PrimeButton>
+                      <PrimeButton
+                        icon="pi pi-times"
+                        class="p-button-rounded p-button-danger"
+                      ></PrimeButton>
                     </div>
                   </template>
                 </PrimeCard>
