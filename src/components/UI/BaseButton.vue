@@ -1,5 +1,5 @@
 <template>
-  <ButtonPrimeVue v-bind="attrs">
+  <ButtonPrimeVue v-model="attrs">
     <slot></slot>
   </ButtonPrimeVue>
 </template>

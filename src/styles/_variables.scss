@@ -2,9 +2,9 @@
 
 // Colors https://www.primefaces.org/primevue/colors
 
-$app-text-color: white;
-$app-background: gray;
-
+$app-text-color: var(white);
+$main-background: var(--surface-300);
+$header-footer-background: var(--surface-200);
 
 // Fonts  https://www.fontspace.com/category/ttf
 // https://www.1001freefonts.com/new-fonts-4.php

@@ -1,13 +1,14 @@
 <script setup></script>
 
 <template>
-  <main>
+  <main class="h-auto">
     <slot></slot>
   </main>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 main {
-  padding: 1em;
+  background-color: $main-background;
+  color: $app-text-color;
 }
 </style>
