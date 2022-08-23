@@ -1,15 +1,33 @@
-<script setup>
-import ComponentHeader from "./components/ComponentHeader.vue";
-import ComponentMain from "./components/ComponentMain.vue";
-import ComponentFooter from "./components/ComponentFooter.vue";
+<script>
+import HeaderComponent from "@/components/Base/HeaderComponent.vue";
+import MainComponent from "@/components/Base/MainComponent.vue";
+import FooterComponent from "@/components/Base/FooterComponent.vue";
+import TodoPopup from "@/components/UI/TodoPopup.vue";
+
+export default {
+  components: {
+    HeaderComponent,
+    MainComponent,
+    FooterComponent,
+    TodoPopup,
+  },
+  computed: {
+    getPopups() {
+      return this.$store.getters["popupStore/getPopups"];
+    },
+  },
+};
 </script>
 
 <template>
   <div>
-    <ComponentHeader></ComponentHeader>
-    <ComponentMain></ComponentMain>
-    <ComponentFooter></ComponentFooter>
+    <component v-for="popup in getPopups" :key="popup.name" :is="popup.name" />
+    <HeaderComponent />
+    <MainComponent>
+      <RouterView />
+    </MainComponent>
+    <FooterComponent />
   </div>
 </template>
 
-<style scoped></style>
+<style lang="scss"></style>
