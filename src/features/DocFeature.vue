@@ -2,7 +2,7 @@
 
 <template>
   <div>
-    <h1>
+    <p>
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit ex
       voluptates expedita aut temporibus, ut cum eveniet nesciunt, ad impedit
       excepturi delectus tempore rerum dicta laborum corporis explicabo. Porro
@@ -41,7 +41,7 @@
       sequi laudantium tempore neque minus impedit similique tenetur possimus
       velit consequuntur minima repudiandae excepturi amet enim, voluptatum eum
       non fugiat. Distinctio asperiores facilis illum.
-    </h1>
+    </p>
   </div>
 </template>
 

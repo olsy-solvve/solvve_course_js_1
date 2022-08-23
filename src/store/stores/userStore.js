@@ -1,3 +1,5 @@
+import { isEmptyObject } from "@/services/objectMethods.js";
+
 const state = {
   users: [
     {
@@ -13,7 +15,7 @@ const state = {
       password: "sungod",
     },
   ],
-  currentUser: null,
+  currentUser: {},
 };
 
 const getters = {
@@ -24,7 +26,7 @@ const getters = {
     return state.users.filters((u) => u.id === id);
   },
   getUserConfirmation: (state) => {
-    return state.currentUser ? true : false;
+    return isEmptyObject(state.currentUser);
   },
 };
 
@@ -38,7 +40,7 @@ const mutations = {
     }
   },
   logout: (state) => {
-    state.currentUser = null;
+    state.currentUser = {};
   },
 };
 
