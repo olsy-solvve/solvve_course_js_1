@@ -1,4 +1,7 @@
 <script>
+import popupName from "@/enums/popupName.js";
+import { mapMutations } from "vuex";
+
 export default {
   data() {
     return {
@@ -6,8 +9,17 @@ export default {
     };
   },
   methods: {
+    ...mapMutations("popupStore", ["openDialog"]),
+    openTodoCreatePopup() {
+      this.openDialog({
+        name: popupName.TODO_CREATE_POPUP,
+        props: [],
+      });
+    },
     moveToGitHub() {
-      this.$href("https://github.com/olsy-solvve/solvve_course_js_1.git");
+      this.$router.push(
+        "https://github.com/olsy-solvve/solvve_course_js_1.git"
+      );
     },
   },
 };
@@ -28,8 +40,8 @@ export default {
         />
       </div>
     </div>
-    <div class="col-12 sm:col-6 p-3">
-      <div class="col-6">
+    <div class="col-12 sm:col-6 p-0 sm:p-3">
+      <div class="col-12 sm:col-6">
         <h3>
           Sure, we`ve been around the block. We probably worked with the people
           who built it.
@@ -43,15 +55,15 @@ export default {
           suscipit tellus mauris a.
         </p>
       </div>
-      <div class="col-8">
+      <div class="col-12 sm:col-8">
         <img alt="home" src="@/assets/home_1.svg" />
       </div>
     </div>
-    <div class="col-12 sm:col-6 p-3">
-      <div class="col-8">
+    <div class="col-12 sm:col-6 p-0 sm:p-3">
+      <div class="col-12 sm:col-8">
         <img alt="home" src="@/assets/home_2.jpeg" />
       </div>
-      <div class="col-6">
+      <div class="col-12 sm:col-6">
         <h3>Earning your business with experience, expertise, and trust.</h3>
         <ul>
           <li>Component Production Equipment</li>

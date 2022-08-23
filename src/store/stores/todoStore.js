@@ -1,7 +1,9 @@
+import todoTypes from "@/enums/todoTypes.js";
+
 const state = {
-  todo: [
+  todos: [
     {
-      label: "Home things",
+      label: todoTypes.HOME,
       list: [
         {
           label: "Clean room",
@@ -14,19 +16,19 @@ const state = {
       ],
     },
     {
-      label: "Work",
+      label: todoTypes.WORK,
       list: [{ label: "Progect" }, { label: "Call to Sam" }],
     },
     {
-      label: "Univercity",
+      label: todoTypes.UNIVERCITY,
       list: [{ label: "End lection" }, { label: "Create design" }],
     },
     {
-      label: "Family",
+      label: todoTypes.FAMILY,
       list: [{ label: "Call to mam" }, { label: "Buy a doll for Kristy" }],
     },
     {
-      label: "Anime list",
+      label: todoTypes.ANIMAL,
       list: [
         {
           label: "Death Note",
@@ -38,19 +40,30 @@ const state = {
       ],
     },
   ],
+  currentType: todoTypes.HOME,
 };
 
 const getters = {
   getTodos: (state) => {
-    return state.todo;
+    return state.todos;
   },
   getListLength: (state) => {
-    return state.todo.length;
+    return state.todos.length;
   },
 };
 const actions = {};
 
-const mutations = {};
+const mutations = {
+  addTodo(state, todo) {
+    if (todo) {
+      state.todos.forEach((todoType) => {
+        if (todoType.label === state.currentType) {
+          todoType.list.push(todo);
+        }
+      });
+    }
+  },
+};
 
 export default {
   namespaced: true,
