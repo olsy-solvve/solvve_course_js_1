@@ -1,3 +1,3 @@
 export default {
-  TODO_POPUP: "TodoPopup",
+  TODO_CREATE_POPUP: "TodoCreatePopup",
 };
