@@ -21,14 +21,14 @@ const routes = [
     component: () => import("@/features/DocFeature.vue"),
   },
   {
-    path: "/doc",
-    name: routesName.DOC,
-    component: () => import("@/features/DocFeature.vue"),
-  },
-  {
     path: "/:pathMatch(.*)*",
     name: routesName.NOT_FOUND,
     component: () => import("@/features/NotFoundFeature.vue"),
+  },
+  {
+    path: "/about",
+    name: routesName.ABOUT,
+    component: () => import("@/features/AboutFeature.vue"),
   },
 ];
 

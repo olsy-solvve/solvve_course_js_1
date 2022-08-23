@@ -58,6 +58,13 @@ export default {
     getUser() {
       return this.$store.getters["userStore/getUser"];
     },
+    homePage() {
+      if (this.$route.path === "/") {
+        return true;
+      } else {
+        return false;
+      }
+    },
   },
   components: {
     PrimeMenubar,
@@ -70,7 +77,7 @@ export default {
 </script>
 
 <template>
-  <header class="sticky top-0 left-0 z-5 w-full">
+  <header class="sticky top-0 left-0 z-5 w-full" v-show="homePage">
     <PrimeMenubar :model="routes" class="p-1">
       <template #start>
         <div

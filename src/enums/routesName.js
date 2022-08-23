@@ -4,4 +4,5 @@ export default {
   ARCHIVE: "Archive",
   DOC: "Doc",
   NOT_FOUND: "NotFound",
+  ABOUT: "About",
 };
