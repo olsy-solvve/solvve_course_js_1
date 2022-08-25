@@ -18,6 +18,7 @@ export default {
   computed: mapGetters("todoStore", ["getTodosType"]),
   methods: {
     ...mapMutations("popupStore", ["openDialog"]),
+    ...mapMutations("todoStore", ["changeCurrentType"]),
     openTodoCreatePopup() {
       this.openDialog({
         name: popupName.TODO_CREATE_POPUP,
@@ -40,7 +41,13 @@ export default {
         </PrimeListBox>
         <PrimeListBox :options="getTodosType" optionLabel="label">
           <template #option="slotProps">
-            <div>
+            <div
+              @click="
+                () => {
+                  changeCurrentType(slotProps.option.label);
+                }
+              "
+            >
               {{ slotProps.option.label }}
             </div>
           </template>
@@ -67,10 +74,5 @@ body {
 
 .delete-button {
   padding-left: 320px;
-}
-
-.isComplete {
-  opacity: 0.5;
-  background-color: rgba(255, 255, 255, 0.861);
 }
 </style>

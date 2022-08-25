@@ -1,13 +1,11 @@
-import todoTypes from "@/enums/todoTypes.js";
-
 const state = {
   todos: [
     {
-      label: todoTypes.HOME,
+      label: "Home things",
       list: [
         {
           label: "Clean room",
-          completed: true,
+          completed: false,
           discription: "And faster!",
         },
         {
@@ -18,32 +16,32 @@ const state = {
       ],
     },
     {
-      label: todoTypes.WORK,
+      label: "Work",
       list: [
         { label: "Progect", completed: true },
-        { label: "Call to Sam", completed: true },
+        { label: "Call to Sam", completed: false },
       ],
     },
     {
-      label: todoTypes.UNIVERCITY,
+      label: "Study",
       list: [
-        { label: "End lection", completed: true },
+        { label: "End lection", completed: false },
         { label: "Create design", completed: true },
       ],
     },
     {
-      label: todoTypes.FAMILY,
+      label: "Family",
       list: [
         { label: "Call to mam", completed: true },
         { label: "Buy a doll for Kristy", completed: true },
       ],
     },
     {
-      label: todoTypes.ANIMAL,
+      label: "Anime list",
       list: [
         {
           label: "Death Note",
-          completed: true,
+          completed: false,
           discription:
             "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deseruntquisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!",
         },
@@ -52,11 +50,11 @@ const state = {
           completed: true,
           discription: "3rd season is out!",
         },
-        { label: "Naruto", completed: true, discription: "Let`s just try..." },
+        { label: "Naruto", completed: false, discription: "Let`s just try..." },
       ],
     },
     {
-      label: todoTypes.MOVIES,
+      label: "Movies",
       list: [
         {
           label: "Black horse",
@@ -66,61 +64,64 @@ const state = {
         },
         {
           label: "Black",
-          completed: true,
+          completed: false,
           discription: "3rd season is out!",
         },
         {
           label: "Green book",
-          completed: true,
+          completed: false,
           discription: "Let`s just try...",
         },
       ],
     },
   ],
-  currentType: todoTypes.MOVIES,
+  currentType: "",
 };
 
 const getters = {
   getTodosType: (state) => {
     return state.todos;
   },
+
   getTodos: (state) => {
     let todoList = [];
-
     state.todos.forEach((todo) => {
       if (todo.label === state.currentType) {
         todoList = todo.list;
       }
     });
-
     return todoList;
   },
+
   getTodosProgress: () => {
     let todoList = [];
-
     state.todos.forEach((todo) => {
       if (todo.label === state.currentType) {
         todoList = todo.list;
       }
     });
-
-    return todoList.filter((todo) => todo.completed === false);
+    console.log(todoList.filter((todo) => !todo.completed));
+    return todoList;
   },
+
   getTodosCompleted: () => {
     let todoList = [];
-
     state.todos.forEach((todo) => {
       if (todo.label === state.currentType) {
         todoList = todo.list;
       }
     });
 
-    return todoList.filter((todo) => todo.completed === true);
+    return todoList.filter((todo) => todo.completed);
   },
 };
 const actions = {};
 
 const mutations = {
+  changeCurrentType(state, newType) {
+    state.currentType = newType;
+  },
+
   addTodo(state, todo) {
     if (todo) {
       state.todos.forEach((todoType) => {

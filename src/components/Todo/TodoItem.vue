@@ -17,10 +17,7 @@ export default {
 <!-- @click="todo.completed = !todo.completed" -->
 
 <template>
-  <PrimeCard
-    :class="{ isComplete: todo.completed }"
-    style="width: 25rem; margin-bottom: 2em"
-  >
+  <PrimeCard style="width: 25rem; margin-bottom: 2em">
     <template #title>
       {{ todo.label }}
     </template>
@@ -30,13 +27,11 @@ export default {
         <BaseButton icon="pi pi-pencil" class="p-button-rounded" />
       </div>
       <div class="delete-button">
-        <BaseButton
-          icon="pi pi-times"
-          class="p-button-rounded p-button-danger"
-        />
+        <BaseButton icon="pi pi-times" class="p-button-rounded p-button-danger" />
       </div>
     </template>
   </PrimeCard>
 </template>
 
-<style></style>
+<style>
+</style>

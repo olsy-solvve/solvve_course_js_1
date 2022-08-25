@@ -26,6 +26,7 @@ export default {
     },
     getTodosP() {
       this.todos = this.getTodosProgress;
+
     },
     getTodosC() {
       this.todos = this.getTodosCompleted;
@@ -40,30 +41,16 @@ export default {
 <template>
   <div class="flex flex-column">
     <div>
-      <BaseButton
-        @click="getTodoList"
-        label="All"
-        class="p-button-success ml-2"
-      />
-      <BaseButton
-        @click="getTodosP"
-        label="In progress"
-        class="p-button-success ml-2"
-      />
-      <BaseButton
-        @click="getTodosC"
-        label="Done"
-        class="p-button-success ml-2"
-      />
+      <BaseButton @click="getTodoList" label="All" class="p-button-success ml-2" />
+      <BaseButton @click="getTodosP" label="In progress" class="p-button-success ml-2" />
+      <BaseButton @click="getTodosC" label="Done" class="p-button-success ml-2" />
       <BaseButton label="Delete list" class="p-button-danger ml-2" />
     </div>
-    <li>
-      <PrimeCard style="width: 25rem; margin-bottom: 2em">
-        <template #title>
-          {{ addTodoCard[0].label }}
-        </template>
-      </PrimeCard>
-    </li>
+    <!-- <PrimeCard style="width: 25rem; margin-bottom: 2em">
+      <template #title>
+        {{ addTodoCard[0].label }}
+      </template>
+    </PrimeCard> -->
     <div class="flex flex-row flex-wrap p-4">
       <div v-for="todo in todos" :key="todo.label">
         <TodoItem :todo="todo" />
@@ -72,4 +59,9 @@ export default {
   </div>
 </template>
 
-<style></style>
+<style>
+.isComplete {
+  opacity: 0.5;
+  background-color: rgba(255, 255, 255, 0.861);
+}
+</style>
