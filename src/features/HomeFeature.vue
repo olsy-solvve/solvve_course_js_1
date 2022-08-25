@@ -16,11 +16,6 @@ export default {
         props: [],
       });
     },
-    moveToGitHub() {
-      this.$router.push(
-        "https://github.com/olsy-solvve/solvve_course_js_1.git"
-      );
-    },
   },
 };
 </script>
@@ -32,16 +27,20 @@ export default {
         <p class="text-xs sm:text-base lg:text-lg text-300">
           Join us to github, a conference by Solvve, in Dnipro
         </p>
-        <BaseButton
-          label="Move"
-          icon="pi pi-heart-fill"
-          class="p-button-warning text-pink-800 p-button-sm"
-          @click="moveToGitHub"
-        />
+        <a
+          href="https://github.com/olsy-solvve/solvve_course_js_1"
+          class="github-link"
+        >
+          <BaseButton
+            label="Move"
+            icon="pi pi-heart-fill"
+            class="p-button-warning text-pink-800 p-button-sm"
+          />
+        </a>
       </div>
     </div>
     <div class="col-12 sm:col-6 p-0 sm:p-3">
-      <div class="col-12 sm:col-6">
+      <div class="col-12 col-offset-6 sm:col-6">
         <h3>
           Sure, we`ve been around the block. We probably worked with the people
           who built it.
@@ -60,7 +59,7 @@ export default {
       </div>
     </div>
     <div class="col-12 sm:col-6 p-0 sm:p-3">
-      <div class="col-12 sm:col-8">
+      <div class="col-12 sm:col-8 col-offset-4">
         <img alt="home" src="@/assets/home_2.jpeg" />
       </div>
       <div class="col-12 sm:col-6">
@@ -108,4 +107,8 @@ export default {
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss">
+.github-link {
+  text-decoration: none;
+}
+</style>
