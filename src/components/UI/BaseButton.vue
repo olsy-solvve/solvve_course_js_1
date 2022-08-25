@@ -1,5 +1,5 @@
 <template>
-  <ButtonPrimeVue v-model="attrs">
+  <ButtonPrimeVue v-model="$attrs">
     <slot></slot>
   </ButtonPrimeVue>
 </template>
@@ -15,4 +15,4 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style></style>

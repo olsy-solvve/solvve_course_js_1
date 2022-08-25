@@ -1,3 +1,71 @@
+<script>
+import PrimeDialog from "primevue/dialog";
+import PrimeCard from "primevue/card";
+import PrimeInputText from "primevue/inputText";
+import { mapMutations } from "vuex";
+
+import popupName from "@/enums/popupName.js";
+
+export default {
+  name: popupName.TODO_CREATE_POPUP,
+  data() {
+    return {
+      dialog: true,
+      todoTitle: "",
+      isValidTitle: false,
+      todoDescription: "",
+      isValidDescription: false,
+    };
+  },
+  watch: {
+    dialog() {
+      if (this.dialog === false) {
+        this.close();
+      }
+    },
+    todoTitle(value) {
+      console.log(value);
+      if (value !== "") {
+        this.isValidTitle = true;
+        this.todoTitle = value.trim();
+      } else {
+        this.isValidTitle = false;
+      }
+    },
+    todoDescription(value) {
+      if (value !== "") {
+        this.isValidDescription = true;
+        this.isValidDescription = value.trim();
+      } else {
+        this.isValidDescription = false;
+      }
+    },
+  },
+  methods: {
+    ...mapMutations("popupStore", ["closeDialog", "openDialog"]),
+    ...mapMutations("todoStore", ["addTodo"]),
+    close() {
+      this.closeDialog(popupName.TODO_CREATE_POPUP);
+      this.dialog = false;
+    },
+    saveTodo() {
+      if (this.isValidTitle && this.isValidDescription) {
+        this.addTodo({
+          label: this.todoTitle,
+          discription: this.todoDescription,
+        });
+        this.close();
+      }
+    },
+  },
+  components: {
+    PrimeDialog,
+    PrimeCard,
+    PrimeInputText,
+  },
+};
+</script>
+
 <template>
   <div>
     <PrimeDialog
@@ -62,79 +130,4 @@
   </div>
 </template>
 
-<script>
-import PrimeDialog from "primevue/dialog";
-import PrimeCard from "primevue/card";
-import PrimeInputText from "primevue/inputText";
-import { mapMutations } from "vuex";
-
-import popupName from "@/enums/popupName.js";
-
-export default {
-  name: popupName.TODO_CREATE_POPUP,
-  data() {
-    return {
-      dialog: true,
-      todoTitle: "",
-      isValidTitle: false,
-      todoDescription: "",
-      isValidDescription: false,
-    };
-  },
-  watch: {
-    dialog() {
-      if (this.dialog === false) {
-        this.close();
-      }
-    },
-    todoTitle(value) {
-      console.log(value);
-      if (value !== "") {
-        this.isValidTitle = true;
-        this.todoTitle = value.trim();
-      } else {
-        this.isValidTitle = false;
-      }
-    },
-    todoDescription(value) {
-      if (value !== "") {
-        this.isValidDescription = true;
-        this.isValidDescription = value.trim();
-      } else {
-        this.isValidDescription = false;
-      }
-    },
-  },
-  methods: {
-    ...mapMutations("popupStore", ["closeDialog", "openDialog"]),
-    ...mapMutations("todoStore", ["addTodo"]),
-    close() {
-      this.closeDialog(popupName.TODO_CREATE_POPUP);
-      this.dialog = false;
-    },
-    saveTodo() {
-      console.log(this.isValidTitle && this.isValidDescription);
-      if (this.isValidTitle && this.isValidDescription) {
-        this.addTodo({
-          label: this.todoTitle,
-          discription: this.todoDescription,
-        });
-        this.close();
-      }
-    },
-  },
-  components: {
-    PrimeDialog,
-    PrimeCard,
-    PrimeInputText,
-  },
-  mounted() {},
-};
-</script>
-
-<style lang="scss" scoped>
-p {
-  line-height: 1.5;
-  margin: 0;
-}
-</style>
+<style></style>

@@ -125,7 +125,7 @@ export default {
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style>
 .edit-button {
   padding-bottom: 8px;
   padding-left: 320px;
