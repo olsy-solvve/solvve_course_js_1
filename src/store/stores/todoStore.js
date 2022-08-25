@@ -55,16 +55,67 @@ const state = {
         { label: "Naruto", completed: true, discription: "Let`s just try..." },
       ],
     },
+    {
+      label: todoTypes.MOVIES,
+      list: [
+        {
+          label: "Black horse",
+          completed: true,
+          discription:
+            "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deseruntquisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!",
+        },
+        {
+          label: "Black",
+          completed: true,
+          discription: "3rd season is out!",
+        },
+        {
+          label: "Green book",
+          completed: true,
+          discription: "Let`s just try...",
+        },
+      ],
+    },
   ],
-  currentType: todoTypes.HOME,
+  currentType: todoTypes.MOVIES,
 };
 
 const getters = {
-  getTodos: (state) => {
+  getTodosType: (state) => {
     return state.todos;
   },
-  getListLength: (state) => {
-    return state.todos.length;
+  getTodos: (state) => {
+    let todoList = [];
+
+    state.todos.forEach((todo) => {
+      if (todo.label === state.currentType) {
+        todoList = todo.list;
+      }
+    });
+
+    return todoList;
+  },
+  getTodosProgress: () => {
+    let todoList = [];
+
+    state.todos.forEach((todo) => {
+      if (todo.label === state.currentType) {
+        todoList = todo.list;
+      }
+    });
+
+    return todoList.filter((todo) => todo.completed === false);
+  },
+  getTodosCompleted: () => {
+    let todoList = [];
+
+    state.todos.forEach((todo) => {
+      if (todo.label === state.currentType) {
+        todoList = todo.list;
+      }
+    });
+
+    return todoList.filter((todo) => todo.completed === true);
   },
 };
 const actions = {};
