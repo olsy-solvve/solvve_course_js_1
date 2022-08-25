@@ -4,4 +4,5 @@ export default {
   UNIVERCITY: "Univercity",
   FAMILY: "Family",
   ANIMAL: "Anime list",
+  MOVIES: "Movies",
 };
