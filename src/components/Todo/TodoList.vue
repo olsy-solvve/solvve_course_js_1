@@ -6,9 +6,14 @@ export default {
   name: "TodoList",
   data() {
     return {
-      todos: [],
       addTodoCard: [{ label: "ADD NEW TODO LIST", icon: "pi pi-plus" }],
     };
+  },
+  props: {
+    todos: {
+      type: Object,
+      required: true,
+    }
   },
   components: {
     TodoItem,
@@ -16,15 +21,6 @@ export default {
   },
   computed: {},
   methods: {
-    getTodosC() {
-      this.todos = this.$store.getters["todoStore/getTodosCompleted"];
-    },
-    getTodosP() {
-      this.todos = this.$store.getters["todoStore/getTodosProgress"];
-    },
-    getTodosAll() {
-      this.todos = this.$store.getters["todoStore/getTodos"];
-    },
   },
   mounted() {
     this.getTodosAll;
@@ -34,12 +30,6 @@ export default {
 
 <template>
   <div class="flex flex-column">
-    <div>
-      <BaseButton @click="getTodosAll" label="All" class="p-button-success ml-2" />
-      <BaseButton @click="getTodosP" label="In progress" class="p-button-success ml-2" />
-      <BaseButton @click="getTodosC" label="Done" class="p-button-success ml-2" />
-      <BaseButton label="Delete list" class="p-button-danger ml-2" />
-    </div>
     <!-- <PrimeCard style="width: 25rem; margin-bottom: 2em">
       <template #title>
         {{ addTodoCard[0].label }}

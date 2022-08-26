@@ -8,6 +8,7 @@ import { mapGetters, mapMutations } from "vuex";
 export default {
   data() {
     return {
+      todos: [],
       addTodoList: [{ label: "ADD NEW TODO", discription: "" }],
     };
   },
@@ -25,6 +26,17 @@ export default {
         props: [],
       });
     },
+
+    getTodosC() {
+      this.todos = this.$store.getters["todoStore/getTodosCompleted"];
+    },
+    getTodosP() {
+      this.todos = this.$store.getters["todoStore/getTodosProgress"];
+    },
+    getTodosAll() {
+      console.log(1)
+      this.todos = this.$store.getters["todoStore/getTodos"];
+    },
   },
 };
 </script>
@@ -33,21 +45,25 @@ export default {
   <div>
     <div class="flex flex-row">
       <div>
-        <PrimeListBox
-          :options="addTodoList"
-          optionLabel="label"
-          @click="openTodoCreatePopup"
-        >
+        <PrimeListBox :options="addTodoList" optionLabel="label" @click="openTodoCreatePopup">
         </PrimeListBox>
         <PrimeListBox :options="getTodosType" optionLabel="label">
           <template #option="slotProps">
-            <div @click="changeCurrentType(slotProps.option.label)">
+            <div @click="changeCurrentType(slotProps.option.label), getTodosAll()">
               {{ slotProps.option.label }}
             </div>
           </template>
         </PrimeListBox>
       </div>
-      <TodoList />
+      <div>
+        <div class="flex flex-row">
+          <BaseButton @click="getTodosAll" label="All" class="p-button-success ml-2" />
+          <BaseButton @click="getTodosP" label="In progress" class="p-button-success ml-2" />
+          <BaseButton @click="getTodosC" label="Done" class="p-button-success ml-2" />
+          <BaseButton label="Delete list" class="p-button-danger ml-2" />
+        </div>
+        <TodoList :todos="todos" />
+      </div>
     </div>
   </div>
 </template>
