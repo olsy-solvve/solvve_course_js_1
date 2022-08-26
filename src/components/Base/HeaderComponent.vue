@@ -33,7 +33,7 @@ export default {
 </script>
 
 <template>
-  <header class="sticky top-0 left-0 z-5 w-full bg-s">
+  <header class="sticky top-0 left-0 z-5 w-full bg-surface-300">
     <PrimeMenubar :model="getRoutes" class="p-1 header-menu">
       <template #start>
         <div

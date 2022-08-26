@@ -1,6 +1,5 @@
 <script>
 import PrimeCard from "primevue/card";
-// import PrimeListbox from "primevue/listbox";
 import routesName from "@/enums/routesName";
 
 export default {
@@ -39,39 +38,49 @@ export default {
   },
   components: {
     PrimeCard,
-    // PrimeListbox,
   },
 };
 </script>
 
 <template>
   <footer>
-    <PrimeCard class="surface-500 text-white">
+    <PrimeCard class="surface-500 text-100">
       <template #title>
         <h4 class="flex align-items-center justify-content-center">
           Questions?
         </h4>
       </template>
       <template #content>
-        <div class="col-12">
+        <div class="grid col-12 m-0 p-0">
           <div class="col-12 sm:col-4">
-            <p>
+            <p class="text-justify">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Doloremque nulla, dicta similique laboriosam expedita labore sint
+              repudiandae pariatur illum deleniti fugit officia exercitationem
+              nobis cupiditate reprehenderit? Expedita illo veniam voluptatibus
+              aperiam illum! Perspiciatis quisquam hic modi similique, dolore
+              dicta exercitationem voluptatem consequuntur dolorum quasi earum
+              iste, velit rerum pariatur nemo?
+            </p>
+          </div>
+          <div class="col-12 sm:col-4">
+            <p class="text-center">
               Drop us a line at
               <span class="underline cursor-pointer">hello@superpuper.com</span>
             </p>
-            <ul>
+            <ul class="list-none col-offset-4 lg:col-offset-5">
               <a
                 v-for="developer in developers"
                 :key="developer.name"
                 :href="developer.link"
+                class="no-underline text-green-700 cursor-pointer"
               >
                 <li><i class="pi pi-github"></i> {{ developer.name }}</li>
               </a>
             </ul>
           </div>
-          <div class="col-12 sm:col-4"></div>
           <div class="col-12 sm:col-4">
-            <p>
+            <p class="text-justify">
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
               Doloremque nulla, dicta similique laboriosam expedita labore sint
               repudiandae pariatur illum deleniti fugit officia exercitationem
@@ -83,19 +92,19 @@ export default {
           </div>
         </div>
         <div class="col-12">
-          <div class="copyright">
+          <div class="text-center">
             <div class="flex justify-content-center gap-3">
-              <a href="#" class="underline cursor-pointer">Privacy Policy</a>
-              <a href="#" class="underline cursor-pointer">Terms of Use</a>
-              <a href="#" class="underline cursor-pointer"
+              <a href="#" class="no-underline text-green-700 cursor-pointer"
+                >Privacy Policy</a
+              >
+              <a href="#" class="no-underline text-green-700 cursor-pointer"
+                >Terms of Use</a
+              >
+              <a href="#" class="no-underline text-green-700 cursor-pointer"
                 >&copy;2022 SUPERPUPER</a
               >
             </div>
             <p>Copyright &copy; {{ year }}</p>
-            <!-- <AboutComponent
-              label="About"
-              class="underline cursor-pointer"
-            /> -->
           </div>
         </div>
       </template>
@@ -103,8 +112,4 @@ export default {
   </footer>
 </template>
 
-<style>
-.copyright {
-  text-align: center;
-}
-</style>
+<style lang="scss"></style>
