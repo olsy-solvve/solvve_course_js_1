@@ -41,13 +41,7 @@ export default {
         </PrimeListBox>
         <PrimeListBox :options="getTodosType" optionLabel="label">
           <template #option="slotProps">
-            <div
-              @click="
-                () => {
-                  changeCurrentType(slotProps.option.label);
-                }
-              "
-            >
+            <div @click="changeCurrentType(slotProps.option.label)">
               {{ slotProps.option.label }}
             </div>
           </template>
@@ -74,5 +68,10 @@ body {
 
 .delete-button {
   padding-left: 320px;
+}
+
+.isDone {
+  opacity: 0.5;
+  background-color: rgb(255, 255, 255);
 }
 </style>

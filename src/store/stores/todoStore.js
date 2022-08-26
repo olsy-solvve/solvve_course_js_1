@@ -100,8 +100,7 @@ const getters = {
         todoList = todo.list;
       }
     });
-    console.log(todoList.filter((todo) => !todo.completed));
-    return todoList;
+    return todoList.filter((todo) => !todo.completed);
   },
 
   getTodosCompleted: () => {
@@ -118,6 +117,16 @@ const getters = {
 const actions = {};
 
 const mutations = {
+  changeFilter(state, thatLabel) {
+    state.todos.forEach((type) => {
+      if (type.label === state.currentType) {
+        type.list.forEach((item) => {
+          item.label === thatLabel ? (item.completed = !item.completed) : 0;
+        });
+      }
+    });
+  },
+
   changeCurrentType(state, newType) {
     state.currentType = newType;
   },

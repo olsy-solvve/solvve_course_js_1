@@ -1,7 +1,6 @@
 <script>
 import PrimeCard from "primevue/card";
 import TodoItem from "@/components/Todo/TodoItem.vue";
-import { mapGetters } from "vuex";
 
 export default {
   name: "TodoList",
@@ -15,25 +14,20 @@ export default {
     TodoItem,
     PrimeCard,
   },
-  computed: mapGetters("todoStore", [
-    "getTodos",
-    "getTodosCompleted",
-    "getTodosProgress",
-  ]),
+  computed: {},
   methods: {
-    getTodoList() {
-      this.todos = this.getTodos;
+    getTodosC() {
+      this.todos = this.$store.getters["todoStore/getTodosCompleted"];
     },
     getTodosP() {
-      this.todos = this.getTodosProgress;
-
+      this.todos = this.$store.getters["todoStore/getTodosProgress"];
     },
-    getTodosC() {
-      this.todos = this.getTodosCompleted;
+    getTodosAll() {
+      this.todos = this.$store.getters["todoStore/getTodos"];
     },
   },
   mounted() {
-    this.todos = this.getTodos;
+    this.getTodosAll;
   },
 };
 </script>
@@ -41,7 +35,7 @@ export default {
 <template>
   <div class="flex flex-column">
     <div>
-      <BaseButton @click="getTodoList" label="All" class="p-button-success ml-2" />
+      <BaseButton @click="getTodosAll" label="All" class="p-button-success ml-2" />
       <BaseButton @click="getTodosP" label="In progress" class="p-button-success ml-2" />
       <BaseButton @click="getTodosC" label="Done" class="p-button-success ml-2" />
       <BaseButton label="Delete list" class="p-button-danger ml-2" />
