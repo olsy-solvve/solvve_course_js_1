@@ -131,6 +131,20 @@ const mutations = {
     state.currentType = newType;
   },
 
+  editTodo(state, todo) {
+    if (todo) {
+      state.todos.forEach((todoType) => {
+        if (todoType.label === state.currentType) {
+          todoType.list.forEach((todos) => {
+            if (todos.label === todo.label) {
+              todos = todo;
+            }
+          });
+        }
+      });
+    }
+  },
+
   addTodo(state, todo) {
     if (todo) {
       state.todos.forEach((todoType) => {
@@ -140,6 +154,11 @@ const mutations = {
       });
     }
   },
+  addTodoType(state, todoType) {
+    if (todoType) {
+      state.todos.push(todoType);
+    }
+  }
 };
 
 export default {

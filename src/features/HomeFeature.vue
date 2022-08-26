@@ -16,6 +16,12 @@ export default {
         props: [],
       });
     },
+    openTodoTypeCreatePopup() {
+      this.openDialog({
+        name: popupName.TODO_TYPE_CREATE_POPUP,
+        props: [],
+      })
+    }
   },
 };
 </script>
@@ -27,15 +33,8 @@ export default {
         <p class="text-xs sm:text-base lg:text-lg text-300">
           Join us to github, a conference by Solvve, in Dnipro
         </p>
-        <a
-          href="https://github.com/olsy-solvve/solvve_course_js_1"
-          class="github-link"
-        >
-          <BaseButton
-            label="Move"
-            icon="pi pi-heart-fill"
-            class="p-button-warning text-pink-800 p-button-sm"
-          />
+        <a href="https://github.com/olsy-solvve/solvve_course_js_1" class="github-link">
+          <BaseButton label="Move" icon="pi pi-heart-fill" class="p-button-warning text-pink-800 p-button-sm" />
         </a>
       </div>
     </div>

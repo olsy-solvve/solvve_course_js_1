@@ -1,15 +1,15 @@
 <script>
 import TodoList from "@/components/Todo/TodoList.vue";
 import PrimeListBox from "primevue/listbox";
-
 import popupName from "@/enums/popupName.js";
+
 import { mapGetters, mapMutations } from "vuex";
 
 export default {
   data() {
     return {
       todos: [],
-      addTodoList: [{ label: "ADD NEW TODO", discription: "" }],
+      addTodoList: [{ label: "ADD NEW TODO LIST" }],
     };
   },
   components: {
@@ -18,11 +18,11 @@ export default {
   },
   computed: mapGetters("todoStore", ["getTodosType"]),
   methods: {
-    ...mapMutations("popupStore", ["openDialog"]),
     ...mapMutations("todoStore", ["changeCurrentType"]),
-    openTodoCreatePopup() {
+    ...mapMutations("popupStore", ["openDialog"]),
+    openTodoTypeCreatePopup() {
       this.openDialog({
-        name: popupName.TODO_CREATE_POPUP,
+        name: popupName.TODO_TYPE_CREATE_POPUP,
         props: [],
       });
     },
@@ -34,7 +34,6 @@ export default {
       this.todos = this.$store.getters["todoStore/getTodosProgress"];
     },
     getTodosAll() {
-      console.log(1)
       this.todos = this.$store.getters["todoStore/getTodos"];
     },
   },
@@ -45,7 +44,7 @@ export default {
   <div>
     <div class="flex flex-row">
       <div>
-        <PrimeListBox :options="addTodoList" optionLabel="label" @click="openTodoCreatePopup">
+        <PrimeListBox :options="addTodoList" optionLabel="label" @click="openTodoTypeCreatePopup">
         </PrimeListBox>
         <PrimeListBox :options="getTodosType" optionLabel="label">
           <template #option="slotProps">
