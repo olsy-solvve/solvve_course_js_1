@@ -25,11 +25,6 @@ const routes = [
     name: routesName.NOT_FOUND,
     component: () => import("@/features/NotFoundFeature.vue"),
   },
-  {
-    path: "/about",
-    name: routesName.ABOUT,
-    component: () => import("@/features/AboutFeature.vue"),
-  },
 ];
 
 const router = createRouter({

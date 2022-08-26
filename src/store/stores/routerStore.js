@@ -11,11 +11,13 @@ const state = {
       label: "TODO",
       icon: "pi pi-calendar-plus",
       to: { name: routesName.TODO },
+      disabled: true,
     },
     {
       label: "ARCHIVE",
       icon: "pi pi-database",
       to: { name: routesName.ARCHIVE },
+      disabled: true,
     },
     {
       label: "DOC",

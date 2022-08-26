@@ -34,7 +34,6 @@ const actions = {};
 
 const mutations = {
   login: (state, user) => {
-    console.log(user);
     if (user) {
       state.currentUser = user;
     }

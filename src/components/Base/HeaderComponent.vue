@@ -24,13 +24,6 @@ export default {
   computed: {
     ...mapGetters("userStore", ["getUserConfirmation"]),
     ...mapGetters("routerStore", ["getRoutes"]),
-    homePage() {
-      if (this.$route.path === "/") {
-        return true;
-      } else {
-        return false;
-      }
-    },
   },
   components: {
     PrimeMenubar,
@@ -40,8 +33,8 @@ export default {
 </script>
 
 <template>
-  <header class="sticky top-0 left-0 z-5 w-full" v-show="homePage">
-    <PrimeMenubar :model="getRoutes" class="p-1">
+  <header class="sticky top-0 left-0 z-5 w-full bg-surface-300">
+    <PrimeMenubar :model="getRoutes" class="p-1 header-menu">
       <template #start>
         <div
           class="flex flex-1 flex-row align-items-center justify-content-start pl-2"
@@ -98,8 +91,8 @@ export default {
   </header>
 </template>
 
-<style lang="scss" scoped>
-header {
+<style lang="scss">
+.header-menu {
   background-color: $header-footer-background;
 }
 .header-top-logo-text {
