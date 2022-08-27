@@ -3,6 +3,9 @@ import App from "@/App.vue";
 
 const app = createApp(App);
 
+import ToastService from "primevue/toastservice";
+app.use(ToastService);
+
 import "@/styles/main.scss";
 
 import router from "@/plugins/router.js";

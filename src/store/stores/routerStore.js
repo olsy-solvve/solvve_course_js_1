@@ -34,7 +34,22 @@ const getters = {
 };
 const actions = {};
 
-const mutations = {};
+const mutations = {
+  disabledButtons(state) {
+    state.routes.forEach((route) => {
+      if (route.label === "TODO" && route.label === "ARCHIVE") {
+        route.disabled = true;
+      }
+    });
+  },
+  enableButtons(state) {
+    state.routes.forEach((route) => {
+      if (route.label === "TODO" && route.label === "ARCHIVE") {
+        route.disabled = false;
+      }
+    });
+  },
+};
 
 export default {
   namespaced: true,

@@ -1,16 +1,8 @@
 <script>
-import PrimeCard from "primevue/card";
 import TodoItem from "@/components/Todo/TodoItem.vue";
-import popupName from "@/enums/popupName.js";
-import { mapMutations } from "vuex";
 
 export default {
   name: "TodoList",
-  data() {
-    return {
-      addTodoCard: [{ label: "ADD NEW TODO", icon: "pi pi-plus" }],
-    };
-  },
   props: {
     todos: {
       type: Object,
@@ -19,36 +11,14 @@ export default {
   },
   components: {
     TodoItem,
-    PrimeCard,
-  },
-  computed: {},
-  methods: {
-    ...mapMutations("popupStore", ["openDialog"]),
-    openTodoCreatePopup() {
-      this.openDialog({
-        name: popupName.TODO_CREATE_POPUP,
-        props: [],
-      });
-    },
-  },
-  mounted() {
-    this.getTodosAll;
   },
 };
 </script>
 
 <template>
   <div class="flex flex-column">
-    <PrimeCard
-      style="width: 25rem; margin-bottom: 2em"
-      @click="openTodoCreatePopup"
-    >
-      <template #title>
-        {{ addTodoCard[0].label }}
-      </template>
-    </PrimeCard>
     <div class="flex flex-row flex-wrap p-4">
-      <div v-for="todo in todos" :key="todo.label">
+      <div v-for="todo in todos" :key="todo.label" class="m-2">
         <TodoItem :todo="todo" />
       </div>
     </div>

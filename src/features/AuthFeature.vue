@@ -2,176 +2,202 @@
 import PrimeInputText from "primevue/inputText";
 import PrimePassword from "primevue/password";
 import PrimeCheckbox from "primevue/checkbox";
-import PrimeButton from "primevue/button";
-import { mapGetters } from "vuex";
-//import { toHandlers } from "vue";
+import { mapActions, mapGetters, mapMutations } from "vuex";
+
+import popupName from "@/enums/popupName.js";
+import routesName from "@/enums/routesName.js";
 
 export default {
   data() {
     return {
+      username: "",
+      isValidUsername: false,
+      email: "",
+      isValidEmail: false,
       password: "",
+      isValidPassword: false,
       checked: false,
-      login: "",
-      mail: "",
+      isLoginPage: false,
     };
+  },
+  watch: {
+    username(value) {
+      if (value !== "") {
+        this.isValidUsername = true;
+        this.username = value.trim();
+      } else {
+        this.isValidUsername = false;
+      }
+    },
+    email(value) {
+      if (value !== "") {
+        this.isValidEmail = true;
+        this.email = value.trim();
+      } else {
+        this.isValidEmail = false;
+      }
+    },
+    password(value) {
+      if (value !== "") {
+        this.isValidPassword = true;
+        this.password = value.trim();
+      } else {
+        this.isValidPassword = false;
+      }
+    },
+  },
+  computed: {
+    ...mapGetters("userStore", ["isEmailExist", "isUserValid"]),
+  },
+  methods: {
+    ...mapActions('userStore', ['login']),
+    ...mapMutations("userStore", ["registration"]),
+    ...mapMutations("popupStore", ["openDialog"]),
+    switching() {
+      this.username = "";
+      this.email = "";
+      this.password = "";
+      this.checked = false;
+      this.isLoginPage = !this.isLoginPage;
+    },
+    registrationUser() {
+      if (this.isEmailExist(this.email)) {
+        alert("user with this email already in system");
+      } else if (!this.checked) {
+        alert("Read our privacy policy");
+      } else if (
+        this.isValidUsername &&
+        this.isValidEmail &&
+        this.isValidPassword
+      ) {
+        this.registration({
+          username: this.username,
+          email: this.email,
+          password: this.password,
+        });
+        this.switching();
+      }
+    },
+    loginUser() {
+      const user = {
+        email: this.email,
+        password: this.password,
+      };
+      if (this.isUserValid(user) && this.isValidEmail && this.isValidPassword) {
+        this.login(user);
+        this.$router.push({name: routesName.HOME});
+      } else {
+        alert("Information in field not valid for auth");
+      }
+    },
+    openPrivacyPolicy() {
+       this.openDialog({
+        name: popupName.PRIVACY_POLICY_POPUP,
+        props: [],
+      });
+    },
   },
   components: {
     PrimeInputText,
     PrimePassword,
     PrimeCheckbox,
-    PrimeButton,
-  },
-  computed: {
-    ...mapGetters("userStore", [
-      "getUsers",
-      "getLoginStatus",
-      "isUserMailInSystem",
-      "isUserDataValidToAuthorization",
-    ]),
-
-    // openDialog() {
-    //     return this.$popupStore.mutations["popupStore/openDialog"]
-    // }
-  },
-  methods: {
-    logToSystem() {
-      this.$store.commit("userStore/login", { name: this.login.valueOf() });
-    },
-    addUser() {
-      this.$store.commit("userStore/registration", {
-        userName: this.login.valueOf(),
-        email: this.mail.valueOf(),
-        password: this.password.valueOf(),
-      });
-    },
-    // switch to registration
-    signUp() {
-      this.$store.commit("userStore/signUp");
-    },
-    /// switch to authorization
-    signIn() {
-      this.$store.commit("userStore/signIn");
-    },
-
-    createNewUser() {
-      this.confirmUserMail();
-      if (this.isUserMailInSystem === true) {
-        alert("user with this email already in system");
-      } else if (
-        this.login.length >= 2 ||
-        this.mail.length >= 2 ||
-        this.password.length >= 4 ||
-        this.checked === true
-      ) {
-        this.addUser();
-      } else {
-        alert("need more information");
-      }
-    },
-
-    confirmUserMail() {
-      this.$store.commit("userStore/isMailInSystem", {
-        mail: this.mail.valueOf(),
-      });
-      console.log(this.isUserMailInSystem);
-    },
-    // проверяем все данные пользователя на возможность входа
-    confinrmUserInformationBeforeAuth() {
-      this.$store.commit("userStore/isDataValid", {
-        mail: this.mail.valueOf(),
-        login: this.login.valueOf(),
-        password: this.password.valueOf(),
-      });
-      console.log(this.isUserDataValidToAuthorization);
-    },
-    loginIntoSystem() {
-      this.confinrmUserInformationBeforeAuth();
-      if (this.isUserDataValidToAuthorization === true) {
-        this.logToSystem();
-      } else {
-        alert("information in field not valid for auth");
-      }
-
-      //console.log(this.getUsers[0].email);
-    },
   },
 };
 </script>
 
 <template>
-  <div v-for="user in getUsers" :key="user.Id">
-    Id-{{ user.id }}, UserName-{{ user.userName }}, UserMail-{{ user.email }},
-    UserPass-{{ user.password }}
-  </div>
-
-  <div class="flex flex-column align-items-center justify-content-center p-4">
+  <div
+    class="flex flex-column align-items-center justify-content-center p-4 h-screen"
+  >
     <div>
-      <h3>On the first step you need to sign in to our system</h3>
-      <!-- поле для логина -->
-      <span class="p-float-label">
-        <PrimeInputText id="username" type="text" v-model="login" />
-        <br />
-        <small id="login-help">Enter your login</small>
-      </span>
-      <span class="p-float-label">
-        <PrimeInputText id="user-mail" type="text" v-model="mail" />
-        <br />
-        <small id="login-help">Enter your mail</small>
-      </span>
+      <div v-if="isLoginPage" class="flex flex-column mt-2">
+        <label for="username">Username </label>
+        <PrimeInputText
+          v-model="username"
+          id="username"
+          name="username"
+          type="text"
+          aria-describedby="username-help"
+          :class="{ 'p-invalid': !isValidUsername }"
+        />
+        <small v-show="!isValidUsername" id="username-help" class="p-error"
+          >Username is empty.</small
+        >
+      </div>
+      <div class="flex flex-column mt-2">
+        <label for="email">Email </label>
+        <PrimeInputText
+          v-model="email"
+          id="email"
+          name="email"
+          type="text"
+          aria-describedby="email-help"
+          :class="{ 'p-invalid': !isValidEmail }"
+        />
+        <small v-show="!isValidEmail" id="email-help" class="p-error"
+          >Email is empty.</small
+        >
+      </div>
+      <div class="flex flex-column mt-2">
+        <label for="email">Password </label>
+        <PrimePassword
+          v-model="password"
+          toggleMask
+          :feedback="false"
+          id="password"
+          name="password"
+          type="text"
+          aria-describedby="password-help"
+          :class="{ 'p-invalid': !isValidPassword }"
+        />
+        <small v-show="!isValidPassword" id="password-help" class="p-error"
+          >Password is empty.</small
+        >
+      </div>
+    </div>
 
-      <!-- // :style="{ marginLeft: '10px', marginTop: '20px' }" -->
-      <!-- поле для пароля -->
+    <div v-if="!isLoginPage" class="mt-3">
+      <BaseButton
+        label="Sign Up"
+        class="p-button-secondary"
+        @click="switching"
+      />
+      <BaseButton
+        label="Sign In"
+        class="p-button-secondary ml-5"
+        @click="loginUser"
+      />
+    </div>
+    <div v-else class="mt-3">
+      <div class="flex align-items-center field-checkbox">
+        <PrimeCheckbox
+          inputId="privacyPolicy"
+          v-model="checked"
+          :binary="true"
+        />
+        <label for="privacyPolicy">
+          To confirm, read the
+          <span
+            class="text-blue-600 uppercase cursor-pointer"
+            @click="openPrivacyPolicy"
+            >Privacy Policy</span
+          >
+        </label>
+      </div>
       <div>
-        <PrimePassword v-model="password" toggleMask :feedback="false">
-        </PrimePassword>
-        <br />
-        <small id="password-help">Enter your passwor1d</small>
-      </div>
-
-      <div v-if="getLoginStatus">
-        <div>
-          <PrimeButton
-            label="Sign Up"
-            class="p-button-secondary"
-            @click="signUp()"
-          />
-          <PrimeButton
-            label="Sign In"
-            class="p-button-secondary"
-            @click="confinrmUserInformationBeforeAuth()"
-            :style="{ marginLeft: '40px' }"
-          />
-        </div>
-      </div>
-
-      <div v-else>
-        <!-- ЧЕКБОКС И ВАЛИДАДАЦИЯ ПРАВИЛ-->
-        <div class="field-checkbox">
-          <PrimeCheckbox inputId="binary" v-model="checked" :binary="true" />
-          <label for="binary">
-            Для подтверждения необходимо ознакомиться с
-            <a> Rules</a>
-            <PrimeButton label="popUp" class="p-button-secondary" />
-          </label>
-        </div>
-        <div>
-          <!-- <PrimeButton label="Create Accaunt" class="p-button-secondary" :style="{ marginTop: '20px' }"
-                        @click="addUser()" /> -->
-          <PrimeButton
-            label="back to auth"
-            class="p-button-secondary"
-            @click="signIn()"
-          />
-          <PrimeButton
-            label="Create Accaunt"
-            class="p-button-secondary"
-            @click="createNewUser()"
-            :style="{ marginLeft: '50px' }"
-          />
-        </div>
+        <BaseButton
+          label="back to auth"
+          class="p-button-secondary"
+          @click="switching"
+        />
+        <BaseButton
+          label="Create Accaunt"
+          class="p-button-secondary ml-5"
+          @click="registrationUser"
+        />
       </div>
     </div>
   </div>
 </template>
 
-<style scoped></style>
+<style></style>
