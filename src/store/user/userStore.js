@@ -14,6 +14,10 @@ const state = {
     },
   ],
   currentUser: null,
+  needToLogin: true,
+
+  isUserMailInSystem: false, // check that mail if field in store
+  isUserDataValid: false, // validation  mail and password for authorization \
 };
 
 const getters = {
@@ -25,6 +29,15 @@ const getters = {
   },
   getUserConfirmation: (state) => {
     return state.currentUser ? true : false;
+  },
+  getLoginStatus: (state) => {
+    return state.needToLogin;
+  },
+  isUserMailInSystem: (state) => {
+    return state.isUserMailInSystem;
+  },
+  isUserDataValidToAuthorization: (state) => {
+    return state.isUserDataValid;
   },
 };
 
@@ -39,6 +52,39 @@ const mutations = {
   },
   logout: (state) => {
     state.currentUser = null;
+  },
+  registration: (state, user) => {
+    user.id = state.users.length + 1;
+    state.users.push(user);
+  },
+  signIn: (state) => {
+    state.needToLogin = true;
+  },
+  signUp: (state) => {
+    state.needToLogin = false;
+  },
+  // проверка что пользователь с такой почтой уже есть в системе
+  isMailInSystem: (state, mail) => {
+    state.users.forEach((user) => {
+      if (mail === user.email) {
+        state.isUserMailInSystem = true;
+      } else {
+        state.isUserMailInSystem = false;
+      }
+    });
+  },
+  isDataValid: (state, mail, pass, login) => {
+    state.users.forEach((user) => {
+      if (
+        user.email === mail ||
+        user.password === pass ||
+        user.userName === login
+      ) {
+        state.isUserDataValid = true;
+      } else {
+        state.isUserDataValid = false;
+      }
+    });
   },
 };
 
