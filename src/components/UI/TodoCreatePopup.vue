@@ -67,11 +67,16 @@ export default {
 
 <template>
   <div>
-    <PrimeDialog v-model:visible="dialog" class="w-full sm:w-4 md:w-6 xl:w-4 p-0">
+    <PrimeDialog
+      v-model:visible="dialog"
+      class="w-full sm:w-4 md:w-6 xl:w-4 p-0"
+    >
       <PrimeCard>
         <template #header>
-          <img src="https://www.primefaces.org/wp-content/uploads/2020/02/primefacesorg-primevue-2020.png"
-            class="h-3" />
+          <img
+            src="https://www.primefaces.org/wp-content/uploads/2020/02/primefacesorg-primevue-2020.png"
+            class="h-3"
+          />
         </template>
         <template #title> Develop todo </template>
         <template #subtitle> Todo inputs </template>
@@ -79,26 +84,49 @@ export default {
           <div class="col-12">
             <div class="flex flex-column field">
               <label for="title">Title</label>
-              <PrimeInputText v-model="todoTitle" id="title" name="title" type="text" aria-describedby="title-help"
-                :class="{ 'p-invalid': !isValidTitle }" />
-              <small v-show="!isValidTitle" id="title-help" class="p-error">Title is empty.</small>
+              <PrimeInputText
+                v-model="todoTitle"
+                id="title"
+                name="title"
+                type="text"
+                aria-describedby="title-help"
+                :class="{ 'p-invalid': !isValidTitle }"
+              />
+              <small v-show="!isValidTitle" id="title-help" class="p-error"
+                >Title is empty.</small
+              >
             </div>
             <div class="flex flex-column field">
               <label for="description">Description</label>
-              <PrimeInputText v-model="todoDescription" id="description" name="description" type="type"
-                aria-describedby="description-help" :class="{ 'p-invalid': !isValidDescription }" />
-              <small v-show="!isValidDescription" id="description-help" class="p-error">Description is empty.</small>
+              <PrimeInputText
+                v-model="todoDescription"
+                id="description"
+                name="description"
+                type="type"
+                aria-describedby="description-help"
+                :class="{ 'p-invalid': !isValidDescription }"
+              />
+              <small
+                v-show="!isValidDescription"
+                id="description-help"
+                class="p-error"
+                >Description is empty.</small
+              >
             </div>
           </div>
         </template>
         <template #footer>
           <BaseButton icon="pi pi-check" label="Save" @click="saveTodo" />
-          <BaseButton icon="pi pi-times" label="Cancel" class="p-button-secondary ml-1" @click="close" />
+          <BaseButton
+            icon="pi pi-times"
+            label="Cancel"
+            class="p-button-secondary ml-1"
+            @click="close"
+          />
         </template>
       </PrimeCard>
     </PrimeDialog>
   </div>
 </template>
 
-<style>
-</style>
+<style></style>

@@ -44,11 +44,17 @@ export default {
   <div>
     <div class="flex flex-row">
       <div>
-        <PrimeListBox :options="addTodoList" optionLabel="label" @click="openTodoTypeCreatePopup">
+        <PrimeListBox
+          :options="addTodoList"
+          optionLabel="label"
+          @click="openTodoTypeCreatePopup"
+        >
         </PrimeListBox>
         <PrimeListBox :options="getTodosType" optionLabel="label">
           <template #option="slotProps">
-            <div @click="changeCurrentType(slotProps.option.label), getTodosAll()">
+            <div
+              @click="changeCurrentType(slotProps.option.label), getTodosAll()"
+            >
               {{ slotProps.option.label }}
             </div>
           </template>
@@ -56,9 +62,21 @@ export default {
       </div>
       <div>
         <div class="flex flex-row">
-          <BaseButton @click="getTodosAll" label="All" class="p-button-success ml-2" />
-          <BaseButton @click="getTodosP" label="In progress" class="p-button-success ml-2" />
-          <BaseButton @click="getTodosC" label="Done" class="p-button-success ml-2" />
+          <BaseButton
+            @click="getTodosAll"
+            label="All"
+            class="p-button-success ml-2"
+          />
+          <BaseButton
+            @click="getTodosP"
+            label="In progress"
+            class="p-button-success ml-2"
+          />
+          <BaseButton
+            @click="getTodosC"
+            label="Done"
+            class="p-button-success ml-2"
+          />
           <BaseButton label="Delete list" class="p-button-danger ml-2" />
         </div>
         <TodoList :todos="todos" />

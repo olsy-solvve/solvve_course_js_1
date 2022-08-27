@@ -158,7 +158,7 @@ const mutations = {
     if (todoType) {
       state.todos.push(todoType);
     }
-  }
+  },
 };
 
 export default {
