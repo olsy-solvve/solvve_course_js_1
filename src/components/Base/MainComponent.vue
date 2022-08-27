@@ -6,7 +6,7 @@
   </main>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 main {
   background-color: $main-background;
   color: $app-text-color;

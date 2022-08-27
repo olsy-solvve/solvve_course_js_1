@@ -21,11 +21,6 @@ const routes = [
     component: () => import("@/features/DocFeature.vue"),
   },
   {
-    path: "/doc",
-    name: routesName.DOC,
-    component: () => import("@/features/DocFeature.vue"),
-  },
-  {
     path: "/auth",
     name: routesName.AUTH,
     component: () => import("@/features/AuthFeature.vue"),
