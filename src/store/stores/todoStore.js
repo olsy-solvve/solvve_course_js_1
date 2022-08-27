@@ -1,14 +1,18 @@
+import { indexOfById } from "@/services/arrayMethods";
+
 const state = {
   todos: [
     {
       label: "Home things",
       list: [
         {
+          id: 1,
           label: "Clean room",
           completed: false,
           discription: "And faster!",
         },
         {
+          id: 2,
           label: "Wash dishes",
           completed: true,
           discription: null,
@@ -18,56 +22,66 @@ const state = {
     {
       label: "Work",
       list: [
-        { label: "Progect", completed: true },
-        { label: "Call to Sam", completed: false },
+        { id: 1, label: "Progect", completed: true },
+        { id: 2, label: "Call to Sam", completed: false },
       ],
     },
     {
       label: "Study",
       list: [
-        { label: "End lection", completed: false },
-        { label: "Create design", completed: true },
+        { id: 1, label: "End lection", completed: false },
+        { id: 2, label: "Create design", completed: true },
       ],
     },
     {
       label: "Family",
       list: [
-        { label: "Call to mam", completed: true },
-        { label: "Buy a doll for Kristy", completed: true },
+        { id: 1, label: "Call to mam", completed: true },
+        { id: 2, label: "Buy a doll for Kristy", completed: true },
       ],
     },
     {
       label: "Anime list",
       list: [
         {
+          id: 1,
           label: "Death Note",
           completed: false,
           discription:
             "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deseruntquisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!",
         },
         {
+          id: 2,
           label: "Fairy Tale",
           completed: true,
           discription: "3rd season is out!",
         },
-        { label: "Naruto", completed: false, discription: "Let`s just try..." },
+        {
+          id: 3,
+          label: "Naruto",
+          completed: false,
+          discription: "Let`s just try...",
+        },
       ],
     },
     {
       label: "Movies",
       list: [
         {
+          id: 1,
           label: "Black horse",
           completed: true,
           discription:
             "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deseruntquisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!",
         },
         {
+          id: 2,
           label: "Black",
           completed: false,
           discription: "3rd season is out!",
         },
         {
+          id: 3,
           label: "Green book",
           completed: false,
           discription: "Let`s just try...",
@@ -131,13 +145,14 @@ const mutations = {
     state.currentType = newType;
   },
 
-  editTodo(state, todo) {
-    if (todo) {
+  editTodo(state, editTodo) {
+    if (editTodo) {
       state.todos.forEach((todoType) => {
         if (todoType.label === state.currentType) {
-          todoType.list.forEach((todos) => {
-            if (todos.label === todo.label) {
-              todos = todo;
+          todoType.list.forEach((todo) => {
+            if (todo.id === editTodo.id) {
+              todo.label = editTodo.label;
+              todo.discription = editTodo.discription;
             }
           });
         }
@@ -149,11 +164,22 @@ const mutations = {
     if (todo) {
       state.todos.forEach((todoType) => {
         if (todoType.label === state.currentType) {
+          todo.id = todoType.list.length;
           todoType.list.push(todo);
         }
       });
     }
   },
+
+  removeTodo(state, id) {
+    state.todos.forEach((todoType) => {
+      if (todoType.label === state.currentType) {
+        const index = indexOfById(todoType.list, id);
+        todoType.list.splice(index, 1);
+      }
+    });
+  },
+
   addTodoType(state, todoType) {
     if (todoType) {
       state.todos.push(todoType);

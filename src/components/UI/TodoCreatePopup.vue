@@ -34,7 +34,7 @@ export default {
     todoDescription(value) {
       if (value !== "") {
         this.isValidDescription = true;
-        this.isValidDescription = value.trim();
+        this.todoDescription = value.trim();
       } else {
         this.isValidDescription = false;
       }

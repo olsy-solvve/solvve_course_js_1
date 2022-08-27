@@ -19,17 +19,22 @@ export default {
     PrimeToast,
   },
   methods: {
-    ...mapMutations("todoStore", ["changeFilter"]),
+    ...mapMutations("todoStore", ["changeFilter", "removeTodo"]),
     ...mapMutations("popupStore", ["openDialog"]),
     openTodoEditPopup() {
       this.openDialog({
         name: popupName.TODO_EDIT_POPUP,
-        props: [],
+        param: this.todo,
       });
     },
-    // showNewType() {
-    //   this.$toast.add({ severity: 'success', summary: 'Success Message', detail: 'Order submitted', life: 3000 });
-    // },
+    showNewType() {
+      this.$toast.add({
+        severity: "success",
+        summary: "Success Message",
+        detail: "Order submitted",
+        life: 3000,
+      });
+    },
   },
 };
 </script>
@@ -42,23 +47,22 @@ export default {
     style="width: 25rem; margin-bottom: 2em"
   >
     <template #title>
-      {{ todo.label }}
+      <h4 class="text-center">
+        {{ todo.label }}
+      </h4>
     </template>
     <template #content>
       <p>{{ todo.discription }}</p>
-      <div class="edit-button">
+      <div class="flex justify-content-end pt-3">
         <BaseButton
           icon="pi pi-pencil"
           class="p-button-rounded"
-          @click.stop=""
-          @click="openTodoEditPopup(todo.label)"
+          @click.stop="openTodoEditPopup"
         />
-      </div>
-      <div class="delete-button">
         <BaseButton
           icon="pi pi-times"
-          class="p-button-rounded p-button-danger"
-          @click.stop=""
+          class="p-button-rounded p-button-danger ml-2"
+          @click.stop="removeTodo(todo.id)"
         />
       </div>
     </template>
