@@ -1,14 +1,15 @@
 <script>
 import TodoList from "@/components/Todo/TodoList.vue";
 import PrimeListBox from "primevue/listbox";
-
 import popupName from "@/enums/popupName.js";
+
 import { mapGetters, mapMutations } from "vuex";
 
 export default {
   data() {
     return {
-      addTodoList: [{ label: "ADD NEW TODO", discription: "" }],
+      todos: [],
+      addTodoList: [{ label: "ADD NEW TODO LIST" }],
     };
   },
   components: {
@@ -17,12 +18,23 @@ export default {
   },
   computed: mapGetters("todoStore", ["getTodosType"]),
   methods: {
+    ...mapMutations("todoStore", ["changeCurrentType"]),
     ...mapMutations("popupStore", ["openDialog"]),
-    openTodoCreatePopup() {
+    openTodoTypeCreatePopup() {
       this.openDialog({
-        name: popupName.TODO_CREATE_POPUP,
+        name: popupName.TODO_TYPE_CREATE_POPUP,
         props: [],
       });
+    },
+
+    getTodosC() {
+      this.todos = this.$store.getters["todoStore/getTodosCompleted"];
+    },
+    getTodosP() {
+      this.todos = this.$store.getters["todoStore/getTodosProgress"];
+    },
+    getTodosAll() {
+      this.todos = this.$store.getters["todoStore/getTodos"];
     },
   },
 };
@@ -32,21 +44,25 @@ export default {
   <div>
     <div class="flex flex-row">
       <div>
-        <PrimeListBox
-          :options="addTodoList"
-          optionLabel="label"
-          @click="openTodoCreatePopup"
-        >
+        <PrimeListBox :options="addTodoList" optionLabel="label" @click="openTodoTypeCreatePopup">
         </PrimeListBox>
         <PrimeListBox :options="getTodosType" optionLabel="label">
           <template #option="slotProps">
-            <div>
+            <div @click="changeCurrentType(slotProps.option.label), getTodosAll()">
               {{ slotProps.option.label }}
             </div>
           </template>
         </PrimeListBox>
       </div>
-      <TodoList />
+      <div>
+        <div class="flex flex-row">
+          <BaseButton @click="getTodosAll" label="All" class="p-button-success ml-2" />
+          <BaseButton @click="getTodosP" label="In progress" class="p-button-success ml-2" />
+          <BaseButton @click="getTodosC" label="Done" class="p-button-success ml-2" />
+          <BaseButton label="Delete list" class="p-button-danger ml-2" />
+        </div>
+        <TodoList :todos="todos" />
+      </div>
     </div>
   </div>
 </template>
@@ -69,8 +85,8 @@ body {
   padding-left: 320px;
 }
 
-.isComplete {
+.isDone {
   opacity: 0.5;
-  background-color: rgba(255, 255, 255, 0.861);
+  background-color: rgb(255, 255, 255);
 }
 </style>
