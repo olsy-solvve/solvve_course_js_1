@@ -1,4 +1,5 @@
 <script>
+import MainComponent from "@/components/Base/MainComponent.vue";
 import TodoList from "@/components/Todo/TodoList.vue";
 import PrimeListBox from "primevue/listbox";
 import popupName from "@/enums/popupName.js";
@@ -14,6 +15,7 @@ export default {
     };
   },
   components: {
+    MainComponent,
     TodoList,
     PrimeListBox,
     BaseButton,
@@ -48,56 +50,60 @@ export default {
 </script>
 
 <template>
-  <div class="h-screen">
-    <div class="flex flex-row">
-      <div>
-        <PrimeListBox
-          :options="addTodoList"
-          optionLabel="label"
-          @click="openTodoTypeCreatePopup"
-        >
-        </PrimeListBox>
-        <PrimeListBox :options="getTodosType" optionLabel="label">
-          <template #option="slotProps">
-            <div
-              @click="changeCurrentType(slotProps.option.label), getTodosAll()"
-            >
-              {{ slotProps.option.label }}
-            </div>
-          </template>
-        </PrimeListBox>
-      </div>
-      <div class="m-2">
-        <div class="flex flex-row justify-content-between p-2">
-          <BaseButton
-            @click="getTodosAll"
-            label="All"
-            class="p-button-success ml-2 p-button-rounded"
-          />
-          <BaseButton
-            @click="getTodosP"
-            label="In progress"
-            class="p-button-success ml-2 p-button-rounded"
-          />
-          <BaseButton
-            @click="getTodosC"
-            label="Done"
-            class="p-button-success ml-2 p-button-rounded"
-          />
-          <BaseButton
-            icon="pi pi-plus"
-            class="p-button-success ml-2 p-button-rounded"
-            @click="openTodoCreatePopup"
-          />
-          <BaseButton
-            label="Delete list"
-            class="p-button-danger ml-2 p-button-rounded"
-          />
+  <MainComponent>
+    <div class="h-screen">
+      <div class="flex flex-row">
+        <div>
+          <PrimeListBox
+            :options="addTodoList"
+            optionLabel="label"
+            @click="openTodoTypeCreatePopup"
+          >
+          </PrimeListBox>
+          <PrimeListBox :options="getTodosType" optionLabel="label">
+            <template #option="slotProps">
+              <div
+                @click="
+                  changeCurrentType(slotProps.option.label), getTodosAll()
+                "
+              >
+                {{ slotProps.option.label }}
+              </div>
+            </template>
+          </PrimeListBox>
         </div>
-        <TodoList :todos="todos" />
+        <div class="m-2">
+          <div class="flex flex-row justify-content-between p-2">
+            <BaseButton
+              @click="getTodosAll"
+              label="All"
+              class="p-button-success ml-2 p-button-rounded"
+            />
+            <BaseButton
+              @click="getTodosP"
+              label="In progress"
+              class="p-button-success ml-2 p-button-rounded"
+            />
+            <BaseButton
+              @click="getTodosC"
+              label="Done"
+              class="p-button-success ml-2 p-button-rounded"
+            />
+            <BaseButton
+              icon="pi pi-plus"
+              class="p-button-success ml-2 p-button-rounded"
+              @click="openTodoCreatePopup"
+            />
+            <BaseButton
+              label="Delete list"
+              class="p-button-danger ml-2 p-button-rounded"
+            />
+          </div>
+          <TodoList :todos="todos" />
+        </div>
       </div>
     </div>
-  </div>
+  </MainComponent>
 </template>
 
 <style>

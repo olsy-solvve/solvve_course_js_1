@@ -23,7 +23,7 @@ export default {
   },
   computed: {
     ...mapGetters("userStore", ["getUserConfirmation"]),
-    ...mapGetters("routerStore", ["getRoutes"]),
+    ...mapGetters("routerStore", ["getRoutesToHeader"]),
   },
   components: {
     PrimeMenubar,
@@ -34,7 +34,7 @@ export default {
 
 <template>
   <header class="sticky top-0 left-0 z-5 w-full bg-surface-300">
-    <PrimeMenubar :model="getRoutes" class="p-1 header-menu">
+    <PrimeMenubar :model="getRoutesToHeader" class="p-1 header-menu">
       <template #start>
         <div
           class="flex flex-1 flex-row align-items-center justify-content-start pl-2"

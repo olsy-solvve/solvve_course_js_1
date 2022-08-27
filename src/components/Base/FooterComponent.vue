@@ -1,6 +1,9 @@
 <script>
 import PrimeCard from "primevue/card";
+import { mapMutations } from "vuex";
+
 import routesName from "@/enums/routesName";
+import popupName from "@/enums/popupName.js";
 
 export default {
   name: "FooterComponent",
@@ -32,8 +35,15 @@ export default {
     };
   },
   methods: {
+    ...mapMutations("popupStore", ["openDialog"]),
     docRoute() {
       this.$router.push({ name: routesName.Doc });
+    },
+    openPrivacyPolicy() {
+      this.openDialog({
+        name: popupName.PRIVACY_POLICY_POPUP,
+        props: [],
+      });
     },
   },
   components: {
@@ -94,7 +104,10 @@ export default {
         <div class="col-12">
           <div class="text-center">
             <div class="flex justify-content-center gap-3">
-              <a href="#" class="no-underline text-green-700 cursor-pointer"
+              <a
+                href="#"
+                class="no-underline text-green-700 cursor-pointer"
+                @click="openPrivacyPolicy"
                 >Privacy Policy</a
               >
               <a href="#" class="no-underline text-green-700 cursor-pointer"
