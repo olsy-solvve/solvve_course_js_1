@@ -27,19 +27,26 @@ export default {
 </script>
 
 <template>
-  <div class="grid col-12">
+  <div class="grid col-12 m-0 p-0">
     <div class="col-12 bg-pink-800">
-      <div class="col-12">
+      <div class="flex flex-row justify-content-center align-items-center">
         <p class="text-xs sm:text-base lg:text-lg text-300">
           Join us to github, a conference by Solvve, in Dnipro
         </p>
-        <a href="https://github.com/olsy-solvve/solvve_course_js_1" class="github-link">
-          <BaseButton label="Move" icon="pi pi-heart-fill" class="p-button-warning text-pink-800 p-button-sm" />
+        <a
+          href="https://github.com/olsy-solvve/solvve_course_js_1"
+          class="no-underline"
+        >
+          <BaseButton
+            label="Move"
+            icon="pi pi-heart-fill"
+            class="p-button-warning text-pink-800 p-button-sm ml-2"
+          />
         </a>
       </div>
     </div>
-    <div class="col-12 sm:col-10 lg:col-6">
-      <div class="text-center col-12 lg:col-6 col-offset-0 sm:col-offset-6">
+    <div class="col-12 lg:col-6 p-1 sm:p-3">
+      <div class="text-center col-12 md:col-10 col-offset-0 md:col-offset-2">
         <h3>
           Sure, we`ve been around the block. We probably worked with the people
           who built it.
@@ -53,15 +60,15 @@ export default {
           suscipit tellus mauris a.
         </p>
       </div>
-      <div class="col-12 lg:col-8">
+      <div class="col-12 md:col-10">
         <img alt="home" src="@/assets/home_1.svg" />
       </div>
     </div>
-    <div class="col-12 sm:col-10 lg:col-6">
-      <div class="col-12 lg:col-8 col-offset-0 sm:col-offset-4">
+    <div class="col-12 lg:col-6 p-1 sm:p-3">
+      <div class="col-12 md:col-10 col-offset-0 md:col-offset-2">
         <img alt="home" src="@/assets/home_2.jpeg" />
       </div>
-      <div class="col-12 lg:col-8">
+      <div class="col-12 md:col-10">
         <h3 class="text-center">
           Earning your business with experience, expertise, and trust.
         </h3>
@@ -78,14 +85,14 @@ export default {
         </ul>
       </div>
     </div>
-    <div class="col-12 p-3">
+    <div class="col-12 p-2 sm:p-3">
       <h3 class="text-center">
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet
         libero, non maxime eius quaerat assumenda. Id tenetur quod est, rerum
         reprehenderit omnis asperiores quasi recusandae hic corrupti voluptatum,
         commodi quae!
       </h3>
-      <p>
+      <p class="text-justify">
         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusantium,
         temporibus nostrum, reprehenderit error vitae reiciendis aliquam
         voluptatibus eos perspiciatis iusto quos neque hic deserunt dignissimos
@@ -108,8 +115,4 @@ export default {
   </div>
 </template>
 
-<style>
-.github-link {
-  text-decoration: none;
-}
-</style>
+<style></style>
