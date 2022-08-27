@@ -42,7 +42,21 @@ export default {
         <template #content>
           <div class="col-12">
             <h2 class="text-center mb-2">Sample Privacy Policy Template</h2>
-            <p class="text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio molestiae totam quam ex minima voluptatum iste officia nam perspiciatis? Amet ex corrupti vel architecto! Ipsum numquam tenetur atque praesentium omnis sint reprehenderit quidem non assumenda ratione placeat quod officia vel, quae doloribus maiores. Consequatur consequuntur earum magni sequi laudantium dignissimos tempora error quas, ut aspernatur modi quo mollitia expedita odio! Quam accusamus exercitationem atque temporibus quos. Expedita fugiat recusandae excepturi eos doloribus esse adipisci corrupti, ut cupiditate vero maiores sit. Assumenda expedita explicabo quas fugit ipsum! Qui, in eligendi quis, eaque eveniet quam illum doloremque nemo consequuntur enim explicabo voluptas?</p>
+            <p class="text-justify">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio
+              molestiae totam quam ex minima voluptatum iste officia nam
+              perspiciatis? Amet ex corrupti vel architecto! Ipsum numquam
+              tenetur atque praesentium omnis sint reprehenderit quidem non
+              assumenda ratione placeat quod officia vel, quae doloribus
+              maiores. Consequatur consequuntur earum magni sequi laudantium
+              dignissimos tempora error quas, ut aspernatur modi quo mollitia
+              expedita odio! Quam accusamus exercitationem atque temporibus
+              quos. Expedita fugiat recusandae excepturi eos doloribus esse
+              adipisci corrupti, ut cupiditate vero maiores sit. Assumenda
+              expedita explicabo quas fugit ipsum! Qui, in eligendi quis, eaque
+              eveniet quam illum doloremque nemo consequuntur enim explicabo
+              voluptas?
+            </p>
           </div>
         </template>
         <template #footer>

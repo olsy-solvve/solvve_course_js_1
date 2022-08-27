@@ -23,7 +23,6 @@ const getters = {
     return isEmptyObject(state.currentUser);
   },
   isEmailExist: (state) => (email) => {
-    console.log(state.users.some((user) => user.email === email));
     return state.users.some((user) => user.email === email);
   },
   isUserValid: (state) => (recieveUser) => {
@@ -37,22 +36,25 @@ const getters = {
 
 const actions = {
   login: (context, user) => {
-    console.log(user);
-
-    if (user) {
-      state.currentUser = user;
-      context.commit("routerStore/enableButtons");
-    }
+    context.commit("login", user);
+    context.commit("routerStore/enableButtons", null, { root: true });
   },
   logout: (context) => {
-    state.currentUser = {};
-    context.commit("routerStore/disabledButtons");
+    context.commit("logout");
+    context.commit("routerStore/disabledButtons", null, { root: true });
   },
 };
 
 const mutations = {
+  login(state, user) {
+    if (user) {
+      state.currentUser = user;
+    }
+  },
+  logout(state) {
+    state.currentUser = {};
+  },
   registration: (state, user) => {
-    console.log(user);
     user.id = state.users.length + 1;
     state.users.push(user);
   },

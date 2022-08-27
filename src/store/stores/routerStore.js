@@ -37,14 +37,14 @@ const actions = {};
 const mutations = {
   disabledButtons(state) {
     state.routes.forEach((route) => {
-      if (route.label === "TODO" && route.label === "ARCHIVE") {
+      if (route.label === "TODO" || route.label === "ARCHIVE") {
         route.disabled = true;
       }
     });
   },
   enableButtons(state) {
     state.routes.forEach((route) => {
-      if (route.label === "TODO" && route.label === "ARCHIVE") {
+      if (route.label === "TODO" || route.label === "ARCHIVE") {
         route.disabled = false;
       }
     });

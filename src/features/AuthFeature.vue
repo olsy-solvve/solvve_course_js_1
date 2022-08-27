@@ -50,7 +50,7 @@ export default {
     ...mapGetters("userStore", ["isEmailExist", "isUserValid"]),
   },
   methods: {
-    ...mapActions('userStore', ['login']),
+    ...mapActions("userStore", ["login"]),
     ...mapMutations("userStore", ["registration"]),
     ...mapMutations("popupStore", ["openDialog"]),
     switching() {
@@ -85,13 +85,13 @@ export default {
       };
       if (this.isUserValid(user) && this.isValidEmail && this.isValidPassword) {
         this.login(user);
-        this.$router.push({name: routesName.HOME});
+        this.$router.push({ name: routesName.HOME });
       } else {
         alert("Information in field not valid for auth");
       }
     },
     openPrivacyPolicy() {
-       this.openDialog({
+      this.openDialog({
         name: popupName.PRIVACY_POLICY_POPUP,
         props: [],
       });
