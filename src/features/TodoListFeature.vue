@@ -4,6 +4,7 @@ import PrimeListBox from "primevue/listbox";
 import popupName from "@/enums/popupName.js";
 
 import { mapGetters, mapMutations } from "vuex";
+import BaseButton from "../components/UI/BaseButton.vue";
 
 export default {
   data() {
@@ -15,6 +16,7 @@ export default {
   components: {
     TodoList,
     PrimeListBox,
+    BaseButton,
   },
   computed: mapGetters("todoStore", ["getTodosType"]),
   methods: {
@@ -26,7 +28,12 @@ export default {
         props: [],
       });
     },
-
+    openTodoCreatePopup() {
+      this.openDialog({
+        name: popupName.TODO_CREATE_POPUP,
+        props: [],
+      });
+    },
     getTodosC() {
       this.todos = this.$store.getters["todoStore/getTodosCompleted"];
     },
@@ -41,7 +48,7 @@ export default {
 </script>
 
 <template>
-  <div>
+  <div class="h-screen">
     <div class="flex flex-row">
       <div>
         <PrimeListBox
@@ -60,24 +67,32 @@ export default {
           </template>
         </PrimeListBox>
       </div>
-      <div>
-        <div class="flex flex-row">
+      <div class="m-2">
+        <div class="flex flex-row justify-content-between p-2">
           <BaseButton
             @click="getTodosAll"
             label="All"
-            class="p-button-success ml-2"
+            class="p-button-success ml-2 p-button-rounded"
           />
           <BaseButton
             @click="getTodosP"
             label="In progress"
-            class="p-button-success ml-2"
+            class="p-button-success ml-2 p-button-rounded"
           />
           <BaseButton
             @click="getTodosC"
             label="Done"
-            class="p-button-success ml-2"
+            class="p-button-success ml-2 p-button-rounded"
           />
-          <BaseButton label="Delete list" class="p-button-danger ml-2" />
+          <BaseButton
+            icon="pi pi-plus"
+            class="p-button-success ml-2 p-button-rounded"
+            @click="openTodoCreatePopup"
+          />
+          <BaseButton
+            label="Delete list"
+            class="p-button-danger ml-2 p-button-rounded"
+          />
         </div>
         <TodoList :todos="todos" />
       </div>
