@@ -21,6 +21,11 @@ const routes = [
     component: () => import("@/features/DocFeature.vue"),
   },
   {
+    path: "/auth",
+    name: routesName.AUTH,
+    component: () => import("@/features/AuthFeature.vue"),
+  },
+  {
     path: "/:pathMatch(.*)*",
     name: routesName.NOT_FOUND,
     component: () => import("@/features/NotFoundFeature.vue"),
