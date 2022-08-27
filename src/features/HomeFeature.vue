@@ -20,8 +20,8 @@ export default {
       this.openDialog({
         name: popupName.TODO_TYPE_CREATE_POPUP,
         props: [],
-      })
-    }
+      });
+    },
   },
 };
 </script>

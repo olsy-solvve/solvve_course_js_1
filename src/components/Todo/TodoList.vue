@@ -15,7 +15,7 @@ export default {
     todos: {
       type: Object,
       required: true,
-    }
+    },
   },
   components: {
     TodoItem,
@@ -39,7 +39,10 @@ export default {
 
 <template>
   <div class="flex flex-column">
-    <PrimeCard style="width: 25rem; margin-bottom: 2em" @click="openTodoCreatePopup">
+    <PrimeCard
+      style="width: 25rem; margin-bottom: 2em"
+      @click="openTodoCreatePopup"
+    >
       <template #title>
         {{ addTodoCard[0].label }}
       </template>
