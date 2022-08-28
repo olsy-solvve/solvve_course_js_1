@@ -29,9 +29,9 @@ export default {
     },
     showNewType() {
       this.$toast.add({
-        severity: "success",
-        summary: "Success Message",
-        detail: "Order submitted",
+        severity: "info",
+        summary: "HEY!",
+        detail: "You changed your TODO`s completing! Be careful!",
         life: 3000,
       });
     },
@@ -40,7 +40,7 @@ export default {
 </script>
 
 <template>
-  <PrimeToast position="bottom-right" />
+  <PrimeToast position="bottom-right" class="opacityToast"/>
   <PrimeCard
     @click="changeFilter(todo.label), showNewType()"
     :class="{ isDone: todo.completed }"
@@ -69,4 +69,8 @@ export default {
   </PrimeCard>
 </template>
 
-<style></style>
+<style>
+.opacityToast {
+  opacity: 0.5;
+}
+</style>

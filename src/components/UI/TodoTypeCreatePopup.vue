@@ -41,6 +41,8 @@ export default {
         this.addTodoType({
           label: this.todoTypeTitle,
           list: [],
+          removed: false,
+          fullRemoved: false,
         });
         this.close();
       }
@@ -56,38 +58,22 @@ export default {
 
 <template>
   <div>
-    <PrimeDialog
-      v-model:visible="dialog"
-      class="w-full sm:w-4 md:w-6 xl:w-4 p-0"
-    >
+    <PrimeDialog v-model:visible="dialog" class="w-full sm:w-4 md:w-6 xl:w-4 p-0">
       <PrimeCard>
         <template #content>
           <div class="col-12">
             <div class="flex flex-column field">
               <label for="title">Title</label>
-              <PrimeInputText
-                v-model="todoTypeTitle"
-                id="title"
-                name="title"
-                type="text"
-                aria-describedby="title-help"
-                :class="{ 'p-invalid': !isValidTitle }"
-              />
-              <small v-show="!isValidTitle" id="title-help" class="p-error"
-                >Title is empty.</small
-              >
+              <PrimeInputText v-model="todoTypeTitle" id="title" name="title" type="text" aria-describedby="title-help"
+                :class="{ 'p-invalid': !isValidTitle }" />
+              <small v-show="!isValidTitle" id="title-help" class="p-error">Title is empty.</small>
             </div>
           </div>
         </template>
         <template #footer>
           <div class="flex justify-content-evenly">
             <BaseButton icon="pi pi-check" label="Save" @click="saveTodoType" />
-            <BaseButton
-              icon="pi pi-times"
-              label="Cancel"
-              class="p-button-secondary ml-1"
-              @click="close"
-            />
+            <BaseButton icon="pi pi-times" label="Cancel" class="p-button-secondary ml-1" @click="close" />
           </div>
         </template>
       </PrimeCard>
@@ -95,4 +81,5 @@ export default {
   </div>
 </template>
 
-<style></style>
+<style>
+</style>
