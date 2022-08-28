@@ -2,10 +2,10 @@
 import MainComponent from "@/components/Base/MainComponent.vue";
 import TodoList from "@/components/Todo/TodoList.vue";
 import PrimeListBox from "primevue/listbox";
+import PrimeOverlayPanel from "primevue/overlaypanel";
 import popupName from "@/enums/popupName.js";
 
 import { mapGetters, mapMutations } from "vuex";
-import BaseButton from "../components/UI/BaseButton.vue";
 
 export default {
   data() {
@@ -18,7 +18,7 @@ export default {
     MainComponent,
     TodoList,
     PrimeListBox,
-    BaseButton,
+    PrimeOverlayPanel,
   },
   computed: mapGetters("todoStore", ["getTodosType"]),
   methods: {
@@ -45,59 +45,103 @@ export default {
     getTodosAll() {
       this.todos = this.$store.getters["todoStore/getTodos"];
     },
+    toggleFilters(event) {
+      this.$refs.filters.toggle(event);
+    },
+    filterSelected() {
+      this.$refs.filters.hide();
+    },
   },
 };
 </script>
 
 <template>
   <MainComponent>
-    <div class="h-screen">
-      <div class="flex flex-row">
-        <div>
-          <PrimeListBox
-            :options="addTodoList"
-            optionLabel="label"
-            @click="openTodoTypeCreatePopup"
-          >
-          </PrimeListBox>
-          <PrimeListBox :options="getTodosType" optionLabel="label">
-            <template #option="slotProps">
-              <div
-                @click="
-                  changeCurrentType(slotProps.option.label), getTodosAll()
-                "
-              >
-                {{ slotProps.option.label }}
-              </div>
-            </template>
-          </PrimeListBox>
-        </div>
-        <div class="m-2">
-          <div class="flex flex-row justify-content-between p-2">
+    <div class="w-full">
+      <div class="grid grid-nogutter h-auto sm:h-screen">
+        <div class="col-12 sm:col-2 md:col-4 lg:col-2 surface-200">
+          <div class="flex flex-column justify-content-center">
             <BaseButton
-              @click="getTodosAll"
-              label="All"
-              class="p-button-success ml-2 p-button-rounded"
-            />
-            <BaseButton
-              @click="getTodosP"
-              label="In progress"
-              class="p-button-success ml-2 p-button-rounded"
-            />
-            <BaseButton
-              @click="getTodosC"
-              label="Done"
-              class="p-button-success ml-2 p-button-rounded"
-            />
-            <BaseButton
+              label="List"
               icon="pi pi-plus"
-              class="p-button-success ml-2 p-button-rounded"
-              @click="openTodoCreatePopup"
+              class="p-button-rounded p-button-success mb-2 mt-2 m-auto p-button-sm md:p-button"
+              @click="openTodoTypeCreatePopup"
             />
-            <BaseButton
-              label="Delete list"
-              class="p-button-danger ml-2 p-button-rounded"
-            />
+            <PrimeListBox :options="getTodosType" optionLabel="label">
+              <template #option="slotProps">
+                <div
+                  @click="
+                    changeCurrentType(slotProps.option.label), getTodosAll()
+                  "
+                >
+                  {{ slotProps.option.label }}
+                </div>
+              </template>
+            </PrimeListBox>
+          </div>
+        </div>
+        <div class="col-12 sm:col-10 md:col-8 lg:col-10 pl-3">
+          <div class="flex flex-row justify-content-between p-2">
+            <div class="hidden md:flex sm:flex-row">
+              <BaseButton
+                @click="getTodosAll"
+                label="All"
+                class="p-button-success p-button-rounded p-button-sm md:p-button"
+              />
+              <BaseButton
+                @click="getTodosP"
+                label="In Progress"
+                class="p-button-success ml-2 p-button-rounded p-button-sm md:p-button"
+              />
+              <BaseButton
+                @click="getTodosC"
+                label="Done"
+                class="p-button-success ml-2 p-button-rounded p-button-sm md:p-button"
+              />
+            </div>
+            <div class="flex md:hidden">
+              <BaseButton
+                icon="pi pi-filter"
+                @click="toggleFilters"
+                aria-haspopup="true"
+                aria-controls="filtersPopup"
+                class="p-button-success p-button-rounded"
+              />
+              <PrimeOverlayPanel
+                ref="filters"
+                appendTo="body"
+                id="filtersPopup"
+              >
+                <div class="flex justify-content-center">
+                  <BaseButton
+                    @click="getTodosAll(), filterSelected()"
+                    label="All"
+                    class="p-button-success p-button-rounded p-button-sm"
+                  />
+                  <BaseButton
+                    @click="getTodosP(), filterSelected()"
+                    label="In Progress"
+                    class="p-button-success ml-2 p-button-rounded p-button-sm"
+                  />
+                  <BaseButton
+                    @click="getTodosC(), filterSelected()"
+                    label="Done"
+                    class="p-button-success ml-2 p-button-rounded p-button-sm"
+                  />
+                </div>
+              </PrimeOverlayPanel>
+            </div>
+            <div>
+              <BaseButton
+                icon="pi pi-plus"
+                class="p-button-success p-button-rounded p-button-sm md:p-button"
+                @click="openTodoCreatePopup"
+              />
+              <BaseButton
+                label="Delete List"
+                class="p-button-danger ml-2 p-button-rounded p-button-sm md:p-button"
+              />
+            </div>
           </div>
           <TodoList :todos="todos" />
         </div>

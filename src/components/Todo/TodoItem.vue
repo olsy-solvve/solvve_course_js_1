@@ -44,7 +44,7 @@ export default {
   <PrimeCard
     @click="changeFilter(todo.label), showNewType()"
     :class="{ isDone: todo.completed }"
-    style="width: 25rem; margin-bottom: 2em"
+    class="w-screen md:w-20rem lg:w-15rem mb-2"
   >
     <template #title>
       <h4 class="text-center">
