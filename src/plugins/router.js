@@ -1,36 +1,7 @@
 import { createWebHistory, createRouter } from "vue-router";
+import store from "@/store";
 
-import HomeFeature from "@/features/HomeFeature.vue";
-import routesName from "@/enums/routesName.js";
-
-const routes = [
-  { path: "/", name: routesName.HOME, component: HomeFeature },
-  {
-    path: "/todo",
-    name: routesName.TODO,
-    component: () => import("@/features/TodoListFeature.vue"),
-  },
-  {
-    path: "/archive",
-    name: routesName.ARCHIVE,
-    component: () => import("@/features/ArchiveFeature.vue"),
-  },
-  {
-    path: "/doc",
-    name: routesName.DOC,
-    component: () => import("@/features/DocFeature.vue"),
-  },
-  {
-    path: "/auth",
-    name: routesName.AUTH,
-    component: () => import("@/features/AuthFeature.vue"),
-  },
-  {
-    path: "/:pathMatch(.*)*",
-    name: routesName.NOT_FOUND,
-    component: () => import("@/features/NotFoundFeature.vue"),
-  },
-];
+const routes = store.getters["routerStore/getRoutesToRouter"];
 
 const router = createRouter({
   history: createWebHistory(),

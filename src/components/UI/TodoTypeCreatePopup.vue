@@ -41,6 +41,8 @@ export default {
         this.addTodoType({
           label: this.todoTypeTitle,
           list: [],
+          removed: false,
+          fullRemoved: false,
         });
         this.close();
       }

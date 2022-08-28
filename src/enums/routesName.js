@@ -3,7 +3,7 @@ export default {
   TODO: "Todo",
   ARCHIVE: "Archive",
   DOC: "Doc",
-  NOT_FOUND: "NotFound",
   AUTH: "Auth",
   ABOUT: "About",
+  NOT_FOUND: "NotFound",
 };

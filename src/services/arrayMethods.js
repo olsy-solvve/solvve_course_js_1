@@ -17,3 +17,17 @@ export const indexOfByName = (array, name) => {
   });
   return target;
 };
+
+export const sortTodo = (array, currentType) => {
+  const todoList = [];
+  array.forEach((todoType) => {
+    if (todoType.label === currentType) {
+      todoType.list.forEach((todo) => {
+        if (todo.removed === false) {
+          todoList.push(todo);
+        }
+      });
+    }
+  });
+  return todoList;
+};
