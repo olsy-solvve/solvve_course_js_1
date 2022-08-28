@@ -23,9 +23,4 @@ export default {
   </div>
 </template>
 
-<style>
-.isComplete {
-  opacity: 0.5;
-  background-color: rgba(255, 255, 255, 0.861);
-}
-</style>
+<style></style>

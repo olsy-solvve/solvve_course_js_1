@@ -20,9 +20,18 @@ export default {
     PrimeListBox,
     PrimeOverlayPanel,
   },
-  computed: mapGetters("todoStore", ["getTodosType"]),
+  computed: mapGetters("todoStore", [
+    "getTodosTypes",
+    "getTodos",
+    "getTodosProgress",
+    "getTodosCompleted",
+  ]),
   methods: {
-    ...mapMutations("todoStore", ["changeCurrentType"]),
+    ...mapMutations("todoStore", [
+      "changeCurrentType",
+      "removeTodoType",
+      "clearList",
+    ]),
     ...mapMutations("popupStore", ["openDialog"]),
     openTodoTypeCreatePopup() {
       this.openDialog({
@@ -36,20 +45,23 @@ export default {
         props: [],
       });
     },
-    getTodosC() {
-      this.todos = this.$store.getters["todoStore/getTodosCompleted"];
+    getTodosAll() {
+      this.todos = this.getTodos;
     },
     getTodosP() {
-      this.todos = this.$store.getters["todoStore/getTodosProgress"];
+      this.todos = this.getTodosProgress;
     },
-    getTodosAll() {
-      this.todos = this.$store.getters["todoStore/getTodos"];
+    getTodosC() {
+      this.todos = this.getTodosCompleted;
     },
     toggleFilters(event) {
       this.$refs.filters.toggle(event);
     },
     filterSelected() {
       this.$refs.filters.hide();
+    },
+    removeList(typeName) {
+      this.removeTodoType(typeName);
     },
   },
 };
@@ -67,14 +79,19 @@ export default {
               class="p-button-rounded p-button-success mb-2 mt-2 m-auto p-button-sm md:p-button"
               @click="openTodoTypeCreatePopup"
             />
-            <PrimeListBox :options="getTodosType" optionLabel="label">
+            <PrimeListBox :options="getTodosTypes" optionLabel="label">
               <template #option="slotProps">
                 <div
                   @click="
                     changeCurrentType(slotProps.option.label), getTodosAll()
                   "
+                  class="flex flex-row justify-content-between align-items-center"
                 >
                   {{ slotProps.option.label }}
+                  <i
+                    class="pi pi-times"
+                    @click.stop="removeList(slotProps.option.label)"
+                  ></i>
                 </div>
               </template>
             </PrimeListBox>
@@ -138,8 +155,9 @@ export default {
                 @click="openTodoCreatePopup"
               />
               <BaseButton
-                label="Delete List"
+                label="Clear List"
                 class="p-button-danger ml-2 p-button-rounded p-button-sm md:p-button"
+                @click="clearList"
               />
             </div>
           </div>

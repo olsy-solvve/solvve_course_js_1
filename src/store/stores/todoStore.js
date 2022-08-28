@@ -1,10 +1,10 @@
-import { indexOfById } from "@/services/arrayMethods";
+import { indexOfById, sortTodo } from "@/services/arrayMethods";
 
 const state = {
   todos: [
     {
       label: "Home things",
-      removed: true,
+      removed: false,
       fullRemoved: false,
       list: [
         {
@@ -25,13 +25,14 @@ const state = {
     },
     {
       label: "Work",
-      removed: false,
+      removed: true,
       fullRemoved: false,
       list: [
         {
-          id: 1, label: "Progect",
+          id: 1,
+          label: "Progect",
           removed: false,
-          completed: true
+          completed: true,
         },
         { id: 2, removed: false, label: "Call to Sam", completed: false },
       ],
@@ -51,7 +52,12 @@ const state = {
       fullRemoved: false,
       list: [
         { id: 1, removed: false, label: "Call to mam", completed: true },
-        { id: 2, removed: false, label: "Buy a doll for Kristy", completed: true },
+        {
+          id: 2,
+          removed: false,
+          label: "Buy a doll for Kristy",
+          completed: true,
+        },
       ],
     },
     {
@@ -93,8 +99,7 @@ const state = {
           label: "Black horse",
           completed: true,
           removed: false,
-          discription:
-            "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+          discription: "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
         },
         {
           id: 2,
@@ -113,10 +118,34 @@ const state = {
       ],
     },
   ],
-  currentType: "",
+  currentType: "Home things",
 };
 
 const getters = {
+  getTodosTypes: (state) => {
+    let typeList = [];
+    state.todos.forEach((todo) => {
+      if (todo.removed !== true) {
+        typeList.push(todo);
+      }
+    });
+    return typeList;
+  },
+
+  getTodos: (state) => {
+    return sortTodo(state.todos, state.currentType);
+  },
+
+  getTodosProgress: (state) => {
+    const todoList = sortTodo(state.todos, state.currentType);
+    return todoList.filter((todo) => !todo.completed);
+  },
+
+  getTodosCompleted: (state) => {
+    const todoList = sortTodo(state.todos, state.currentType);
+    return todoList.filter((todo) => todo.completed);
+  },
+
   getRemovedType: (state) => {
     const type = [];
     state.todos.forEach((todoType) => {
@@ -124,12 +153,11 @@ const getters = {
         type.push(todoType);
       }
     });
-
     return type;
   },
 
   getRemovedTodos: (state) => {
-    let todoList = [];
+    const todoList = [];
     state.todos.forEach((todoType) => {
       if (todoType.label === state.currentType) {
         todoType.list.forEach((todo) => {
@@ -141,57 +169,21 @@ const getters = {
     });
     return todoList;
   },
-
-  getTodosType: (state) => {
-    return state.todos;
-  },
-
-  getTodos: (state) => {
-    let todoList = [];
-    state.todos.forEach((todo) => {
-      if (todo.label === state.currentType) {
-        todoList = todo.list;
-      }
-    });
-    return todoList;
-  },
-
-  getTodosProgress: () => {
-    let todoList = [];
-    state.todos.forEach((todo) => {
-      if (todo.label === state.currentType) {
-        todoList = todo.list;
-      }
-    });
-    return todoList.filter((todo) => !todo.completed);
-  },
-
-  getTodosCompleted: () => {
-    let todoList = [];
-    state.todos.forEach((todo) => {
-      if (todo.label === state.currentType) {
-        todoList = todo.list;
-      }
-    });
-
-    return todoList.filter((todo) => todo.completed);
-  },
 };
+
 const actions = {};
 
 const mutations = {
-  changeFilter(state, thatLabel) {
-    state.todos.forEach((type) => {
-      if (type.label === state.currentType) {
-        type.list.forEach((item) => {
-          item.label === thatLabel ? (item.completed = !item.completed) : 0;
-        });
-      }
-    });
-  },
-
-  changeCurrentType(state, newType) {
-    state.currentType = newType;
+  addTodo(state, todo) {
+    if (todo) {
+      state.todos.forEach((todoType) => {
+        if (todoType.label === state.currentType) {
+          todo.id = todoType.list.length;
+          todo.removed = false;
+          todoType.list.push(todo);
+        }
+      });
+    }
   },
 
   editTodo(state, editTodo) {
@@ -209,16 +201,14 @@ const mutations = {
     }
   },
 
-  addTodo(state, todo) {
-    if (todo) {
-      state.todos.forEach((todoType) => {
-        if (todoType.label === state.currentType) {
-          todo.id = todoType.list.length;
-          todo.removed = false;
-          todoType.list.push(todo);
-        }
-      });
-    }
+  changeStateExecution(state, thatLabel) {
+    state.todos.forEach((type) => {
+      if (type.label === state.currentType) {
+        type.list.forEach((item) => {
+          item.label === thatLabel ? (item.completed = !item.completed) : 0;
+        });
+      }
+    });
   },
 
   removeTodo(state, id) {
@@ -230,10 +220,34 @@ const mutations = {
     });
   },
 
-  addTodoType(state, todoType) {
-    if (todoType) {
-      state.todos.push(todoType);
+  clearList(state) {
+    state.todos.forEach((todoType) => {
+      if (todoType.label === state.currentType) {
+        todoType.list.forEach((todo) => {
+          todo.removed = true;
+        });
+        console.log(todoType.list);
+      }
+    });
+  },
+
+  addTodoType(state, typeName) {
+    if (typeName) {
+      state.todos.push(typeName);
     }
+  },
+
+  changeCurrentType(state, newType) {
+    console.log(newType);
+    state.currentType = newType;
+  },
+
+  removeTodoType(state, typeName) {
+    state.todos.forEach((todoType) => {
+      if (todoType.label === typeName) {
+        todoType.removed = true;
+      }
+    });
   },
 };
 

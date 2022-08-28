@@ -19,7 +19,7 @@ export default {
     PrimeToast,
   },
   methods: {
-    ...mapMutations("todoStore", ["changeFilter", "removeTodo"]),
+    ...mapMutations("todoStore", ["changeStateExecution", "removeTodo"]),
     ...mapMutations("popupStore", ["openDialog"]),
     openTodoEditPopup() {
       this.openDialog({
@@ -32,7 +32,7 @@ export default {
         severity: "info",
         summary: "HEY!",
         detail: "You changed your TODO`s completing! Be careful!",
-        life: 3000,
+        life: 2000,
       });
     },
   },
@@ -40,10 +40,10 @@ export default {
 </script>
 
 <template>
-  <PrimeToast position="bottom-right" class="opacityToast"/>
+  <PrimeToast position="bottom-right" class="opacityToast" />
   <PrimeCard
-    @click="changeFilter(todo.label), showNewType()"
-    :class="{ isDone: todo.completed }"
+    @click="changeStateExecution(todo.label), showNewType()"
+    :class="{ isComplete: todo.completed }"
     class="w-screen md:w-20rem lg:w-15rem mb-2"
   >
     <template #title>
@@ -72,5 +72,9 @@ export default {
 <style>
 .opacityToast {
   opacity: 0.5;
+}
+.isComplete {
+  opacity: 0.5;
+  background-color: rgba(255, 255, 255, 0.861);
 }
 </style>

@@ -35,7 +35,11 @@ export default {
         <div>
           <PrimeListBox :options="getRemovedType" optionLabel="label">
             <template #option="slotProps">
-              <div @click="changeCurrentType(slotProps.option.label), getRemovedTodos()">
+              <div
+                @click="
+                  changeCurrentType(slotProps.option.label), getRemovedTodos()
+                "
+              >
                 {{ slotProps.option.label }}
               </div>
             </template>
@@ -43,7 +47,10 @@ export default {
         </div>
         <div class="m-2">
           <div class="flex flex-row justify-content-between p-2">
-            <BaseButton label="Delete list" class="p-button-danger ml-2 p-button-rounded" />
+            <BaseButton
+              label="Delete list"
+              class="p-button-danger ml-2 p-button-rounded"
+            />
           </div>
           <ArchiveTodoList :todos="todos" />
         </div>
