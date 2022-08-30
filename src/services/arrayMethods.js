@@ -1,21 +1,11 @@
+import _ from "lodash";
+
 export const indexOfById = (array, id) => {
-  let target = -1;
-  array.forEach((item, index) => {
-    if (item.id === id) {
-      target = index;
-    }
-  });
-  return target;
+  return _.findIndex(array, (elem) => elem.id === id);
 };
 
 export const indexOfByName = (array, name) => {
-  let target = -1;
-  array.forEach((item, index) => {
-    if (item.name === name) {
-      target = index;
-    }
-  });
-  return target;
+  return _.findIndex(array, (elem) => elem.name === name);
 };
 
 export const sortTodo = (array, currentType) => {

@@ -57,6 +57,9 @@ export default {
         props: [],
       });
     },
+    openPageOnGithub(url) {
+      window.open(url, "_blank");
+    },
   },
   components: {
     PrimeCard,
@@ -80,8 +83,8 @@ export default {
             <a
               v-for="developer in developers"
               :key="developer.name"
-              :href="developer.link"
               class="no-underline text-red-700 cursor-pointer"
+              @click="openPageOnGithub(developer.link)"
             >
               <li><i class="pi pi-github"></i> {{ developer.name }}</li>
             </a>

@@ -4,7 +4,6 @@ import ArchiveTodoList from "../components/Archive/ArchiveTodoList.vue";
 import PrimeListBox from "primevue/listbox";
 
 import { mapGetters, mapMutations } from "vuex";
-import BaseButton from "../components/UI/BaseButton.vue";
 
 export default {
   data() {
@@ -16,7 +15,6 @@ export default {
     MainComponent,
     ArchiveTodoList,
     PrimeListBox,
-    BaseButton,
   },
   computed: mapGetters("todoStore", ["getRemovedType"]),
   methods: {

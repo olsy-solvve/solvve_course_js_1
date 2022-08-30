@@ -23,6 +23,12 @@ export default {
         props: [],
       });
     },
+    openPageOnGithub() {
+      window.open(
+        "https://github.com/olsy-solvve/solvve_course_js_1",
+        "_blank"
+      );
+    },
   },
   components: {
     MainComponent,
@@ -38,10 +44,7 @@ export default {
           <p class="text-xs sm:text-base lg:text-lg text-300">
             Join us to github, a conference by Solvve, in Dnipro
           </p>
-          <a
-            href="https://github.com/olsy-solvve/solvve_course_js_1"
-            class="no-underline"
-          >
+          <a class="no-underline" @click="openPageOnGithub">
             <BaseButton
               label="Move"
               icon="pi pi-heart-fill"
