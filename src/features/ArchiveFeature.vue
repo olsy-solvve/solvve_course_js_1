@@ -59,26 +59,4 @@ export default {
   </MainComponent>
 </template>
 
-<style>
-.edit-button {
-  padding-bottom: 8px;
-  padding-left: 320px;
-}
-
-.todo-card {
-  list-style-type: none;
-}
-
-body {
-  background-color: rgba(255, 255, 255, 0.235);
-}
-
-.delete-button {
-  padding-left: 320px;
-}
-
-.isDone {
-  opacity: 0.5;
-  background-color: rgb(255, 255, 255);
-}
-</style>
+<style></style>

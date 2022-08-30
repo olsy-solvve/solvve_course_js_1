@@ -40,7 +40,7 @@ export default {
 </script>
 
 <template>
-  <PrimeToast position="bottom-right" class="opacityToast" />
+  <PrimeToast position="bottom-right" class="opacity-toast" />
   <PrimeCard
     @click="changeStateExecution(todo.label), showNewType()"
     :class="{ isComplete: todo.completed }"
@@ -70,7 +70,7 @@ export default {
 </template>
 
 <style>
-.opacityToast {
+.opacity-toast {
   opacity: 0.5;
 }
 .isComplete {

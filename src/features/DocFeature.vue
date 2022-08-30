@@ -41,8 +41,8 @@ export default {
       </p>
       <div class="route-wrapper">
         <router-link to="/"
-          >Go Back<i class="pi pi-arrow-right" style="font-size: 0.8rem"></i
-        ></router-link>
+          ><i class="pi pi-arrow-left text-sm mr-2"></i>Go Back</router-link
+        >
       </div>
     </div>
   </MainComponent>

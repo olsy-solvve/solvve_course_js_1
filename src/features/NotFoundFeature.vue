@@ -10,7 +10,6 @@ export default {
 
 <template>
   <MainComponent>
-    <!-- https://www.searchenginejournal.com/404-page-examples/211154/#:~:text=A%20404%20page%20is%20a,find%20the%20information%20they%20need. -->
     <div class="col-12 p-3 h-auto">
       <div class="col-12">
         <p
