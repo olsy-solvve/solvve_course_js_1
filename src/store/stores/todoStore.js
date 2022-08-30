@@ -226,7 +226,6 @@ const mutations = {
         todoType.list.forEach((todo) => {
           todo.removed = true;
         });
-        console.log(todoType.list);
       }
     });
   },
@@ -238,7 +237,6 @@ const mutations = {
   },
 
   changeCurrentType(state, newType) {
-    console.log(newType);
     state.currentType = newType;
   },
 

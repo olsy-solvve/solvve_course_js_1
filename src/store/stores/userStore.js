@@ -1,4 +1,7 @@
 import { isEmptyObject } from "@/services/objectMethods.js";
+import router from "@/plugins/router";
+
+import routesName from "@/enums/routesName";
 
 const state = {
   users: [
@@ -53,6 +56,7 @@ const mutations = {
   },
   logout(state) {
     state.currentUser = {};
+    router.push({ name: routesName.HOME });
   },
   registration: (state, user) => {
     user.id = state.users.length + 1;

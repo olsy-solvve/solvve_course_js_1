@@ -11,7 +11,7 @@ export default {
 <template>
   <MainComponent>
     <!-- https://www.searchenginejournal.com/404-page-examples/211154/#:~:text=A%20404%20page%20is%20a,find%20the%20information%20they%20need. -->
-    <div class="col-12 p-3 h-screen">
+    <div class="col-12 p-3 h-auto">
       <div class="col-12">
         <p
           class="text-center line-height-1 text-2xl sm:text-3xl lg:text-4xl font-bold"
@@ -38,7 +38,7 @@ export default {
       </div>
       <div class="col-12">
         <p class="text-center text-xs sm:text-base lg:text-lg">
-          Try our <a href="/home">homepage</a> homepage or
+          Try our <a href="/">homepage</a> homepage or
           <a href="/doc">doc</a> instead
         </p>
       </div>

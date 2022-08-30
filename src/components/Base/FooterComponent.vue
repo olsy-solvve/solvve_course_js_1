@@ -37,11 +37,23 @@ export default {
   methods: {
     ...mapMutations("popupStore", ["openDialog"]),
     docRoute() {
-      this.$router.push({ name: routesName.Doc });
+      this.$router.push({ name: routesName.DOC });
     },
     openPrivacyPolicy() {
       this.openDialog({
         name: popupName.PRIVACY_POLICY_POPUP,
+        props: [],
+      });
+    },
+    openTermsOfUse() {
+      this.openDialog({
+        name: popupName.TERMS_OF_USE,
+        props: [],
+      });
+    },
+    openSuperPuper() {
+      this.openDialog({
+        name: popupName.SUPERPUPER,
         props: [],
       });
     },
@@ -55,70 +67,45 @@ export default {
 <template>
   <footer>
     <PrimeCard class="surface-500 text-100">
-      <template #title>
-        <h4 class="flex align-items-center justify-content-center">
-          Questions?
-        </h4>
-      </template>
       <template #content>
-        <div class="grid col-12 m-0 p-0">
-          <div class="col-12 sm:col-4">
-            <p class="text-justify">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Doloremque nulla, dicta similique laboriosam expedita labore sint
-              repudiandae pariatur illum deleniti fugit officia exercitationem
-              nobis cupiditate reprehenderit? Expedita illo veniam voluptatibus
-              aperiam illum! Perspiciatis quisquam hic modi similique, dolore
-              dicta exercitationem voluptatem consequuntur dolorum quasi earum
-              iste, velit rerum pariatur nemo?
-            </p>
-          </div>
-          <div class="col-12 sm:col-4">
-            <p class="text-center">
-              Drop us a line at
-              <span class="underline cursor-pointer">hello@superpuper.com</span>
-            </p>
-            <ul class="list-none col-offset-4 lg:col-offset-5">
-              <a
-                v-for="developer in developers"
-                :key="developer.name"
-                :href="developer.link"
-                class="no-underline text-green-700 cursor-pointer"
-              >
-                <li><i class="pi pi-github"></i> {{ developer.name }}</li>
-              </a>
-            </ul>
-          </div>
-          <div class="col-12 sm:col-4">
-            <p class="text-justify">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Doloremque nulla, dicta similique laboriosam expedita labore sint
-              repudiandae pariatur illum deleniti fugit officia exercitationem
-              nobis cupiditate reprehenderit? Expedita illo veniam voluptatibus
-              aperiam illum! Perspiciatis quisquam hic modi similique, dolore
-              dicta exercitationem voluptatem consequuntur dolorum quasi earum
-              iste, velit rerum pariatur nemo?
-            </p>
-          </div>
+        <h3 class="text-center mb-2">Questions?</h3>
+        <div
+          class="flex flex-column align-items-center justify-content-center gap-3"
+        >
+          <p>
+            Drop us a line at
+            <span class="underline cursor-pointer">hello@superpuper.com</span>
+          </p>
+          <ul class="flex gap-3 list-none">
+            <a
+              v-for="developer in developers"
+              :key="developer.name"
+              :href="developer.link"
+              class="no-underline text-red-700 cursor-pointer"
+            >
+              <li><i class="pi pi-github"></i> {{ developer.name }}</li>
+            </a>
+          </ul>
         </div>
-        <div class="col-12">
-          <div class="text-center">
-            <div class="flex justify-content-center gap-3">
-              <a
-                href="#"
-                class="no-underline text-green-700 cursor-pointer"
-                @click="openPrivacyPolicy"
-                >Privacy Policy</a
-              >
-              <a href="#" class="no-underline text-green-700 cursor-pointer"
-                >Terms of Use</a
-              >
-              <a href="#" class="no-underline text-green-700 cursor-pointer"
-                >&copy;2022 SUPERPUPER</a
-              >
-            </div>
-            <p>Copyright &copy; {{ year }}</p>
+        <div class="flex flex-column align-items-center mt-2">
+          <div class="flex gap-3">
+            <a
+              class="no-underline text-red-700 cursor-pointer"
+              @click="openPrivacyPolicy"
+              >Privacy Policy</a
+            >
+            <a
+              class="no-underline text-red-700 cursor-pointer"
+              @click="openTermsOfUse"
+              >Terms of Use</a
+            >
+            <a
+              class="no-underline text-red-700 cursor-pointer"
+              @click="openSuperPuper"
+              >&copy;2022 SUPERPUPER</a
+            >
           </div>
+          <p>Copyright &copy; {{ year }}</p>
         </div>
       </template>
     </PrimeCard>
