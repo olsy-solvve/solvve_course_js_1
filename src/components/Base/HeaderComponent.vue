@@ -46,7 +46,7 @@ export default {
             @click="homeRoute"
           />
           <p
-            class="ml-2 text-red-700 text-2xl sm:text-3xl lg:text-4xl header-top-logo-text"
+            class="hidden lg:inline-flex ml-2 text-red-700 text-2xl sm:text-3xl lg:text-4xl header-top-logo-text"
           >
             SUPER PUPER
           </p>

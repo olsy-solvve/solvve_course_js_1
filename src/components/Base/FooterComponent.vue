@@ -70,7 +70,7 @@ export default {
       <template #content>
         <h3 class="text-center mb-2">Questions?</h3>
         <div
-          class="flex flex-column align-items-center justify-content-center gap-3"
+          class="flex flex-column align-items-center justify-content-center gap-3 text-xs sm:text-base lg:text-lg"
         >
           <p>
             Drop us a line at
@@ -87,7 +87,9 @@ export default {
             </a>
           </ul>
         </div>
-        <div class="flex flex-column align-items-center mt-2">
+        <div
+          class="flex flex-column align-items-center mt-2 text-xs sm:text-base lg:text-lg"
+        >
           <div class="flex gap-3">
             <a
               class="no-underline text-red-700 cursor-pointer"

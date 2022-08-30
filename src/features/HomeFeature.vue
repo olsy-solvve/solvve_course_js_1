@@ -91,13 +91,13 @@ export default {
         </div>
       </div>
       <div class="col-12 p-2 sm:p-3">
-        <h3 class="text-center">
+        <h3 class="mb-2 text-center text-xs sm:text-base lg:text-lg">
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet
           libero, non maxime eius quaerat assumenda. Id tenetur quod est, rerum
           reprehenderit omnis asperiores quasi recusandae hic corrupti
           voluptatum, commodi quae!
         </h3>
-        <p class="text-justify">
+        <p class="text-justify text-xs sm:text-base lg:text-lg">
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusantium,
           temporibus nostrum, reprehenderit error vitae reiciendis aliquam
           voluptatibus eos perspiciatis iusto quos neque hic deserunt
