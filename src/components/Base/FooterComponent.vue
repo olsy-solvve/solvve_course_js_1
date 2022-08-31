@@ -62,23 +62,12 @@ export default {
       </template>
       <template #content>
         <div class="grid col-12 m-0 p-0">
-          <div class="col-12 sm:col-4">
-            <p class="text-justify">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Doloremque nulla, dicta similique laboriosam expedita labore sint
-              repudiandae pariatur illum deleniti fugit officia exercitationem
-              nobis cupiditate reprehenderit? Expedita illo veniam voluptatibus
-              aperiam illum! Perspiciatis quisquam hic modi similique, dolore
-              dicta exercitationem voluptatem consequuntur dolorum quasi earum
-              iste, velit rerum pariatur nemo?
-            </p>
-          </div>
-          <div class="col-12 sm:col-4">
+          <div class="col-12 sm:col-12">
             <p class="text-center">
               Drop us a line at
               <span class="underline cursor-pointer">hello@superpuper.com</span>
             </p>
-            <ul class="list-none col-offset-4 lg:col-offset-5">
+            <ul class="flex justify-content-center gap-3 pt-3 list-none">
               <a
                 v-for="developer in developers"
                 :key="developer.name"
@@ -89,7 +78,7 @@ export default {
               </a>
             </ul>
           </div>
-          <div class="col-12 sm:col-4">
+          <div class="col-12 sm:col-12">
             <p class="text-justify">
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
               Doloremque nulla, dicta similique laboriosam expedita labore sint
