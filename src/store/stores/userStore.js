@@ -1,5 +1,8 @@
 import { isEmptyObject } from "@/services/objectMethods.js";
 
+
+//TODO 
+
 const state = {
   users: [
     {
@@ -20,7 +23,7 @@ const state = {
 
 const getters = {
   getUserConfirmation: (state) => {
-    return isEmptyObject(state.currentUser);
+    return !isEmptyObject(state.currentUser);
   },
   isEmailExist: (state) => (email) => {
     return state.users.some((user) => user.email === email);
@@ -43,16 +46,30 @@ const actions = {
     context.commit("logout");
     context.commit("routerStore/disabledButtons", null, { root: true });
   },
+  localStorageUser(context) {
+    context.commit("routerStore/enableButtons", null, { root: true });
+    context.commit("localStorageUser");
+  }
 };
 
 const mutations = {
   login(state, user) {
     if (user) {
       state.currentUser = user;
+      localStorage.setItem('currentUser', JSON.stringify(state.currentUser));
     }
   },
   logout(state) {
     state.currentUser = {};
+    localStorage.removeItem('currentUser');
+  },
+  localStorageUser(state) {
+    const localUser = JSON.parse(localStorage.getItem('currentUser'));
+
+    if (localUser) {
+      state.currentUser = localUser;
+
+    }
   },
   registration: (state, user) => {
     user.id = state.users.length + 1;
