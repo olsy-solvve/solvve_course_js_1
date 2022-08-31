@@ -1,4 +1,5 @@
 import { isEmptyObject } from "@/services/objectMethods.js";
+import { someUserValidation } from "@/services/arrayMethods.js";
 import router from "@/plugins/router";
 
 import routesName from "@/enums/routesName";
@@ -23,17 +24,13 @@ const state = {
 
 const getters = {
   getUserConfirmation: (state) => {
-    return isEmptyObject(state.currentUser);
+    return !isEmptyObject(state.currentUser);
   },
   isEmailExist: (state) => (email) => {
-    return state.users.some((user) => user.email === email);
+    return someUserValidation(state.users, ["email", email]);
   },
   isUserValid: (state) => (recieveUser) => {
-    return state.users.some(
-      (user) =>
-        user.email === recieveUser.email &&
-        user.password === recieveUser.password
-    );
+    return someUserValidation(state.users, recieveUser);
   },
 };
 
