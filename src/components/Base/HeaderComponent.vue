@@ -13,7 +13,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions("userStore", ["logout"]),
+    ...mapActions("userStore", ["logout", "localStorageUser"]),
     login() {
       this.$router.push({ name: routesName.AUTH });
     },
@@ -28,6 +28,10 @@ export default {
   components: {
     PrimeMenubar,
     PrimeInputText,
+
+  },
+  mounted() {
+    this.localStorageUser();
   },
 };
 </script>
@@ -53,37 +57,21 @@ export default {
         </div>
       </template>
       <template #end>
-        <div
-          class="flex flex-1 flex-row align-items-center justify-content-end pr-2"
-        >
+        <div class="flex flex-1 flex-row align-items-center justify-content-end pr-2">
           <div class="col-8 hidden md:inline-flex">
             <div class="p-inputgroup">
-              <PrimeInputText
-                v-model="sourchText"
-                placeholder="Keyword"
-                class="p-inputtext-sm xl:p-inputtext border-green-500 font-italic"
-              />
-              <BaseButton
-                icon="pi pi-search"
-                class="p-button-sm xl:p-button p-button-success p-button-outlined"
-              />
+              <PrimeInputText v-model="sourchText" placeholder="Keyword"
+                class="p-inputtext-sm xl:p-inputtext border-green-500 font-italic" />
+              <BaseButton icon="pi pi-search" class="p-button-sm xl:p-button p-button-success p-button-outlined" />
             </div>
           </div>
           <div v-if="getUserConfirmation">
-            <BaseButton
-              label="Logout"
-              icon="pi pi-user"
-              class="p-button-sm xl:p-button p-button-danger p-button-rounded p-button-outlined"
-              @click="logout"
-            />
+            <BaseButton label="Logout" icon="pi pi-user"
+              class="p-button-sm xl:p-button p-button-danger p-button-rounded p-button-outlined" @click="logout" />
           </div>
           <div v-else>
-            <BaseButton
-              label="Login"
-              icon="pi pi-user"
-              class="p-button-sm xl:p-button p-button-success p-button-rounded p-button-outlined"
-              @click="login"
-            />
+            <BaseButton label="Login" icon="pi pi-user"
+              class="p-button-sm xl:p-button p-button-success p-button-rounded p-button-outlined" @click="login" />
           </div>
         </div>
       </template>
@@ -95,6 +83,7 @@ export default {
 .header-menu {
   background-color: $header-footer-background;
 }
+
 .header-top-logo-text {
   font-family: $app-text-logo;
 }

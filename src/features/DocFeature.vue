@@ -39,7 +39,7 @@ export default {
         infancy. Various versions have evolved over the years, sometimes by
         accident, sometimes on purpose (injected humour and the like).
       </p>
-      <div class="route-wrapper">
+      <div class="pl-3">
         <router-link to="/"
           ><i class="pi pi-arrow-left text-sm mr-2"></i>Go Back</router-link
         >
@@ -49,7 +49,7 @@ export default {
 </template>
 
 <style>
-.spaceText {
-  text-indent: 2rem;
-}
+  .spaceText {
+    text-indent: 2rem;
+  }
 </style>
