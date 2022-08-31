@@ -1,13 +1,14 @@
 <script>
+import PrimeToast from "primevue/toast";
 import PrimeCard from "primevue/card";
 import { mapMutations } from "vuex";
 import popupName from "@/enums/popupName.js";
-import PrimeToast from "primevue/toast";
+
 export default {
+  name: "TodoItem",
   data() {
     return {};
   },
-  name: "TodoItem",
   props: {
     todo: {
       type: Object,
@@ -40,7 +41,7 @@ export default {
 </script>
 
 <template>
-  <PrimeToast position="bottom-right" class="opacityToast" />
+  <PrimeToast position="bottom-right" class="opacity-toast" />
   <PrimeCard
     @click="changeStateExecution(todo.label), showNewType()"
     :class="{ isComplete: todo.completed }"
@@ -70,7 +71,7 @@ export default {
 </template>
 
 <style>
-.opacityToast {
+.opacity-toast {
   opacity: 0.5;
 }
 .isComplete {

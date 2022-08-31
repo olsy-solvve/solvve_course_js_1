@@ -10,10 +10,14 @@ export default {
 
 <template>
   <MainComponent>
-    <div class="h-screen">
-      <h2 class="py-4 text-center">SUPER PUPER To-Do List App by Enthusiasts Developers</h2>
-      <h3 class="pb-4 text-center">Version 1.0.0 – Created to Organize Your Work & Life</h3>
-      <p class="px-3 pb-3">
+    <div class="h-screen p-2 sm:p-4">
+      <h2 class="text-center">
+        SUPER PUPER To-Do List App by Enthusiasts Developers
+      </h2>
+      <h3 class="text-center mb-2">
+        Version 1.0.0 – Created to Organize Your Work & Life
+      </h3>
+      <p class="text-justify mb-2 spaceText">
         Lorem Ipsum is simply dummy text of the printing and typesetting
         industry. Lorem Ipsum has been the industry's standard dummy text ever
         since the 1500s, when an unknown printer took a galley of type and
@@ -24,7 +28,7 @@ export default {
         with desktop publishing software like Aldus PageMaker including versions
         of Lorem Ipsum.
       </p>
-      <p class="px-3 pb-3">
+      <p class="text-justify mb-2 spaceText">
         It is a long established fact that a reader will be distracted by the
         readable content of a page when looking at its layout. The point of
         using Lorem Ipsum is that it has a more-or-less normal distribution of
@@ -37,39 +41,15 @@ export default {
       </p>
       <div class="pl-3">
         <router-link to="/"
-          >Go Back<i class="text-sm pi pi-arrow-right pl-1"></i
-        ></router-link>
+          ><i class="pi pi-arrow-left text-sm mr-2"></i>Go Back</router-link
+        >
       </div>
     </div>
   </MainComponent>
 </template>
 
-<style lang="scss" scoped>
-
-$a-tags: 'a, a:active, a:hover, a:visited';
-$a-tags-hover: 'a:active, a:hover';
-
-#{$a-tags} {
-  color: #ff0000;
-  text-decoration: none;
-}
-#{$a-tags-hover} {
-  color: #0000ff;
-}
-
-@mixin linx ($link, $visit, $hover, $active) {
-  a {
-    color: $link;
-    &:visited {
-      color: $visit;
-    }
-    &:hover {
-      color: $hover;   
-    }
-    &:active {
-      color: $active;
-    }
+<style>
+  .spaceText {
+    text-indent: 2rem;
   }
-}
-
 </style>
