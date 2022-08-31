@@ -117,7 +117,7 @@ export default {
                 >&copy;2022 SUPERPUPER</a
               >
             </div>
-            <p>Copyright &copy; {{ year }}</p>
+            <p class="pt-2">Copyright &copy; {{ year }}</p>
           </div>
         </div>
       </template>
@@ -125,4 +125,4 @@ export default {
   </footer>
 </template>
 
-<style lang="scss"></style>
+<style lang="scss" scoped></style>

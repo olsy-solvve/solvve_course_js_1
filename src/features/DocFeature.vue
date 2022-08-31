@@ -11,9 +11,9 @@ export default {
 <template>
   <MainComponent>
     <div class="h-screen">
-      <h2>SUPER PUPER To-Do List App by Enthusiasts Developers</h2>
-      <h3>Version 1.0.0 – Created to Organize Your Work & Life</h3>
-      <p>
+      <h2 class="py-4 text-center">SUPER PUPER To-Do List App by Enthusiasts Developers</h2>
+      <h3 class="pb-4 text-center">Version 1.0.0 – Created to Organize Your Work & Life</h3>
+      <p class="px-3 pb-3">
         Lorem Ipsum is simply dummy text of the printing and typesetting
         industry. Lorem Ipsum has been the industry's standard dummy text ever
         since the 1500s, when an unknown printer took a galley of type and
@@ -24,7 +24,7 @@ export default {
         with desktop publishing software like Aldus PageMaker including versions
         of Lorem Ipsum.
       </p>
-      <p>
+      <p class="px-3 pb-3">
         It is a long established fact that a reader will be distracted by the
         readable content of a page when looking at its layout. The point of
         using Lorem Ipsum is that it has a more-or-less normal distribution of
@@ -35,65 +35,41 @@ export default {
         infancy. Various versions have evolved over the years, sometimes by
         accident, sometimes on purpose (injected humour and the like).
       </p>
-      <div class="route-wrapper">
+      <div class="pl-3">
         <router-link to="/"
-          >Go Back<i class="pi pi-arrow-right" style="font-size: 0.8rem"></i
+          >Go Back<i class="text-sm pi pi-arrow-right pl-1"></i
         ></router-link>
       </div>
     </div>
   </MainComponent>
 </template>
 
-<style>
-p {
-  margin-bottom: 0.5rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  text-indent: 1.3rem;
-}
+<style lang="scss" scoped>
 
-.route-wrapper {
-  padding-bottom: 1rem;
-  padding-left: 1rem;
-}
+$a-tags: 'a, a:active, a:hover, a:visited';
+$a-tags-hover: 'a:active, a:hover';
 
-a {
-  cursor: pointer;
-  outline: none;
+#{$a-tags} {
+  color: #ff0000;
   text-decoration: none;
-  padding: 2px 1px 0;
+}
+#{$a-tags-hover} {
+  color: #0000ff;
 }
 
-a:link {
-  color: #265301;
+@mixin linx ($link, $visit, $hover, $active) {
+  a {
+    color: $link;
+    &:visited {
+      color: $visit;
+    }
+    &:hover {
+      color: $hover;   
+    }
+    &:active {
+      color: $active;
+    }
+  }
 }
 
-a:visited {
-  color: #437a16;
-}
-
-a:focus {
-  border-bottom: 1px solid;
-  background: #bae498;
-}
-
-a:hover {
-  border-bottom: 1px solid;
-  background: #cdfeaa;
-}
-
-a:active {
-  background: #265301;
-  color: #cdfeaa;
-}
-
-h2 {
-  padding-top: 1.5rem;
-}
-
-h2,
-h3 {
-  padding-bottom: 1.5rem;
-  text-align: center;
-}
 </style>
