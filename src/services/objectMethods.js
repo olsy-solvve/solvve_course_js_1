@@ -1,5 +1,5 @@
-export const isEmptyObject = (object) => {
-  return Object.keys(object).length !== 0 && object.constructor === Object
-    ? true
-    : false;
+import _ from "lodash";
+
+export const isEmptyObject = (obj) => {
+  return _.isEmpty(obj);
 };
