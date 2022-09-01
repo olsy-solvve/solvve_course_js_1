@@ -1,9 +1,3 @@
-<template>
-  <ButtonPrimeVue v-model="attrs">
-    <slot></slot>
-  </ButtonPrimeVue>
-</template>
-
 <script>
 import ButtonPrimeVue from "primevue/button";
 
@@ -15,4 +9,10 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<template>
+  <ButtonPrimeVue v-model="$attrs">
+    <slot></slot>
+  </ButtonPrimeVue>
+</template>
+
+<style></style>

@@ -1,40 +1,24 @@
 import { createWebHistory, createRouter } from "vue-router";
+import store from "@/store";
+import routesName from "@/enums/routesName";
 
-import HomeFeature from "@/features/HomeFeature.vue";
-import routesName from "@/enums/routesName.js";
-
-const routes = [
-  { path: "/", name: routesName.HOME, component: HomeFeature },
-  {
-    path: "/todo",
-    name: routesName.TODO,
-    component: () => import("@/features/TodoListFeature.vue"),
-  },
-  {
-    path: "/archive",
-    name: routesName.ARCHIVE,
-    component: () => import("@/features/ArchiveFeature.vue"),
-  },
-  {
-    path: "/doc",
-    name: routesName.DOC,
-    component: () => import("@/features/DocFeature.vue"),
-  },
-  {
-    path: "/doc",
-    name: routesName.DOC,
-    component: () => import("@/features/DocFeature.vue"),
-  },
-  {
-    path: "/:pathMatch(.*)*",
-    name: routesName.NOT_FOUND,
-    component: () => import("@/features/NotFoundFeature.vue"),
-  },
-];
+const routes = store.getters["routerStore/getRoutesToRouter"];
 
 const router = createRouter({
   history: createWebHistory(),
   routes,
 });
 
+router.beforeEach((to, from, next) => {
+  const isUserConfirmation = store.getters["userStore/getUserConfirmation"];
+
+  if (
+    (to.name === routesName.TODO || to.name === routesName.ARCHIVE) &&
+    !isUserConfirmation
+  ) {
+    next({ name: routesName.HOME });
+  } else {
+    next();
+  }
+});
 export default router;

@@ -1,8 +1,8 @@
 <script>
-import TodoItem from "@/components/Todo/TodoItem.vue";
+import ArchiveTodos from "@/components/Archive/ArchiveTodos.vue";
 
 export default {
-  name: "TodoList",
+  name: "ArchiveTodoList",
   props: {
     todos: {
       type: Object,
@@ -10,7 +10,7 @@ export default {
     },
   },
   components: {
-    TodoItem,
+    ArchiveTodos,
   },
 };
 </script>
@@ -18,9 +18,14 @@ export default {
 <template>
   <div class="flex flex-row flex-wrap justify-content-evenly">
     <div v-for="todo in todos" :key="todo.label" class="mt-2">
-      <TodoItem :todo="todo" />
+      <ArchiveTodos :todo="todo" />
     </div>
   </div>
 </template>
 
-<style></style>
+<style>
+.isComplete {
+  opacity: 0.5;
+  background-color: rgba(255, 255, 255, 0.861);
+}
+</style>

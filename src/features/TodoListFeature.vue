@@ -1,131 +1,199 @@
 <script>
-import PrimeTabMenu from "primevue/tabmenu";
+import MainComponent from "@/components/Base/MainComponent.vue";
+import TodoList from "@/components/Todo/TodoList.vue";
 import PrimeListBox from "primevue/listbox";
-import PrimeCard from "primevue/card";
-import PrimeButton from "primevue/button";
+import PrimeOverlayPanel from "primevue/overlaypanel";
+import popupName from "@/enums/popupName.js";
 
-let filters = [
-  { label: "All", icon: "pi pi-th-large" },
-  { label: "In progress", icon: "pi pi-times" },
-  { label: "Done", icon: "pi pi-check" },
-  { label: "Delete list" },
-];
+import { mapGetters, mapMutations } from "vuex";
 
-const addTodoCard = [{ label: "ADD NEW TODO", discription: "" }];
-
-const addTodoList = [{ label: "ADD NEW TODO LIST", icon: "pi pi-plus" }];
-
-let todoList;
-let listLength;
-
-let currentList = "Anime list";
+const filters = {
+  ALL: "All",
+  PROGRESS: "Progress",
+  COMPLETED: "Completed",
+};
 
 export default {
   data() {
     return {
-      filters,
-      todoList,
-      addTodoList,
-      addTodoCard,
-      currentList,
-      listLength,
+      addTodoList: [{ label: "ADD NEW TODO LIST" }],
+      currentFilter: filters.ALL,
     };
   },
   components: {
-    PrimeTabMenu,
+    MainComponent,
+    TodoList,
     PrimeListBox,
-    PrimeCard,
-    PrimeButton,
+    PrimeOverlayPanel,
   },
-  mounted() {
-    this.todoList = this.$store.getters["todoStore/getTodos"];
-    this.listLength = this.$store.getters["todoStore/getListLength"];
+  computed: {
+    ...mapGetters("todoStore", [
+      "getTodosTypes",
+      "getTodos",
+      "getTodosProgress",
+      "getTodosCompleted",
+    ]),
+    fillingTodoList() {
+      let todos = [];
+
+      switch (this.currentFilter) {
+        case filters.ALL: {
+          todos = this.getTodos;
+          break;
+        }
+        case filters.PROGRESS: {
+          todos = this.getTodosProgress;
+          break;
+        }
+        case filters.COMPLETED: {
+          todos = this.getTodosCompleted;
+          break;
+        }
+      }
+
+      return todos;
+    },
+  },
+  methods: {
+    ...mapMutations("todoStore", [
+      "changeCurrentType",
+      "removeTodoType",
+      "clearList",
+    ]),
+    ...mapMutations("popupStore", ["openDialog"]),
+    openTodoTypeCreatePopup() {
+      this.openDialog({
+        name: popupName.TODO_TYPE_CREATE_POPUP,
+        props: [],
+      });
+    },
+    openTodoCreatePopup() {
+      this.openDialog({
+        name: popupName.TODO_CREATE_POPUP,
+        props: [],
+      });
+    },
+    getTodosAll() {
+      this.currentFilter = filters.ALL;
+    },
+    getTodosProg() {
+      this.currentFilter = filters.PROGRESS;
+    },
+    getTodosComp() {
+      this.currentFilter = filters.COMPLETED;
+    },
+    toggleFilters(event) {
+      this.$refs.filters.toggle(event);
+    },
+    filterSelected() {
+      this.$refs.filters.hide();
+    },
+    removeList(typeName) {
+      this.removeTodoType(typeName);
+    },
   },
 };
 </script>
 
 <template>
-  <div>
-    <div class="flex flex-row">
-      <div>
-        <PrimeListBox :options="addTodoList" optionLabel="label">
-        </PrimeListBox>
-        <PrimeListBox :options="todoList" optionLabel="label">
-          <template #option="slotProps">
-            <div @click="currentList = slotProps.option.label">
-              {{ slotProps.option.label }}
-            </div>
-          </template>
-        </PrimeListBox>
-      </div>
-      <div class="flex flex-column">
-        <div>
-          <PrimeTabMenu :model="filters" class="flex-wrap mt-2" />
-        </div>
-        <ul class="todo-card ml-2 mt-2 flex-wrap">
-          <li>
-            <PrimeCard style="width: 25rem; margin-bottom: 2em">
-              <template #title>
-                {{ addTodoCard[0].label }}
+  <MainComponent>
+    <div class="w-full">
+      <div class="grid grid-nogutter h-auto sm:h-screen">
+        <div class="col-12 sm:col-2 md:col-4 lg:col-2 surface-200">
+          <div class="flex flex-column justify-content-center">
+            <BaseButton
+              label="List"
+              icon="pi pi-plus"
+              class="p-button-rounded p-button-success mb-2 mt-2 m-auto p-button-sm md:p-button"
+              @click="openTodoTypeCreatePopup"
+            />
+            <PrimeListBox :options="getTodosTypes" optionLabel="label">
+              <template #option="slotProps">
+                <div
+                  @click="
+                    changeCurrentType(slotProps.option.label), getTodosAll()
+                  "
+                  class="flex flex-row justify-content-between align-items-center"
+                >
+                  {{ slotProps.option.label }}
+                  <i
+                    class="pi pi-times"
+                    @click.stop="removeList(slotProps.option.label)"
+                  ></i>
+                </div>
               </template>
-            </PrimeCard>
-          </li>
-          <div v-for="labels in todoList" :key="labels">
-            <div v-if="labels.label === currentList">
-              <div v-for="cards in labels.list" :key="cards.labels"></div>
+            </PrimeListBox>
+          </div>
+        </div>
+        <div class="col-12 sm:col-10 md:col-8 lg:col-10 pl-3">
+          <div class="flex flex-row justify-content-between p-2">
+            <div class="hidden md:flex sm:flex-row">
+              <BaseButton
+                @click="getTodosAll"
+                label="All"
+                class="p-button-success p-button-rounded p-button-sm md:p-button"
+              />
+              <BaseButton
+                @click="getTodosProg"
+                label="In Progress"
+                class="p-button-success ml-2 p-button-rounded p-button-sm md:p-button"
+              />
+              <BaseButton
+                @click="getTodosComp"
+                label="Done"
+                class="p-button-success ml-2 p-button-rounded p-button-sm md:p-button"
+              />
+            </div>
+            <div class="flex md:hidden">
+              <BaseButton
+                icon="pi pi-filter"
+                @click="toggleFilters"
+                aria-haspopup="true"
+                aria-controls="filtersPopup"
+                class="p-button-success p-button-rounded"
+              />
+              <PrimeOverlayPanel
+                ref="filters"
+                appendTo="body"
+                id="filtersPopup"
+              >
+                <div class="flex justify-content-center">
+                  <BaseButton
+                    @click="getTodosAll"
+                    label="All"
+                    class="p-button-success p-button-rounded p-button-sm"
+                  />
+                  <BaseButton
+                    @click="getTodosProg"
+                    label="In Progress"
+                    class="p-button-success ml-2 p-button-rounded p-button-sm"
+                  />
+                  <BaseButton
+                    @click="getTodosComp"
+                    label="Done"
+                    class="p-button-success ml-2 p-button-rounded p-button-sm"
+                  />
+                </div>
+              </PrimeOverlayPanel>
+            </div>
+            <div>
+              <BaseButton
+                icon="pi pi-plus"
+                class="p-button-success p-button-rounded p-button-sm md:p-button"
+                @click="openTodoCreatePopup"
+              />
+              <BaseButton
+                label="Clear List"
+                class="p-button-danger ml-2 p-button-rounded p-button-sm md:p-button"
+                @click="clearList"
+              />
             </div>
           </div>
-          <li>
-            <div v-for="labels in todoList" :key="labels">
-              <div v-if="labels.label === currentList">
-                <PrimeCard
-                  v-for="cards in labels.list"
-                  :key="cards.label"
-                  style="width: 25rem; margin-bottom: 2em"
-                >
-                  <template #title>
-                    {{ cards.label }}
-                  </template>
-                  <template #content>
-                    <p>{{ cards.discription }}</p>
-                    <div class="edit-button">
-                      <PrimeButton
-                        icon="pi pi-pencil"
-                        class="p-button-rounded"
-                      />
-                    </div>
-                    <div class="delete-button">
-                      <PrimeButton
-                        icon="pi pi-times"
-                        class="p-button-rounded p-button-danger"
-                      ></PrimeButton>
-                    </div>
-                  </template>
-                </PrimeCard>
-              </div>
-            </div>
-          </li>
-        </ul>
+          <TodoList :todos="fillingTodoList" />
+        </div>
       </div>
     </div>
-  </div>
+  </MainComponent>
 </template>
 
-<style lang="scss" scoped>
-.edit-button {
-  padding-bottom: 8px;
-  padding-left: 320px;
-}
-
-.todo-card {
-  list-style-type: none;
-}
-
-body {
-  background-color: rgba(255, 255, 255, 0.235);
-}
-
-.delete-button {
-  padding-left: 320px;
-}
-</style>
+<style></style>
