@@ -49,7 +49,7 @@ export default {
 </template>
 
 <style>
-  .spaceText {
-    text-indent: 2rem;
-  }
+.spaceText {
+  text-indent: 2rem;
+}
 </style>

@@ -1,0 +1,32 @@
+[
+    {
+      "label": "Home things",
+      "removed": false,
+      "fullRemoved": false
+    },
+    {
+      "label": "Work",
+      "removed": true,
+      "fullRemoved": false
+    },
+    {
+        "label": "Study",
+        "removed": false,
+        "fullRemoved": false
+    },
+    {
+        "label": "Family",
+        "removed": false,
+        "fullRemoved": false
+    },
+    {
+        "label": "Anime list",
+        "removed": true,
+        "fullRemoved": false
+    },
+    {
+        "label": "Movies",
+        "removed": false,
+        "fullRemoved": false
+    }
+]
