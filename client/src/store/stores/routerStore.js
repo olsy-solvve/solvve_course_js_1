@@ -1,6 +1,5 @@
 import routesName from "@/enums/routesName";
 
-
 const state = {
   routes: [
     {
