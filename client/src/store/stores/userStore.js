@@ -1,11 +1,6 @@
 import { isEmptyObject } from "@/services/objectMethods.js";
 import { someUserValidation } from "@/services/arrayMethods.js";
 
-import routesName from "@/enums/routesName";
-
-
-//TODO 
-
 const state = {
   users: [
     {
@@ -48,22 +43,22 @@ const actions = {
   localStorageUser(context) {
     context.commit("routerStore/enableButtons", null, { root: true });
     context.commit("localStorageUser");
-  }
+  },
 };
 
 const mutations = {
   login(state, user) {
     if (user) {
       state.currentUser = user;
-      localStorage.setItem('currentUser', JSON.stringify(state.currentUser));
+      localStorage.setItem("currentUser", JSON.stringify(state.currentUser));
     }
   },
   logout(state) {
     state.currentUser = {};
-    localStorage.removeItem('currentUser');
+    localStorage.removeItem("currentUser");
   },
   localStorageUser(state) {
-    const localUser = JSON.parse(localStorage.getItem('currentUser'));
+    const localUser = JSON.parse(localStorage.getItem("currentUser"));
 
     if (localUser) {
       state.currentUser = localUser;
