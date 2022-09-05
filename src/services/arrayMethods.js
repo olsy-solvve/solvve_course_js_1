@@ -1,33 +1,49 @@
-export const indexOfById = (array, id) => {
-  let target = -1;
-  array.forEach((item, index) => {
-    if (item.id === id) {
-      target = index;
-    }
-  });
-  return target;
+import _ from "lodash";
+
+export const indexOfById = (arr, id) => {
+  return _.findIndex(arr, (elem) => elem.id === id);
 };
 
-export const indexOfByName = (array, name) => {
-  let target = -1;
-  array.forEach((item, index) => {
-    if (item.name === name) {
-      target = index;
-    }
-  });
-  return target;
+export const indexOfByName = (arr, name) => {
+  return _.findIndex(arr, (elem) => elem.name === name);
 };
 
-export const sortTodo = (array, currentType) => {
-  const todoList = [];
-  array.forEach((todoType) => {
-    if (todoType.label === currentType) {
-      todoType.list.forEach((todo) => {
-        if (todo.removed === false) {
-          todoList.push(todo);
-        }
-      });
-    }
-  });
-  return todoList;
+export const someUserValidation = (users, data) => {
+  return _.some(users, data);
 };
+
+export const getTodosType = (todos, isRemoved = false) => {
+  return _.filter(todos, ["removed", isRemoved]);
+};
+
+export const findTodosByType = (todos, currentType) => {
+  return _.find(todos, ["label", currentType]);
+};
+
+export const sortTodos = (todos, currentType, isRemoved = false) => {
+  const todosByType = findTodosByType(todos, currentType);
+  return _.filter(todosByType.list, ["removed", isRemoved]);
+};
+
+export const findTodo = (todos, callback) => {
+  return _.find(todos, callback);
+};
+
+// getTodos(state) {
+// 	return
+// }
+
+// getRemoveType(state) {
+// 	return _.filter(state.todos, {'label', state.currentType});
+// }
+
+// getRemovedTodos(state) {
+// 	const todosByTypes = _.find(state.todos, label, state.currentType);
+// 	return _.filter(todosByTypes, ['removed', true]);
+// }
+
+// addTodo(state, todo) {
+// 	if (todo) {
+
+//   }
+// }

@@ -40,9 +40,18 @@ export default {
   <header class="sticky top-0 left-0 z-5 w-full bg-surface-300">
     <PrimeMenubar :model="getRoutesToHeader" class="p-1 header-menu">
       <template #start>
-        <div class="flex flex-1 flex-row align-items-center justify-content-start pl-2">
-          <img alt="logo" src="@/assets/logoTodo.svg" class="h-3rem cursor-pointer" @click="homeRoute" />
-          <p class="ml-2 text-red-700 text-2xl sm:text-3xl lg:text-4xl header-top-logo-text">
+        <div
+          class="flex flex-1 flex-row align-items-center justify-content-start pl-2"
+        >
+          <img
+            alt="logo"
+            src="@/assets/logoTodo.svg"
+            class="h-3rem cursor-pointer"
+            @click="homeRoute"
+          />
+          <p
+            class="hidden lg:inline-flex ml-2 text-red-700 text-2xl sm:text-3xl lg:text-4xl header-top-logo-text"
+          >
             SUPER PUPER
           </p>
         </div>

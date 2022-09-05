@@ -7,11 +7,17 @@ import popupName from "@/enums/popupName.js";
 
 import { mapGetters, mapMutations } from "vuex";
 
+const filters = {
+  ALL: "All",
+  PROGRESS: "Progress",
+  COMPLETED: "Completed",
+};
+
 export default {
   data() {
     return {
-      todos: [],
       addTodoList: [{ label: "ADD NEW TODO LIST" }],
+      currentFilter: filters.ALL,
     };
   },
   components: {
@@ -20,12 +26,34 @@ export default {
     PrimeListBox,
     PrimeOverlayPanel,
   },
-  computed: mapGetters("todoStore", [
-    "getTodosTypes",
-    "getTodos",
-    "getTodosProgress",
-    "getTodosCompleted",
-  ]),
+  computed: {
+    ...mapGetters("todoStore", [
+      "getTodosTypes",
+      "getTodos",
+      "getTodosProgress",
+      "getTodosCompleted",
+    ]),
+    fillingTodoList() {
+      let todos = [];
+
+      switch (this.currentFilter) {
+        case filters.ALL: {
+          todos = this.getTodos;
+          break;
+        }
+        case filters.PROGRESS: {
+          todos = this.getTodosProgress;
+          break;
+        }
+        case filters.COMPLETED: {
+          todos = this.getTodosCompleted;
+          break;
+        }
+      }
+
+      return todos;
+    },
+  },
   methods: {
     ...mapMutations("todoStore", [
       "changeCurrentType",
@@ -46,13 +74,13 @@ export default {
       });
     },
     getTodosAll() {
-      this.todos = this.getTodos;
+      this.currentFilter = filters.ALL;
     },
-    getTodosP() {
-      this.todos = this.getTodosProgress;
+    getTodosProg() {
+      this.currentFilter = filters.PROGRESS;
     },
-    getTodosC() {
-      this.todos = this.getTodosCompleted;
+    getTodosComp() {
+      this.currentFilter = filters.COMPLETED;
     },
     toggleFilters(event) {
       this.$refs.filters.toggle(event);
@@ -106,12 +134,12 @@ export default {
                 class="p-button-success p-button-rounded p-button-sm md:p-button"
               />
               <BaseButton
-                @click="getTodosP"
+                @click="getTodosProg"
                 label="In Progress"
                 class="p-button-success ml-2 p-button-rounded p-button-sm md:p-button"
               />
               <BaseButton
-                @click="getTodosC"
+                @click="getTodosComp"
                 label="Done"
                 class="p-button-success ml-2 p-button-rounded p-button-sm md:p-button"
               />
@@ -131,17 +159,17 @@ export default {
               >
                 <div class="flex justify-content-center">
                   <BaseButton
-                    @click="getTodosAll(), filterSelected()"
+                    @click="getTodosAll"
                     label="All"
                     class="p-button-success p-button-rounded p-button-sm"
                   />
                   <BaseButton
-                    @click="getTodosP(), filterSelected()"
+                    @click="getTodosProg"
                     label="In Progress"
                     class="p-button-success ml-2 p-button-rounded p-button-sm"
                   />
                   <BaseButton
-                    @click="getTodosC(), filterSelected()"
+                    @click="getTodosComp"
                     label="Done"
                     class="p-button-success ml-2 p-button-rounded p-button-sm"
                   />
@@ -161,33 +189,11 @@ export default {
               />
             </div>
           </div>
-          <TodoList :todos="todos" />
+          <TodoList :todos="fillingTodoList" />
         </div>
       </div>
     </div>
   </MainComponent>
 </template>
 
-<style>
-.edit-button {
-  padding-bottom: 8px;
-  padding-left: 320px;
-}
-
-.todo-card {
-  list-style-type: none;
-}
-
-body {
-  background-color: rgba(255, 255, 255, 0.235);
-}
-
-.delete-button {
-  padding-left: 320px;
-}
-
-.isDone {
-  opacity: 0.5;
-  background-color: rgb(255, 255, 255);
-}
-</style>
+<style></style>

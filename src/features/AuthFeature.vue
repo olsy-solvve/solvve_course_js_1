@@ -178,14 +178,12 @@ export default {
             v-model="checked"
             :binary="true"
           />
-          <label for="privacyPolicy">
-            To confirm, read the
-            <span
-              class="text-blue-600 uppercase cursor-pointer"
-              @click="openPrivacyPolicy"
-              >Privacy Policy</span
-            >
-          </label>
+          <label for="privacyPolicy"> To confirm, read the </label>
+          <span
+            class="text-blue-600 uppercase cursor-pointer ml-1"
+            @click="openPrivacyPolicy"
+            >Privacy Policy</span
+          >
         </div>
         <div>
           <BaseButton

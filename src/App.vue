@@ -5,6 +5,9 @@ import TodoCreatePopup from "@/components/UI/TodoCreatePopup.vue";
 import TodoEditPopup from "@/components/UI/TodoEditPopup.vue";
 import TodoTypeCreatePopup from "@/components/UI/TodoTypeCreatePopup.vue";
 import PrivacyPolicyPopup from "@/components/UI/PrivacyPolicyPopup.vue";
+import TermsOfUsePopup from "@/components/UI/TermsOfUsePopup.vue";
+import SuperPuperPopup from "@/components/UI/SuperPuperPopup.vue";
+import { mapGetters } from "vuex";
 
 export default {
   components: {
@@ -14,12 +17,10 @@ export default {
     TodoTypeCreatePopup,
     TodoEditPopup,
     PrivacyPolicyPopup,
+    TermsOfUsePopup,
+    SuperPuperPopup,
   },
-  computed: {
-    getPopups() {
-      return this.$store.getters["popupStore/getPopups"];
-    },
-  },
+  computed: mapGetters("popupStore", ["getPopups"]),
 };
 </script>
 
