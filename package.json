@@ -1,0 +1,22 @@
+{
+  "name": "solvve_course_js_1-1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "init": "cd server && npm i && cd ../client && npm i",
+    "dev": "",
+    "release": "",
+    "lint": "cd server && npm run lint && cd client && npm run lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/olsy-solvve/solvve_course_js_1.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/olsy-solvve/solvve_course_js_1/issues"
+  },
+  "homepage": "https://github.com/olsy-solvve/solvve_course_js_1#readme"
+}
