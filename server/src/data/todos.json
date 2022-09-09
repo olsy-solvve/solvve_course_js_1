@@ -1,128 +1,87 @@
 [
-    {
-      "label": "Home things",
-      "removed": false,
-      "fullRemoved": false,
-      "list": [
-        {
-          "label": "Clean room",
-          "removed": true,
-          "completed": false,
-          "discription": "And faster!"
-        },
-        {
-          "label": "Wash dishes",
-          "removed": false,
-          "completed": true,
-          "discription": null
-        }
-      ]
-    },
-    {
-        "label": "Work",
-      "removed": true,
-      "fullRemoved": false,
-      "list": [
-        {
-          "label": "Progect",
-          "removed": true,
-          "completed": false,
-          "discription": "And faster!"
-        },
-        {
-          "label": "Progect",
-          "removed": false,
-          "completed": true,
-          "discription": null
-        }
-      ]
-    },
-    {
-        "label": "Study",
-        "removed": false,
-        "fullRemoved": false,
-        "list": [
-          {
-            "label": "End lection",
-            "removed": false,
-            "completed": false,
-            "discription": "And faster!"
-          },
-          {
-            "label": "Create design",
-            "removed": false,
-            "completed": true,
-            "discription": null
-          }
-        ]
-    },
-    {
-        "label": "Family",
-        "removed": false,
-        "fullRemoved": false,
-        "list": [
-          {
-            "label": "Call to mam",
-            "removed": false,
-            "completed": false,
-            "discription": null
-          },
-          {
-            "label": "Buy a doll for Kristy",
-            "removed": true,
-            "completed": true,
-            "discription": null
-          }
-        ]
-    },
-    {
-        "label": "Anime list",
-        "removed": true,
-        "fullRemoved": false,
-        "list": [
-          {
-            "label": "Death Note",
-            "removed": true,
-            "completed": false,
-            "discription": "3rd season is out!"
-          },
-          {
-            "label": "Fairy Tale",
-            "removed": false,
-            "completed": true,
-            "discription": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deseruntquisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!"
-          },
-          {
-            "label": "Naruto",
-            "removed": false,
-            "completed": false,
-            "discription": "Let`s just try..."
-          }
-        ]
-    },
-    {
-        "label": "Movies",
-        "removed": false,
-        "fullRemoved": false,
-        "list": [
-          {
-            "label": "Black horse",
-            "removed": false,
-            "completed": false,
-            "discription": "3rd season is out!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-          },
-          {
-            "label": "Black",
-            "removed": false,
-            "completed": true,
-            "discription": "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-          },
-          {
-            "label": "Green book",
-            "removed": false,
-            "completed": false,
-            "discription": "Let`s just try..."
-          }
-        ]
-    }
+  {
+    "label": "Clean room",
+    "removed": true,
+    "completed": false,
+    "discription": "And faster!",
+    "idTodoType" : "dsadssadsdsad"
+  },
+  {
+    "label": "Wash dishes",
+    "removed": false,
+    "completed": true,
+    "discription": null
+  },
+  {
+    "label": "Progect",
+    "removed": true,
+    "completed": false,
+    "discription": "And faster!"
+  },
+  {
+    "label": "Progect",
+    "removed": false,
+    "completed": true,
+    "discription": null
+  },
+  {
+    "label": "End lection",
+    "removed": false,
+    "completed": false,
+    "discription": "And faster!"
+  },
+  {
+    "label": "Create design",
+    "removed": false,
+    "completed": true,
+    "discription": null
+  },
+  {
+    "label": "Call to mam",
+    "removed": false,
+    "completed": false,
+    "discription": null
+  },
+  {
+    "label": "Buy a doll for Kristy",
+    "removed": true,
+    "completed": true,
+    "discription": null
+  },
+  {
+    "label": "Death Note",
+    "removed": true,
+    "completed": false,
+    "discription": "3rd season is out!"
+  },
+  {
+    "label": "Fairy Tale",
+    "removed": false,
+    "completed": true,
+    "discription": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deseruntquisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!"
+  },
+  {
+    "label": "Naruto",
+    "removed": false,
+    "completed": false,
+    "discription": "Let`s just try..."
+  },
+  {
+    "label": "Black horse",
+    "removed": false,
+    "completed": false,
+    "discription": "3rd season is out!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+  },
+  {
+    "label": "Black",
+    "removed": false,
+    "completed": true,
+    "discription": "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+  },
+  {
+    "label": "Green book",
+    "removed": false,
+    "completed": false,
+    "discription": "Let`s just try..."
+  }
 ]
