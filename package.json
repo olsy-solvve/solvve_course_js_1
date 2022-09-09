@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "init": "cd server && npm i && cd ../client && npm i",
-    "dev": "",
-    "release": "",
-    "lint": "cd server && npm run lint && cd client && npm run lint"
+    "dev": "concurrently \"cd server && npm run dev\" \"cd client && npm run dev\"",
+    "release": "concurrently \"cd server && npm run release\" \"cd client && npm run build\"",
+    "lint": "concurrently \"cd server && npm run lint\" \"cd client && npm run lint\""
   },
   "repository": {
     "type": "git",
@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/olsy-solvve/solvve_course_js_1/issues"
   },
-  "homepage": "https://github.com/olsy-solvve/solvve_course_js_1#readme"
+  "homepage": "https://github.com/olsy-solvve/solvve_course_js_1#readme",
+  "dependencies": {
+    "concurrently": "^7.4.0"
+  }
 }
