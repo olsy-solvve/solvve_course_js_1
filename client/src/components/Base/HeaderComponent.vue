@@ -3,7 +3,7 @@ import PrimeMenubar from "primevue/menubar";
 import PrimeInputText from "primevue/inputText";
 
 import routesName from "@/enums/routesName";
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapMutations, mapActions } from "vuex";
 
 export default {
   name: "HeaderComponent",
@@ -13,7 +13,8 @@ export default {
     };
   },
   methods: {
-    ...mapActions("userStore", ["logout", "localStorageUser"]),
+    ...mapActions("userStore", ["logout"]),
+    ...mapMutations("userStore", ["setUserFromLocalStorage"]),
     login() {
       this.$router.push({ name: routesName.AUTH });
     },
@@ -30,7 +31,7 @@ export default {
     PrimeInputText,
   },
   mounted() {
-    this.localStorageUser();
+    this.setUserFromLocalStorage();
   },
 };
 </script>

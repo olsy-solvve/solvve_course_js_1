@@ -1,4 +1,5 @@
 import { Router } from "express";
+import cors from "cors";
 
 import {
   getUsers,
@@ -9,6 +10,8 @@ import {
 } from "../../controllers/UserController.js";
 
 const userRouter = Router();
+
+userRouter.use(cors());
 
 userRouter.get("/users", getUsers);
 

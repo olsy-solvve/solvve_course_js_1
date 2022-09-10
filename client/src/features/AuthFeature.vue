@@ -3,7 +3,7 @@ import MainComponent from "@/components/Base/MainComponent.vue";
 import PrimeInputText from "primevue/inputText";
 import PrimePassword from "primevue/password";
 import PrimeCheckbox from "primevue/checkbox";
-import { mapActions, mapGetters, mapMutations } from "vuex";
+import { mapActions, mapMutations } from "vuex";
 
 import popupName from "@/enums/popupName.js";
 import routesName from "@/enums/routesName.js";
@@ -47,12 +47,8 @@ export default {
       }
     },
   },
-  computed: {
-    ...mapGetters("userStore", ["isEmailExist", "isUserValid"]),
-  },
   methods: {
-    ...mapActions("userStore", ["login"]),
-    ...mapMutations("userStore", ["registration"]),
+    ...mapActions("userStore", ["login", "registration"]),
     ...mapMutations("popupStore", ["openDialog"]),
     switching() {
       this.username = "";
@@ -62,9 +58,7 @@ export default {
       this.isLoginPage = !this.isLoginPage;
     },
     registrationUser() {
-      if (this.isEmailExist(this.email)) {
-        alert("user with this email already in system");
-      } else if (!this.checked) {
+      if (!this.checked) {
         alert("Read our privacy policy");
       } else if (
         this.isValidUsername &&
@@ -84,12 +78,10 @@ export default {
         email: this.email,
         password: this.password,
       };
-      if (this.isUserValid(user) && this.isValidEmail && this.isValidPassword) {
+      if (this.isValidEmail && this.isValidPassword) {
         this.login(user);
         this.$router.push({ name: routesName.HOME });
-      } else {
-        alert("Information in field not valid for auth");
-      }
+      } 
     },
     openPrivacyPolicy() {
       this.openDialog({
