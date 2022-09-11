@@ -2,7 +2,7 @@
 import PrimeDialog from "primevue/dialog";
 import PrimeCard from "primevue/card";
 import PrimeInputText from "primevue/inputText";
-import { mapMutations } from "vuex";
+import { mapMutations, mapActions } from "vuex";
 
 import popupName from "@/enums/popupName.js";
 
@@ -31,19 +31,14 @@ export default {
   },
   methods: {
     ...mapMutations("popupStore", ["closeDialog", "openDialog"]),
-    ...mapMutations("todoStore", ["addTodoType"]),
+    ...mapActions("todoStore", ["addTodoType"]),
     close() {
       this.closeDialog(popupName.TODO_TYPE_CREATE_POPUP);
       this.dialog = false;
     },
     saveTodoType() {
       if (this.isValidTitle) {
-        this.addTodoType({
-          label: this.todoTypeTitle,
-          list: [],
-          removed: false,
-          fullRemoved: false,
-        });
+        this.addTodoType(this.todoTypeTitle);
         this.close();
       }
     },

@@ -5,7 +5,7 @@ import UserModel from "../models/UserModel.js";
 import logger from "../config/logger.js";
 
 export const getAllUsers = () => {
-  UserModel.find({})
+  return UserModel.find({})
     .then((users) => {
       logger.info("Get all users from mongodb!", users);
       return users;
@@ -17,7 +17,7 @@ export const getAllUsers = () => {
 };
 
 export const getUser = (userId) => {
-  UserModel.findOne({ _id: userId })
+  return UserModel.findOne({ _id: userId })
     .then((user) => {
       logger.info("Get user from mongodb!", user);
       return user;
@@ -32,10 +32,10 @@ export const addUser = (newUser) => {
   const user = new UserModel({
     username: newUser.username,
     email: newUser.email,
-    password: newUser.password
+    password: newUser.password,
   });
 
-  user
+  return user
     .save()
     .then((u) => {
       logger.info("Add user in mongodb!", u);
@@ -48,9 +48,9 @@ export const addUser = (newUser) => {
 };
 
 export const updateUser = (updateUser) => {
-  UserModel.findOneAndUpdate({ _id: updateUser }, updateUser, {
+  return UserModel.findOneAndUpdate({ _id: updateUser._id }, updateUser, {
     new: true,
-    upsert: true
+    upsert: true,
   })
     .then((user) => {
       logger.info("Update user in mongodb!", user);
@@ -63,7 +63,7 @@ export const updateUser = (updateUser) => {
 };
 
 export const deleteUser = (userId) => {
-  UserModel.findOneAndDelete({ _id: userId })
+  return UserModel.findOneAndDelete({ _id: userId })
     .then((user) => {
       logger.info("Delete user in mongodb!", user);
       return user;

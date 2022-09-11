@@ -16,11 +16,7 @@ export default {
     PrimeCard,
     PrimeToast,
   },
-  methods: {
-    check() {
-      console.log(this.todo);
-    },
-  },
+  methods: {},
 };
 </script>
 
@@ -29,7 +25,6 @@ export default {
   <PrimeCard
     :class="{ isDone: todo.completed }"
     style="width: 25rem; margin-bottom: 2em"
-    @click="check"
     class="w-screen md:w-20rem lg:w-15rem mb-2"
   >
     <template #title>
@@ -43,7 +38,7 @@ export default {
         <BaseButton
           icon="pi pi-times"
           class="p-button-rounded p-button-danger ml-2"
-          @click.stop="showDeletedToas()"
+          @click.stop="showDeletedToast()"
         />
       </div>
     </template>

@@ -12,10 +12,10 @@ const streams = [
     stream: pretty({
       colorize: true,
       levelFirst: true,
-      translateTime: "yyyy-dd-mm, h:MM:ss TT"
-    })
+      translateTime: "yyyy-dd-mm, h:MM:ss TT",
+    }),
   },
-  { stream: pino.destination(path.resolve(__dirname, "src", "logger.log")) }
+  { stream: pino.destination(path.resolve(__dirname, "src", "logger.log")) },
 ];
 
 const logger = pino(
@@ -24,10 +24,10 @@ const logger = pino(
     formatters: {
       level: (label) => {
         return { level: label };
-      }
-    }
+      },
+    },
   },
-  pino.multistream(streams)
+  pino.multistream(streams),
 );
 
 export default logger;

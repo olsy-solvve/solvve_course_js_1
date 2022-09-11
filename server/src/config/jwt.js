@@ -2,11 +2,11 @@ import jwt from "jsonwebtoken";
 
 const key = process.env.KEY || "todo_solvve_public_key";
 
-export function singJwt (user, options) {
-  return jwt.sign(user, key, { options, algorithm: "RS256" });
-}
+export const singJwt = (data, options) => {
+  return jwt.sign(data, key, { ...options, algorithm: "HS256" });
+};
 
-export function verifyJwt (token) {
+export const verifyJwt = (token) => {
   try {
     const decoded = jwt.verify(token, key);
     return { valid: true, expired: false, decoded };
@@ -14,7 +14,9 @@ export function verifyJwt (token) {
     return {
       valid: false,
       expired: error.message === "jwt expired",
-      decoced: null
+      decoded: null,
     };
   }
-}
+};
+
+export default { singJwt, verifyJwt };

@@ -1,8 +1,12 @@
 import userRouter from "./routes/userRouter.js";
+import authRouter from "./routes/authRouter.js";
+import todoTypeRouter from "./routes/todoTypeRouter.js";
 import logger from "../config/logger.js";
 
 const router = (app) => {
+  app.use(authRouter);
   app.use(userRouter);
+  app.use(todoTypeRouter);
 
   app.get("/", function (req, res, next) {
     logger.info("Open default page");

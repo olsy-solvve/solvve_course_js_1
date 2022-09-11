@@ -58,9 +58,9 @@ export default {
     saveTodo() {
       if (this.isValidTitle && this.isValidDescription) {
         this.editTodo({
-          id: this.param.id,
+          id: this.param._id,
           label: this.todoTitle,
-          discription: this.todoDescription,
+          description: this.todoDescription,
         });
         this.close();
       }
@@ -76,7 +76,7 @@ export default {
   },
   mounted() {
     this.todoTitle = this.param.label;
-    this.todoDescription = this.param.discription ? this.param.discription : "";
+    this.todoDescription = this.param.description ? this.param.description : "";
   },
 };
 </script>

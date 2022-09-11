@@ -1,28 +1,56 @@
-// import logger from "../config/logger.js";
 import userService from "../services/userService.js";
 
-export const getUsers = async (request, response) => {
-  const users = await userService.getAllUsers();
-  response.status(201).send("Get all users", users);
+export const getUsers = (request, response) => {
+  userService
+    .getAllUsers()
+    .then((res) => {
+      response.status(201).json(res);
+    })
+    .catch((err) => {
+      response.status(404).json(err);
+    });
 };
 
-export const getUser = async (request, response) => {
-  const user = await userService.getUser();
-  response.status(201).send("Get user", user);
+export const getUser = (request, response) => {
+  userService
+    .getUser(request.params.id)
+    .then((res) => {
+      response.status(201).json(res);
+    })
+    .catch((err) => {
+      response.status(404).json(err);
+    });
 };
 
-export const addUser = async (request, response) => {
-  const user = await userService.addUser(request.body);
-  console.log(user);
-  response.status(201).send("User added", user);
+export const addUser = (request, response) => {
+  userService
+    .addUser(request.body)
+    .then((res) => {
+      response.status(201).json(res);
+    })
+    .catch((err) => {
+      response.status(404).json(err);
+    });
 };
 
-export const updateUser = async (request, response) => {
-  const user = await userService.updateUser();
-  response.status(201).send("User updated", user);
+export const updateUser = (request, response) => {
+  userService
+    .updateUser(request.body)
+    .then((res) => {
+      response.status(201).json(res);
+    })
+    .catch((err) => {
+      response.status(404).json(err);
+    });
 };
 
-export const deleteUser = async (request, response) => {
-  const user = await userService.deleteUser();
-  response.status(201).send("User deleted", user);
+export const deleteUser = (request, response) => {
+  userService
+    .deleteUser(request.params.id)
+    .then((res) => {
+      response.status(201).json(res);
+    })
+    .catch((err) => {
+      response.status(404).json(err);
+    });
 };

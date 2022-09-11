@@ -5,8 +5,13 @@
       "password": "1234"
     },
     {
+      "username": "Afrodita",
+      "email": "god2@gmail.com",
+      "password": "sungodAfro"
+    },
+    {
       "username": "Apolon",
-      "email": "god@gmail.com",
-      "password": "sungod"
+      "email": "god1@gmail.com",
+      "password": "sungodApol"
     }
 ]

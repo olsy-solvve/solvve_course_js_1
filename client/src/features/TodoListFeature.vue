@@ -5,7 +5,7 @@ import PrimeListBox from "primevue/listbox";
 import PrimeOverlayPanel from "primevue/overlaypanel";
 import popupName from "@/enums/popupName.js";
 
-import { mapGetters, mapMutations } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 
 const filters = {
   ALL: "All",
@@ -28,10 +28,12 @@ export default {
   },
   computed: {
     ...mapGetters("todoStore", [
+      "getTodoTypes",
       "getTodosTypes",
       "getTodos",
       "getTodosProgress",
       "getTodosCompleted",
+      "getCurrentType",
     ]),
     fillingTodoList() {
       let todos = [];
@@ -50,14 +52,13 @@ export default {
           break;
         }
       }
-
       return todos;
     },
   },
   methods: {
+    ...mapActions("todoStore", ["pullTodoTypes", "pullTodosById", "removeTodoType"]),
     ...mapMutations("todoStore", [
       "changeCurrentType",
-      "removeTodoType",
       "clearList",
     ]),
     ...mapMutations("popupStore", ["openDialog"]),
@@ -88,9 +89,9 @@ export default {
     filterSelected() {
       this.$refs.filters.hide();
     },
-    removeList(typeName) {
-      this.removeTodoType(typeName);
-    },
+  },
+  mounted() {
+    this.pullTodoTypes();
   },
 };
 </script>
@@ -107,18 +108,25 @@ export default {
               class="p-button-rounded p-button-success mb-2 mt-2 m-auto p-button-sm md:p-button"
               @click="openTodoTypeCreatePopup"
             />
-            <PrimeListBox :options="getTodosTypes" optionLabel="label">
+            <PrimeListBox :options="getTodoTypes" optionLabel="label">
               <template #option="slotProps">
                 <div
                   @click="
-                    changeCurrentType(slotProps.option.label), getTodosAll()
+                    changeCurrentType({
+                      label: slotProps.option.label,
+                      id: slotProps.option.id,
+                    }),
+                      pullTodosById({
+                        label: slotProps.option.label,
+                        id: slotProps.option.id,
+                      })
                   "
                   class="flex flex-row justify-content-between align-items-center"
                 >
                   {{ slotProps.option.label }}
                   <i
                     class="pi pi-times"
-                    @click.stop="removeList(slotProps.option.label)"
+                    @click.stop="removeTodoType(slotProps.option)"
                   ></i>
                 </div>
               </template>

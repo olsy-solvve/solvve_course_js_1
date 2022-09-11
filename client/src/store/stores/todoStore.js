@@ -1,213 +1,214 @@
 import {
   indexOfById,
+  indexOfByName,
   getTodosType,
   sortTodos,
-  findTodosByType,
   findTodo,
 } from "@/services/arrayMethods";
 
+import apiService from "@/services/apiService.js";
+import apiOptions from "@/enums/apiOptions.js";
+
 const state = {
-  todos: [
-    {
-      label: "Home things",
-      removed: false,
-      fullRemoved: false,
-      list: [
-        {
-          id: 1,
-          removed: true,
-          label: "Clean room",
-          completed: false,
-          discription: "And faster!",
-        },
-        {
-          id: 2,
-          removed: false,
-          label: "Wash dishes",
-          completed: true,
-          discription: null,
-        },
-      ],
-    },
-    {
-      label: "Work",
-      removed: true,
-      fullRemoved: false,
-      list: [
-        {
-          id: 1,
-          label: "Progect",
-          removed: false,
-          completed: true,
-        },
-        { id: 2, removed: false, label: "Call to Sam", completed: false },
-      ],
-    },
-    {
-      label: "Study",
-      removed: false,
-      fullRemoved: false,
-      list: [
-        { id: 1, removed: false, label: "End lection", completed: false },
-        { id: 2, removed: false, label: "Create design", completed: true },
-      ],
-    },
-    {
-      label: "Family",
-      removed: false,
-      fullRemoved: false,
-      list: [
-        { id: 1, removed: false, label: "Call to mam", completed: true },
-        {
-          id: 2,
-          removed: false,
-          label: "Buy a doll for Kristy",
-          completed: true,
-        },
-      ],
-    },
-    {
-      label: "Anime list",
-      removed: true,
-      fullRemoved: false,
-      list: [
-        {
-          id: 1,
-          label: "Death Note",
-          completed: false,
-          removed: true,
-          discription:
-            "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deseruntquisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!",
-        },
-        {
-          id: 2,
-          label: "Fairy Tale",
-          completed: true,
-          removed: true,
-          discription: "3rd season is out!",
-        },
-        {
-          id: 3,
-          label: "Naruto",
-          removed: false,
-          completed: false,
-          discription: "Let`s just try...",
-        },
-      ],
-    },
-    {
-      label: "Movies",
-      removed: false,
-      fullRemoved: false,
-      list: [
-        {
-          id: 1,
-          label: "Black horse",
-          completed: true,
-          removed: false,
-          discription: "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
-        },
-        {
-          id: 2,
-          label: "Black",
-          completed: false,
-          removed: false,
-          discription: "3rd season is out!",
-        },
-        {
-          id: 3,
-          label: "Green book",
-          completed: false,
-          removed: false,
-          discription: "Let`s just try...",
-        },
-      ],
-    },
-  ],
-  currentType: "Home things",
+  todoTypes: [],
+  removedTodoTypes: [],
+  todos: [],
+  removedTodo: [],
+  currentType: "",
 };
 
 const getters = {
-  getTodosTypes: (state) => {
-    return getTodosType(state.todos);
+  getTodoTypes: (state) => {
+    return state.todoTypes;
+  },
+
+  getCurrentType: (state) => {
+    return state.currentType;
   },
 
   getTodos: (state) => {
-    return sortTodos(state.todos, state.currentType);
+    return sortTodos(state.todos);
   },
 
   getTodosProgress: (state) => {
-    const todoList = sortTodos(state.todos, state.currentType);
+    const todoList = sortTodos(state.todos);
     return todoList.filter((todo) => !todo.completed);
   },
 
   getTodosCompleted: (state) => {
-    const todoList = sortTodos(state.todos, state.currentType);
+    const todoList = sortTodos(state.todos);
     return todoList.filter((todo) => todo.completed);
   },
 
   getRemovedType: (state) => {
-    return getTodosType(state.todos, true);
-  },
-
-  getRemovedTodos: (state) => {
-    return sortTodos(state.todos, state.currentType, true);
+    return getTodosType(state.removedTodoTypes, true);
   },
 };
 
-const actions = {};
+const actions = {
+  pullTodoTypes: async (context) => {
+    const token = localStorage.getItem("currentUser");
+
+    await apiService
+      .get(`${apiOptions.URL_SERVER}/todoType`, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        context.commit("setTodoTypes", res.data);
+        context.dispatch("pullTodosById", res.data[0]);
+        localStorage.setItem("currentTypeTodo", res.data);
+      });
+  },
+
+  pullTodosById: async (context, currentType) => {
+    const token = localStorage.getItem("currentUser");
+
+    await apiService
+      .get(`${apiOptions.URL_SERVER}/todos/${currentType.id}`, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        context.commit("setTodos", res.data);
+      });
+  },
+
+  addTodoType: async (context, typeName) => {
+    const token = localStorage.getItem("currentUser");
+
+    await apiService
+      .post(
+        `${apiOptions.URL_SERVER}/todoType`,
+        { newType: typeName },
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
+        context.commit("addTodoType", res.data);
+      });
+  },
+
+  addTodo: async (context, todo) => {
+    const token = localStorage.getItem("currentUser");
+    const currentType = JSON.parse(localStorage.getItem("currentTypeTodo"));
+
+    await apiService
+      .post(
+        `${apiOptions.URL_SERVER}/todos`,
+        { typeId: currentType.id, todo },
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        context.commit("addTodoToList", res.data[res.data.length - 1]);
+      });
+  },
+
+  removeTodoType: async (context, todoType) => {
+    const token = localStorage.getItem("currentUser");
+
+    console.log(todoType);
+    await apiService
+      .delete(`${apiOptions.URL_SERVER}/todoType/${todoType.id}`, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        context.commit("removeTodoTypeFromList", res.data.id);
+      });
+  },
+
+  pullRemovedTodoTypes: async () => {
+    const token = localStorage.getItem("currentUser");
+
+    await apiService
+      .get(`${apiOptions.URL_SERVER}/archiveTodoType`, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        // context.commit("setTodoTypes", res.data);
+        // context.dispatch("pullTodosById", res.data[0]);
+        // localStorage.setItem("currentTypeTodo", res.data);
+      });
+  },
+
+  pullRemovedTodosById: async (context, currentType) => {
+    const token = localStorage.getItem("currentUser");
+
+    await apiService
+      .get(`${apiOptions.URL_SERVER}/archiveTodoType/${currentType.id}`, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        // context.commit("setTodos", res.data);
+      });
+  },
+};
 
 const mutations = {
-  addTodo(state, todo) {
-    if (todo) {
-      const todoByType = findTodosByType(state.todos, state.currentType);
-      todo.id = todoByType.list.length;
-      todo.removed = false;
-      todoByType.list.push(todo);
-    }
+  setTodoTypes: (state, todoTypes) => {
+    state.todoTypes = todoTypes;
+  },
+
+  setTodos: (state, todos) => {
+    state.todos = todos;
+  },
+
+  addTodoToList: (state, newTodo) => {
+    state.todos.push(newTodo);
+  },
+
+  addTodoType(state, typeName) {
+    state.todoTypes.push(typeName);
   },
 
   editTodo(state, editTodo) {
-    if (editTodo) {
-      const todoByType = findTodosByType(state.todos, state.currentType);
-      const todo = findTodo(todoByType.list, (todo) => todo.id === editTodo.id);
-      todo.label = editTodo.label;
-      todo.discription = editTodo.discription;
-    }
+    const todo = findTodo(state.todos, (t) => t._id === editTodo.id);
+    todo.label = editTodo.label;
+    todo.description = editTodo.description;
   },
 
   changeStateExecution(state, thatLabel) {
-    const todoByType = findTodosByType(state.todos, state.currentType);
-    const todo = findTodo(todoByType.list, (todo) => todo.label === thatLabel);
+    const todo = findTodo(state.todos, (todo) => todo.label === thatLabel);
     todo.completed = !todo.completed;
   },
 
-  removeTodo(state, id) {
-    const todoByType = findTodosByType(state.todos, state.currentType);
-    const index = indexOfById(todoByType.list, id);
-    todoByType.list.splice(index, 1);
+  addTodoToArchive(state, id) {
+    const index = indexOfById(state.todos, id);
+    state.todos[index].removed = true;
   },
 
   clearList(state) {
-    const todoByType = findTodosByType(state.todos, state.currentType);
-    todoByType.list.forEach((todo) => {
+    state.todos.forEach((todo) => {
       todo.removed = true;
     });
   },
 
-  addTodoType(state, typeName) {
-    if (typeName) {
-      state.todos.push(typeName);
-    }
-  },
-
   changeCurrentType(state, newType) {
+    localStorage.setItem("currentTypeTodo", JSON.stringify(newType));
     state.currentType = newType;
   },
 
-  removeTodoType(state, typeName) {
-    const todoByType = findTodosByType(state.todos, typeName);
-    todoByType.removed = true;
+  removeTodoTypeFromList(state, typeName) {
+    const index = indexOfByName(state.todos, typeName);
+    state.todoTypes[index].removed = true;
   },
 };
 

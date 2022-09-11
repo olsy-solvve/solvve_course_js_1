@@ -1,21 +1,8 @@
 import { isEmptyObject } from "@/services/objectMethods.js";
-import { someUserValidation } from "@/services/arrayMethods.js";
+import apiService from "@/services/apiService.js";
+import apiOptions from "@/enums/apiOptions.js";
 
 const state = {
-  users: [
-    {
-      id: 1,
-      username: "Mickey",
-      email: "mouse@gmail.com",
-      password: "1234",
-    },
-    {
-      id: 2,
-      username: "Apolon",
-      email: "god@gmail.com",
-      password: "sungod",
-    },
-  ],
   currentUser: {},
 };
 
@@ -23,50 +10,68 @@ const getters = {
   getUserConfirmation: (state) => {
     return !isEmptyObject(state.currentUser);
   },
-  isEmailExist: (state) => (email) => {
-    return someUserValidation(state.users, ["email", email]);
-  },
-  isUserValid: (state) => (recieveUser) => {
-    return someUserValidation(state.users, recieveUser);
-  },
 };
 
 const actions = {
-  login: (context, user) => {
-    context.commit("login", user);
-    context.commit("routerStore/enableButtons", null, { root: true });
+  login: async (context, user) => {
+    return await apiService
+      .post(`${apiOptions.URL_SERVER}/login`, user)
+      .then((res) => {
+        const targetUser = res.data;
+
+        if (targetUser.message) {
+          return { message: targetUser.message, valid: false };
+        }
+
+        if (targetUser.access_token) {
+          context.commit("setCurrentUser", targetUser.access_token);
+          context.commit("routerStore/enableButtons", null, { root: true });
+          return { valid: true };
+        }
+      });
   },
   logout: (context) => {
-    context.commit("logout");
+    context.commit("removeCurrentUser");
     context.commit("routerStore/disabledButtons", null, { root: true });
   },
-  localStorageUser(context) {
-    context.commit("routerStore/enableButtons", null, { root: true });
-    context.commit("localStorageUser");
+  registration: async (context, user) => {
+    return await apiService
+      .post(`${apiOptions.URL_SERVER}/registration`, user)
+      .then((res) => {
+        const targetUser = res.data;
+
+        if (targetUser.email_not_valid) {
+          return { message: targetUser.email_not_valid, valid: false };
+        }
+
+        if (targetUser.email_exist) {
+          return { message: targetUser.email_exist, valid: false };
+        }
+
+        if (targetUser.user) {
+          return { valid: true };
+        }
+      });
   },
 };
 
 const mutations = {
-  login(state, user) {
-    if (user) {
-      state.currentUser = user;
-      localStorage.setItem("currentUser", JSON.stringify(state.currentUser));
-    }
+  setCurrentUser: (state, user) => {
+    state.currentUser = user;
+    localStorage.setItem("currentUser", state.currentUser);
   },
-  logout(state) {
+  removeCurrentUser: (state) => {
     state.currentUser = {};
     localStorage.removeItem("currentUser");
+    localStorage.removeItem("currentTypeTodo");
   },
-  localStorageUser(state) {
-    const localUser = JSON.parse(localStorage.getItem("currentUser"));
+  setUserFromLocalStorage(state) {
+    const localUser = localStorage.getItem("currentUser");
 
     if (localUser) {
       state.currentUser = localUser;
+      this.commit("routerStore/enableButtons", null, { root: true });
     }
-  },
-  registration: (state, user) => {
-    user.id = state.users.length + 1;
-    state.users.push(user);
   },
 };
 
