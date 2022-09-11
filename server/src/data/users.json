@@ -1,1 +1,17 @@
-[{"username":"Mickey","email":"mouse@gmail.com","password":"1234"},{"username":"Apolon","email":"god@gmail.com","password":"sungod"},{"username":"Apolon","email":"alexGjs@gmail.com","password":"4567","_id":"631a3893b6223d1b6cc1e5ad","createdAt":"2022-09-08T18:46:43.479Z","updatedAt":"2022-09-08T18:46:43.479Z","__v":0}]
+[
+    {
+      "username": "Mickey",
+      "email": "mouse@gmail.com",
+      "password": "1234"
+    },
+    {
+      "username": "Afrodita",
+      "email": "god2@gmail.com",
+      "password": "sungodAfro"
+    },
+    {
+      "username": "Apolon",
+      "email": "god1@gmail.com",
+      "password": "sungodApol"
+    }
+]

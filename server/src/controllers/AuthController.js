@@ -4,20 +4,20 @@ export const login = (request, response) => {
   authService
     .login(request.body)
     .then((res) => {
-      response.status(201).send(res);
+      response.status(201).json(res);
     })
     .catch((err) => {
-      response.status(404).send(err);
+      response.status(404).json(err);
     });
 };
 
 export const registration = (request, response) => {
   authService
-    .login(request.body)
+    .registration(request.body)
     .then((res) => {
-      response.status(201).send(res);
+      response.status(201).json(res);
     })
     .catch((err) => {
-      response.status(404).send(err);
+      response.status(404).json(err);
     });
 };
