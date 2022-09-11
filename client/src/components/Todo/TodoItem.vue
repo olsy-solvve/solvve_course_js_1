@@ -42,8 +42,11 @@ export default {
 
 <template>
   <PrimeToast position="bottom-right" class="opacity-toast" />
-  <PrimeCard @click="changeStateExecution(todo.label), showNewType()" :class="{ isComplete: todo.completed }"
-    class="w-screen md:w-20rem lg:w-15rem mb-2">
+  <PrimeCard
+    @click="changeStateExecution(todo.label), showNewType()"
+    :class="{ isComplete: todo.completed }"
+    class="w-screen md:w-20rem lg:w-15rem mb-2"
+  >
     <template #title>
       <h4 class="text-center">
         {{ todo.label }}
@@ -52,9 +55,16 @@ export default {
     <template #content>
       <p>{{ todo.discription }}</p>
       <div class="flex justify-content-end pt-3">
-        <BaseButton icon="pi pi-pencil" class="p-button-rounded" @click.stop="openTodoEditPopup" />
-        <BaseButton icon="pi pi-times" class="p-button-rounded p-button-danger ml-2"
-          @click.stop="addTodoToArchive(todo.id)" />
+        <BaseButton
+          icon="pi pi-pencil"
+          class="p-button-rounded"
+          @click.stop="openTodoEditPopup"
+        />
+        <BaseButton
+          icon="pi pi-times"
+          class="p-button-rounded p-button-danger ml-2"
+          @click.stop="addTodoToArchive(todo.id)"
+        />
       </div>
     </template>
   </PrimeCard>

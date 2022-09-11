@@ -4,7 +4,7 @@ import {
   sortTodos,
   findTodosByType,
   findTodo,
-  getDeletedTodoTypes
+  getDeletedTodoTypes,
 } from "@/services/arrayMethods";
 
 const state = {
@@ -129,19 +129,18 @@ const state = {
 };
 
 const getters = {
-
   getTodos: (state) => {
     return sortTodos(state.todos, state.currentType);
   },
 
   getTodosProgress: (state) => {
-    const allTypes = getDeletedTodoTypes(state.todos, false)
+    const allTypes = getDeletedTodoTypes(state.todos, false);
     const todoList = sortTodos(allTypes, state.currentType);
     return todoList.filter((todo) => !todo.completed);
   },
 
   getTodosCompleted: (state) => {
-    const allTypes = getDeletedTodoTypes(state.todos, false)
+    const allTypes = getDeletedTodoTypes(state.todos, false);
     const todoList = sortTodos(allTypes, state.currentType);
     return todoList.filter((todo) => todo.completed);
   },
@@ -164,7 +163,6 @@ const getters = {
     return getDeletedTodoTypes(state.todos, false);
   },
 };
-
 
 const actions = {};
 
@@ -204,9 +202,8 @@ const mutations = {
     const index = indexOfById(todoByType.list, id);
     todoByType.list[index].removed = true;
     state.todos.forEach((todoType) => {
-      if (todoType.label === state.currentType)
-        todoType.removed = true;
-    })
+      if (todoType.label === state.currentType) todoType.removed = true;
+    });
   },
 
   clearList(state) {
@@ -228,7 +225,9 @@ const mutations = {
     const todoByType = findTodosByType(state.todos, typeName);
     todoByType.fullRemoved = true;
     todoByType.removed = true;
-    todoByType.list.forEach((todo) => { todo.removed = true });
+    todoByType.list.forEach((todo) => {
+      todo.removed = true;
+    });
   },
 };
 

@@ -18,7 +18,7 @@ export const getTodosType = (todos, isRemoved = false) => {
 
 export const getDeletedTodoTypes = (todos, isDeleted) => {
   return _.filter(todos, ["fullRemoved", isDeleted]);
-}
+};
 
 export const findTodosByType = (todos, currentType) => {
   return _.find(todos, ["label", currentType]);
