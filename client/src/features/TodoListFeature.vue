@@ -28,10 +28,12 @@ export default {
   },
   computed: {
     ...mapGetters("todoStore", [
+      "getNotRemovedTypes",
       "getTodosTypes",
       "getTodos",
       "getTodosProgress",
       "getTodosCompleted",
+      "getCurrentType",
     ]),
     fillingTodoList() {
       let todos = [];
@@ -107,7 +109,7 @@ export default {
               class="p-button-rounded p-button-success mb-2 mt-2 m-auto p-button-sm md:p-button"
               @click="openTodoTypeCreatePopup"
             />
-            <PrimeListBox :options="getTodosTypes" optionLabel="label">
+            <PrimeListBox :options="getNotRemovedTypes" optionLabel="label">
               <template #option="slotProps">
                 <div
                   @click="

@@ -20,7 +20,7 @@ export default {
     PrimeToast,
   },
   methods: {
-    ...mapMutations("todoStore", ["changeStateExecution", "removeTodo"]),
+    ...mapMutations("todoStore", ["changeStateExecution", "addTodoToArchive"]),
     ...mapMutations("popupStore", ["openDialog"]),
     openTodoEditPopup() {
       this.openDialog({
@@ -63,7 +63,7 @@ export default {
         <BaseButton
           icon="pi pi-times"
           class="p-button-rounded p-button-danger ml-2"
-          @click.stop="removeTodo(todo.id)"
+          @click.stop="addTodoToArchive(todo.id)"
         />
       </div>
     </template>
@@ -74,6 +74,7 @@ export default {
 .opacity-toast {
   opacity: 0.5;
 }
+
 .isComplete {
   opacity: 0.5;
   background-color: rgba(255, 255, 255, 0.861);
