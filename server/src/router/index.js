@@ -1,13 +1,11 @@
 import userRouter from "./routes/userRouter.js";
 import authRouter from "./routes/authRouter.js";
-import todoRouter from "./routes/todoRouter.js";
 import todoTypeRouter from "./routes/todoTypeRouter.js";
 import logger from "../config/logger.js";
 
 const router = (app) => {
   app.use(userRouter);
   app.use(authRouter);
-  app.use(todoRouter);
   app.use(todoTypeRouter);
 
   app.get("/", function (req, res, next) {

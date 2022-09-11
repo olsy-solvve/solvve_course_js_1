@@ -4,6 +4,7 @@ import {
   sortTodos,
   findTodosByType,
   findTodo,
+  getDeletedTodoTypes
 } from "@/services/arrayMethods";
 
 const state = {
@@ -37,7 +38,7 @@ const state = {
         {
           id: 1,
           label: "Progect",
-          removed: false,
+          removed: true,
           completed: true,
         },
         { id: 2, removed: false, label: "Call to Sam", completed: false },
@@ -45,10 +46,10 @@ const state = {
     },
     {
       label: "Study",
-      removed: false,
+      removed: true,
       fullRemoved: false,
       list: [
-        { id: 1, removed: false, label: "End lection", completed: false },
+        { id: 1, removed: true, label: "End lection", completed: false },
         { id: 2, removed: false, label: "Create design", completed: true },
       ],
     },
@@ -128,21 +129,20 @@ const state = {
 };
 
 const getters = {
-  getTodosTypes: (state) => {
-    return getTodosType(state.todos);
-  },
 
   getTodos: (state) => {
     return sortTodos(state.todos, state.currentType);
   },
 
   getTodosProgress: (state) => {
-    const todoList = sortTodos(state.todos, state.currentType);
+    const allTypes = getDeletedTodoTypes(state.todos, false)
+    const todoList = sortTodos(allTypes, state.currentType);
     return todoList.filter((todo) => !todo.completed);
   },
 
   getTodosCompleted: (state) => {
-    const todoList = sortTodos(state.todos, state.currentType);
+    const allTypes = getDeletedTodoTypes(state.todos, false)
+    const todoList = sortTodos(allTypes, state.currentType);
     return todoList.filter((todo) => todo.completed);
   },
 
@@ -150,10 +150,21 @@ const getters = {
     return getTodosType(state.todos, true);
   },
 
+  getCurrentType: (state) => {
+    return state.currentType;
+  },
+
   getRemovedTodos: (state) => {
     return sortTodos(state.todos, state.currentType, true);
   },
+  getFullRemovedTypes: (state) => {
+    return getDeletedTodoTypes(state.todos, true);
+  },
+  getNotRemovedTypes: (state) => {
+    return getDeletedTodoTypes(state.todos, false);
+  },
 };
+
 
 const actions = {};
 
@@ -188,6 +199,16 @@ const mutations = {
     todoByType.list.splice(index, 1);
   },
 
+  addTodoToArchive(state, id, getCurrentType) {
+    const todoByType = findTodosByType(state.todos, state.currentType);
+    const index = indexOfById(todoByType.list, id);
+    todoByType.list[index].removed = true;
+    state.todos.forEach((todoType) => {
+      if (todoType.label === state.currentType)
+        todoType.removed = true;
+    })
+  },
+
   clearList(state) {
     const todoByType = findTodosByType(state.todos, state.currentType);
     todoByType.list.forEach((todo) => {
@@ -196,9 +217,7 @@ const mutations = {
   },
 
   addTodoType(state, typeName) {
-    if (typeName) {
-      state.todos.push(typeName);
-    }
+    state.todos.push(typeName);
   },
 
   changeCurrentType(state, newType) {
@@ -207,7 +226,9 @@ const mutations = {
 
   removeTodoType(state, typeName) {
     const todoByType = findTodosByType(state.todos, typeName);
+    todoByType.fullRemoved = true;
     todoByType.removed = true;
+    todoByType.list.forEach((todo) => { todo.removed = true });
   },
 };
 

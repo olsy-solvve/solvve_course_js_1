@@ -12,7 +12,7 @@ const todoTypeRouter = Router();
 
 todoTypeRouter.get("/todoType", getTodosTypes);
 
-todoTypeRouter.get("/todoType:id", getTodoType);
+todoTypeRouter.get("/todoType/:id", getTodoType);
 
 todoTypeRouter.post("/todoType", addTodoType);
 

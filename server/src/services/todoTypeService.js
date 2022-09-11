@@ -5,7 +5,7 @@ import TodoTypeModel from "../models/todoTypeModel.js";
 import logger from "../config/logger.js";
 
 export const getTodosTypes = () => {
-  TodoTypeModel.find({})
+  return TodoTypeModel.find({})
     .then((todoType) => {
       logger.info("Get all todos Types from mongodb!", todoType);
       return todoType;
@@ -17,7 +17,7 @@ export const getTodosTypes = () => {
 };
 
 export const getTodoType = (todoTypeId) => {
-  TodoTypeModel.findOne({ _id: todoTypeId })
+  return TodoTypeModel.findOne({ _id: todoTypeId })
     .then((todoType) => {
       logger.info("Get todoType from mongodb!", todoType);
       return todoType;
@@ -33,6 +33,7 @@ export const addTodoType = (newTodoType) => {
     label: newTodoType.label,
     removed: newTodoType.removed,
     fullRemoved: newTodoType.fullRemoved,
+    data: newTodoType.data
   });
 
   return todoType
