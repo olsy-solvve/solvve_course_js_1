@@ -28,7 +28,7 @@ export default {
         param: this.todo,
       });
     },
-    showNewType() {
+    showNewState() {
       this.$toast.add({
         severity: "info",
         summary: "HEY!",
@@ -43,7 +43,7 @@ export default {
 <template>
   <PrimeToast position="bottom-right" class="opacity-toast" />
   <PrimeCard
-    @click="changeStateExecution(todo.label), showNewType()"
+    @click="changeStateExecution(todo.label), showNewState()"
     :class="{ isComplete: todo.completed }"
     class="w-screen md:w-20rem lg:w-15rem mb-2"
   >
@@ -53,7 +53,7 @@ export default {
       </h4>
     </template>
     <template #content>
-      <p>{{ todo.discription }}</p>
+      <p>{{ todo.description }}</p>
       <div class="flex justify-content-end pt-3">
         <BaseButton
           icon="pi pi-pencil"
@@ -63,7 +63,7 @@ export default {
         <BaseButton
           icon="pi pi-times"
           class="p-button-rounded p-button-danger ml-2"
-          @click.stop="addTodoToArchive(todo.id)"
+          @click.stop="addTodoToArchive(todo._id)"
         />
       </div>
     </template>

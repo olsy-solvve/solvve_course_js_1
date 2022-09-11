@@ -17,7 +17,7 @@ export default {
 
 <template>
   <div class="flex flex-row flex-wrap justify-content-evenly">
-    <div v-for="todo in todos" :key="todo.label" class="mt-2">
+    <div v-for="todo in todos" :key="todo.id" class="mt-2">
       <TodoItem :todo="todo" />
     </div>
   </div>

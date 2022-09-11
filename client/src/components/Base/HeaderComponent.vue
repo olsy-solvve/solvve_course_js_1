@@ -18,6 +18,10 @@ export default {
     login() {
       this.$router.push({ name: routesName.AUTH });
     },
+    logoutAndRoute() {
+      this.logout();
+      this.$router.push({ name: routesName.HOME });
+    },
     homeRoute() {
       this.$router.push({ name: routesName.HOME });
     },
@@ -78,7 +82,7 @@ export default {
               label="Logout"
               icon="pi pi-user"
               class="p-button-sm xl:p-button p-button-danger p-button-rounded p-button-outlined"
-              @click="logout"
+              @click="logoutAndRoute"
             />
           </div>
           <div v-else>

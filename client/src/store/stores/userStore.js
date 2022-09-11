@@ -13,8 +13,8 @@ const getters = {
 };
 
 const actions = {
-  login: (context, user) => {
-    return apiService
+  login: async (context, user) => {
+    return await apiService
       .post(`${apiOptions.URL_SERVER}/login`, user)
       .then((res) => {
         const targetUser = res.data;
@@ -24,7 +24,7 @@ const actions = {
         }
 
         if (targetUser.access_token) {
-          context.commit("setCurrentUser", targetUser);
+          context.commit("setCurrentUser", targetUser.access_token);
           context.commit("routerStore/enableButtons", null, { root: true });
           return { valid: true };
         }
@@ -34,8 +34,8 @@ const actions = {
     context.commit("removeCurrentUser");
     context.commit("routerStore/disabledButtons", null, { root: true });
   },
-  registration(context, user) {
-    return apiService
+  registration: async (context, user) => {
+    return await apiService
       .post(`${apiOptions.URL_SERVER}/registration`, user)
       .then((res) => {
         const targetUser = res.data;
@@ -58,14 +58,15 @@ const actions = {
 const mutations = {
   setCurrentUser: (state, user) => {
     state.currentUser = user;
-    localStorage.setItem("currentUser", JSON.stringify(state.currentUser));
+    localStorage.setItem("currentUser", state.currentUser);
   },
   removeCurrentUser: (state) => {
     state.currentUser = {};
     localStorage.removeItem("currentUser");
+    localStorage.removeItem("currentTypeTodo");
   },
   setUserFromLocalStorage(state) {
-    const localUser = JSON.parse(localStorage.getItem("currentUser"));
+    const localUser = localStorage.getItem("currentUser");
 
     if (localUser) {
       state.currentUser = localUser;

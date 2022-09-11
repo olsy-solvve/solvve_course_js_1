@@ -5,16 +5,72 @@ export const getTodosTypes = (request, response) => {
   todoTypeService
     .getTodosTypes()
     .then((res) => {
-      response.status(201).send(res);
+      response.status(201).json(res);
     })
     .catch((err) => {
-      response.status(404).send(err);
+      response.status(404).json(err);
     });
 };
 
-export const getTodoType = (request, response) => {
+export const addTodosTypes = (request, response) => {
   todoTypeService
-    .getTodoType(request.params.id)
+    .addTodosTypes(request.body)
+    .then((res) => {
+      response.status(201).json(res);
+    })
+    .catch((err) => {
+      response.status(404).json(err);
+    });
+};
+
+export const deleteTodosTypes = (request, response) => {
+  todoTypeService
+    .deleteTodosTypes(request.params.id)
+    .then((res) => {
+      response.status(201).json(res);
+    })
+    .catch((err) => {
+      response.status(404).json(err);
+    });
+};
+
+export const getRemovedTodosTypes = (request, response) => {
+  todoTypeService
+    .getRemovedTodosTypes()
+    .then((res) => {
+      response.status(201).json(res);
+    })
+    .catch((err) => {
+      response.status(404).json(err);
+    });
+};
+
+export const deleteRemovedTodosTypes = (request, response) => {
+  todoTypeService
+    .deleteRemovedTodosTypes(request.params.id)
+    .then((res) => {
+      response.status(201).json(res);
+    })
+    .catch((err) => {
+      response.status(404).json(err);
+    });
+};
+
+export const getTodosById = (request, response) => {
+  todoTypeService
+    .getTodosById(request.params.id)
+    .then((res) => {
+      response.status(201).json(res);
+    })
+    .catch((err) => {
+      response.status(404).json(err);
+    });
+};
+
+export const addTodo = (request, response) => {
+  console.log(request.body);
+  todoTypeService
+    .addTodo(request.body)
     .then((res) => {
       response.status(201).send(res);
     })
@@ -23,9 +79,9 @@ export const getTodoType = (request, response) => {
     });
 };
 
-export const addTodoType = (request, response) => {
+export const updateTodo = (request, response) => {
   todoTypeService
-    .addTodoType(request.body)
+    .updateTodo(request.body)
     .then((res) => {
       response.status(201).send(res);
     })
@@ -34,20 +90,9 @@ export const addTodoType = (request, response) => {
     });
 };
 
-export const updateTodoType = (request, response) => {
+export const deleteTodo = (request, response) => {
   todoTypeService
-    .updateTodoType(request.body)
-    .then((res) => {
-      response.status(201).send(res);
-    })
-    .catch((err) => {
-      response.status(404).send(err);
-    });
-};
-
-export const deleteTodoType = (request, response) => {
-  todoTypeService
-    .deleteTodoType(request.params.id)
+    .deleteTodo(request.params.id)
     .then((res) => {
       response.status(201).send(res);
     })
