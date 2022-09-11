@@ -33,7 +33,7 @@ export const addTodoType = (newTodoType) => {
     label: newTodoType.label,
     removed: newTodoType.removed,
     fullRemoved: newTodoType.fullRemoved,
-    data: newTodoType.data
+    data: newTodoType.data,
   });
 
   return todoType

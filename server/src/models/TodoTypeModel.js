@@ -5,7 +5,7 @@ const userSchema = new mongoose.Schema(
     label: "string",
     removed: "boolean",
     fullRemoved: "boolean",
-    data: []
+    data: [],
   },
   { timestamps: { createDate: "created_at", updatedDate: "updated_at" } },
 );
