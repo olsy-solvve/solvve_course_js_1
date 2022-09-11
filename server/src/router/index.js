@@ -3,8 +3,8 @@ import authRouter from "./routes/authRouter.js";
 import logger from "../config/logger.js";
 
 const router = (app) => {
-  app.use(userRouter);
   app.use(authRouter);
+  app.use(userRouter);
 
   app.get("/", function (req, res, next) {
     logger.info("Open default page");

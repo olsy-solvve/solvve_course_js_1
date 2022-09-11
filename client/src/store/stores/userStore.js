@@ -1,5 +1,4 @@
 import { isEmptyObject } from "@/services/objectMethods.js";
-// import { someUserValidation } from "@/services/arrayMethods.js";
 import apiService from "@/services/apiService.js";
 import apiOptions from "@/enums/apiOptions.js";
 
@@ -11,30 +10,47 @@ const getters = {
   getUserConfirmation: (state) => {
     return !isEmptyObject(state.currentUser);
   },
-  // isUserValid: (state) => (recieveUser) => {
-  //   return someUserValidation(state.users, recieveUser);
-  // },
 };
 
 const actions = {
   login: (context, user) => {
-    apiService.post(apiOptions.URL_SERVER + "/login", user).then((res) => {
-      const targetUser = res.data;
-      if (targetUser) {
-        context.commit("setCurrentUser", targetUser);
-        context.commit("routerStore/enableButtons", null, { root: true });
-      }
-    });
+    return apiService
+      .post(`${apiOptions.URL_SERVER}/login`, user)
+      .then((res) => {
+        const targetUser = res.data;
+
+        if (targetUser.message) {
+          return { message: targetUser.message, valid: false };
+        }
+
+        if (targetUser.access_token) {
+          context.commit("setCurrentUser", targetUser);
+          context.commit("routerStore/enableButtons", null, { root: true });
+          return { valid: true };
+        }
+      });
   },
   logout: (context) => {
     context.commit("removeCurrentUser");
     context.commit("routerStore/disabledButtons", null, { root: true });
   },
   registration(context, user) {
-    apiService
-      .post(apiOptions.URL_SERVER + "/registration", user)
+    return apiService
+      .post(`${apiOptions.URL_SERVER}/registration`, user)
       .then((res) => {
-        console.log(res);
+        const targetUser = res.data;
+
+        if (targetUser.email_not_valid) {
+          return { message: targetUser.email_not_valid, valid: false };
+        }
+
+        if (targetUser.email_exist) {
+          return { message: targetUser.email_exist, valid: false };
+        }
+
+        if (targetUser.user) {
+          return { valid: true };
+        }
       });
   },
 };

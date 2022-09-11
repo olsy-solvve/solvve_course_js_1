@@ -57,7 +57,7 @@ export default {
       this.checked = false;
       this.isLoginPage = !this.isLoginPage;
     },
-    registrationUser() {
+    async registrationUser() {
       if (!this.checked) {
         alert("Read our privacy policy");
       } else if (
@@ -65,22 +65,31 @@ export default {
         this.isValidEmail &&
         this.isValidPassword
       ) {
-        this.registration({
+        const result = await this.registration({
           username: this.username,
           email: this.email,
           password: this.password,
         });
-        this.switching();
+        if (result.valid) {
+          this.switching();
+        } else {
+          alert(result.message);
+        }
       }
     },
-    loginUser() {
+    async loginUser() {
       const user = {
         email: this.email,
         password: this.password,
       };
       if (this.isValidEmail && this.isValidPassword) {
-        this.login(user);
-        this.$router.push({ name: routesName.HOME });
+        const result = await this.login(user);
+
+        if (result.valid) {
+          this.$router.push({ name: routesName.HOME });
+        } else {
+          alert(result.message);
+        }
       } 
     },
     openPrivacyPolicy() {

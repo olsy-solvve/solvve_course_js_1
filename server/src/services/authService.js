@@ -4,6 +4,7 @@
 import logger from "../config/logger.js";
 import UserModel from "../models/UserModel.js";
 import userService from "./userService.js";
+import { singJwt } from "../config/jwt.js";
 
 export const login = (user) => {
   return new Promise((resolve, reject) => {
@@ -14,10 +15,19 @@ export const login = (user) => {
       .exec()
       .then((userExist) => {
         if (!userExist) {
-          return resolve("User not found");
+          return resolve({ message: "User not found" });
         }
-        console.log(userExist);
-        return resolve(userService.getUser(userExist._id));
+
+        userService.getUser(userExist._id).then((res) => {
+          return resolve({
+            access_token: singJwt({
+              _id: res._id,
+              username: res.username,
+              email: res.email,
+              password: res.password,
+            }),
+          });
+        });
       })
       .catch((err) => {
         logger.error("Error in login request to database!");
@@ -32,7 +42,7 @@ export const registration = (user) => {
       /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
 
     if (!validEmail.test(user.email.toLowerCase())) {
-      return resolve("Email not valid");
+      return resolve({ email_not_valid: "Email not valid" });
     }
 
     UserModel.findOne({
@@ -41,10 +51,10 @@ export const registration = (user) => {
       .exec()
       .then((userExist) => {
         if (userExist) {
-          return resolve("Email already exists");
+          return resolve({ email_exist: "Email already exists" });
         }
 
-        return resolve(userService.addUser(user));
+        return resolve({ user: userService.addUser(user) });
       })
       .catch((err) => {
         logger.error("Error in registration request to database!");

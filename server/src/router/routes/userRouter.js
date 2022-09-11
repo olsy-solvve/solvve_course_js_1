@@ -8,10 +8,12 @@ import {
   updateUser,
   deleteUser,
 } from "../../controllers/UserController.js";
+import { tokenValidation } from "../../middlewares/tokenValidation.js";
 
 const userRouter = Router();
 
 userRouter.use(cors());
+userRouter.use(tokenValidation);
 
 userRouter.get("/users", getUsers);
 
