@@ -2,7 +2,6 @@
 // https://masteringjs.io/tutorials/mongoose/findoneandupdate
 
 import UserModel from "../models/UserModel.js";
-// import { addUserToJsonFile } from "./filesService.js";
 import logger from "../config/logger.js";
 
 export const getAllUsers = () => {
@@ -40,7 +39,6 @@ export const addUser = (newUser) => {
     .save()
     .then((u) => {
       logger.info("Add user in mongodb!", u);
-      // addUserToJsonFile(u);
       return u;
     })
     .catch((err) => {

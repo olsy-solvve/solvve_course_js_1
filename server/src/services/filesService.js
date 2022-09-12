@@ -9,8 +9,6 @@ export const addUserToJsonFile = (user) => {
     users.push(user);
     const jsonStr = JSON.stringify(users);
 
-    console.log(jsonStr);
-
     fs.writeFileSync("./src/data/users.json", jsonStr, "utf8", function (err) {
       if (err) {
         logger.error("Error to append user json file", err);

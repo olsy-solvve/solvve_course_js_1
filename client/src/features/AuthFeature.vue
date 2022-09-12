@@ -90,7 +90,7 @@ export default {
         } else {
           alert(result.message);
         }
-      } 
+      }
     },
     openPrivacyPolicy() {
       this.openDialog({
