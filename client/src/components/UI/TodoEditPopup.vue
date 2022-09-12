@@ -3,7 +3,6 @@ import PrimeDialog from "primevue/dialog";
 import PrimeCard from "primevue/card";
 import PrimeInputText from "primevue/inputText";
 import PrimeTextarea from "primevue/textarea";
-import PrimeScrollPanel from "primevue/scrollpanel";
 import PrimeScrollTop from "primevue/scrolltop";
 
 import { mapMutations } from "vuex";
@@ -72,7 +71,6 @@ export default {
     PrimeInputText,
     PrimeTextarea,
     PrimeScrollTop,
-    PrimeScrollPanel,
   },
   mounted() {
     this.todoTitle = this.param.label;
@@ -106,22 +104,20 @@ export default {
             </div>
             <div class="flex flex-column field">
               <label for="description">Description</label>
-              <PrimeScrollPanel class="h-full w-full">
-                <PrimeTextarea
-                  v-model="todoDescription"
-                  :autoResize="true"
-                  rows="5"
-                  cols="45"
-                  aria-describedby="description-help"
-                  :class="{ 'p-invalid': !isValidDescription }"
-                />
-                <PrimeScrollTop
-                  target="parent"
-                  :threshold="100"
-                  class="custom-scrolltop"
-                  icon="pi pi-arrow-up"
-                />
-              </PrimeScrollPanel>
+              <PrimeTextarea
+                v-model="todoDescription"
+                :autoResize="true"
+                rows="5"
+                cols="43"
+                aria-describedby="description-help"
+                :class="{ 'p-invalid': !isValidDescription }"
+              />
+              <PrimeScrollTop
+                target="parent"
+                :threshold="100"
+                class="custom-scrolltop"
+                icon="pi pi-arrow-up"
+              />
               <small
                 v-show="!isValidDescription"
                 id="description-help"
