@@ -56,10 +56,11 @@ export default {
     },
   },
   methods: {
-    ...mapActions("todoStore", ["pullTodoTypes", "pullTodosById", "removeTodoType"]),
+    ...mapActions("todoStore", ["pullTodoTypes", "pullTodosById"]),
     ...mapMutations("todoStore", [
       "changeCurrentType",
       "clearList",
+      "removeTodoType",
     ]),
     ...mapMutations("popupStore", ["openDialog"]),
     openTodoTypeCreatePopup() {
@@ -115,10 +116,12 @@ export default {
                     changeCurrentType({
                       label: slotProps.option.label,
                       id: slotProps.option.id,
+                      removed: slotProps.option.removed,
                     }),
                       pullTodosById({
                         label: slotProps.option.label,
                         id: slotProps.option.id,
+                        removed: slotProps.option.removed,
                       })
                   "
                   class="flex flex-row justify-content-between align-items-center"
@@ -126,7 +129,7 @@ export default {
                   {{ slotProps.option.label }}
                   <i
                     class="pi pi-times"
-                    @click.stop="removeTodoType(slotProps.option)"
+                    @click.stop="removeTodoType(slotProps.option.label)"
                   ></i>
                 </div>
               </template>

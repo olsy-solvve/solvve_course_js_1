@@ -6,10 +6,10 @@ import logger from "../config/logger.js";
 import mongoose from "mongoose";
 
 export const getTodosTypes = () => {
-  return TodoTypeModel.find({ removed: false })
+  return TodoTypeModel.find({})
     .then((todoTypes) => {
       const result = todoTypes.reduce((res, todoType) => {
-        res.push({ id: todoType._id, label: todoType.label });
+        res.push({ id: todoType._id, label: todoType.label, removed: todoType.removed, fullRemoved: todoType.fullRemoved });
         return res;
       }, []);
 
@@ -44,7 +44,7 @@ export const addTodosTypes = ({ newType }) => {
 export const deleteTodosTypes = (todoTypeId) => {
   const todoType = TodoTypeModel.findOneAndUpdate(
     { _id: todoTypeId },
-    { removed: true }
+    { removed: true },
   );
 
   if (!todoType) {
@@ -87,7 +87,7 @@ export const getRemovedTodosById = (id) => {
 export const deleteRemovedTodosTypes = (todoTypeId) => {
   const todoType = TodoTypeModel.findOneAndUpdate(
     { _id: todoTypeId },
-    { removed: true }
+    { removed: true },
   );
 
   if (!todoType) {
@@ -99,7 +99,7 @@ export const deleteRemovedTodosTypes = (todoTypeId) => {
 };
 
 export const getTodosById = (id) => {
-  return TodoTypeModel.findOne({ _id: id, removed: false })
+  return TodoTypeModel.findOne({ _id: id })
     .then((res) => {
       logger.info("Get all todos from mongodb!", res.todos);
       return res.todos;

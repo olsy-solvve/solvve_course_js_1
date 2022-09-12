@@ -72,14 +72,6 @@ export default {
       class="w-full sm:w-4 md:w-6 xl:w-4 p-0"
     >
       <PrimeCard>
-        <template #header>
-          <img
-            src="https://www.primefaces.org/wp-content/uploads/2020/02/primefacesorg-primevue-2020.png"
-            class="h-3"
-          />
-        </template>
-        <template #title> Develop todo </template>
-        <template #subtitle> Todo inputs </template>
         <template #content>
           <div class="col-12">
             <div class="flex flex-column field">

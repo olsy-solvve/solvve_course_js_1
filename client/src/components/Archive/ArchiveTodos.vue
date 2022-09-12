@@ -1,6 +1,7 @@
 <script>
 import PrimeCard from "primevue/card";
 import PrimeToast from "primevue/toast";
+import { mapMutations } from "vuex";
 export default {
   data() {
     return {};
@@ -16,7 +17,20 @@ export default {
     PrimeCard,
     PrimeToast,
   },
-  methods: {},
+  methods: {
+    ...mapMutations("todoStore", ["deleteTodo"]),
+    showDeletedToast() {
+      this.$toast.add({
+        severity: "info",
+        summary: "HEY!",
+        detail: "You deleted your TODO! Be careful!",
+        life: 2000,
+      });
+    },
+    deleteTodos(label) {
+      this.deleteTodo(label);
+    },
+  },
 };
 </script>
 
@@ -38,7 +52,8 @@ export default {
         <BaseButton
           icon="pi pi-times"
           class="p-button-rounded p-button-danger ml-2"
-          @click.stop="showDeletedToast()"
+          @click.stop="showDeletedToast"
+          @click="deleteTodos(todo.label)"
         />
       </div>
     </template>

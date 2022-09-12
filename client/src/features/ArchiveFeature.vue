@@ -3,7 +3,7 @@ import MainComponent from "@/components/Base/MainComponent.vue";
 import ArchiveTodoList from "../components/Archive/ArchiveTodoList.vue";
 import PrimeListBox from "primevue/listbox";
 
-import { mapGetters, mapMutations } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 
 export default {
   data() {
@@ -16,12 +16,23 @@ export default {
     ArchiveTodoList,
     PrimeListBox,
   },
-  computed: mapGetters("todoStore", ["getRemovedType"]),
+  computed: mapGetters("todoStore", [
+    "getRemovedTodoTypes",
+    "getTodosTypes",
+    "getTodosProgress",
+    "getRemovedTodos",
+    "getTodosCompleted",
+    "getCurrentType",
+  ]),
   methods: {
+    ...mapActions("todoStore", ["pullTodoTypes", "pullTodosById"]),
     ...mapMutations("todoStore", ["changeCurrentType"]),
-    getRemovedTodos() {
-      this.todos = this.$store.getters["todoStore/getRemovedTodos"];
+    getAllTodos() {
+      return this.getRemovedTodos;
     },
+  },
+  mounted() {
+    this.pullTodoTypes();
   },
 };
 </script>
@@ -33,11 +44,20 @@ export default {
         <div
           class="col-12 sm:col-2 md:col-4 lg:col-2 surface-200 flex flex-column"
         >
-          <PrimeListBox :options="getRemovedType" optionLabel="label">
+          <PrimeListBox :options="getRemovedTodoTypes" optionLabel="label">
             <template #option="slotProps">
               <div
                 @click="
-                  changeCurrentType(slotProps.option.label), getRemovedTodos()
+                  changeCurrentType({
+                    label: slotProps.option.label,
+                    id: slotProps.option.id,
+                    removed: slotProps.option.removed,
+                  }),
+                    pullTodosById({
+                      label: slotProps.option.label,
+                      id: slotProps.option.id,
+                      removed: slotProps.option.removed,
+                    })
                 "
                 class="flex flex-row justify-content-between align-items-center"
               >
@@ -55,7 +75,7 @@ export default {
               class="p-button-danger p-button-rounded p-button-sm md:p-button"
             />
           </div>
-          <ArchiveTodoList :todos="todos" />
+          <ArchiveTodoList :todos="getAllTodos()" />
         </div>
       </div>
     </div>
